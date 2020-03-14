@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>{% block title %}??????{% endblock %}</title>
+
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+</head>
+<body>
+<div id="app" class="container-fluid p-0">
+    <div id="spinner"></div>
+
+    <header>
+        {% include '_header.html.twig' %}
+    </header>
+
+    <div class="flash">
+        {{ include('_flash_messages.html.twig') }}
+    </div>
+
+    <main class="container">
+        {% block body %}{% endblock %}
+    </main>
+
+    <footer>
+        {% include '_footer.html.twig' %}
+    </footer>
+</div>
+
+{% block javascripts %}
+    {{ encore_entry_script_tags('app') }}
+{% endblock %}
+</body>
+</html>
