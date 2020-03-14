@@ -10,7 +10,7 @@ services:
             MYSQL_DATABASE: "skeleton_dev"
             MYSQL_PASSWORD: ""
         ports:
-            - "3309:3306"
+            - "3308:3306"
 
     skeleton_dev_phpmyadmin:
         image: phpmyadmin/phpmyadmin
@@ -23,4 +23,4 @@ services:
             PMA_ARBITRARY: 1
         restart: always
         ports:
-            - 8184:80
+            - 8183:80

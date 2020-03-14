@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="k83Mxm_" resname="title">
+        <source>title</source>
+        <target>Confirmation</target>
+      </trans-unit>
+      <trans-unit id="xHaSf1q" resname="message">
+        <source>message</source>
+        <target><![CDATA[You recently registered for our site. Please confirm and activate your account <a href="{url}">here</a>.<br><br>If you did not register, someone else entered your email address. In this case, please ignore this message.]]></target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="NT5B5q." resname="salutation">
+        <source>salutation</source>
+        <target><![CDATA[Dear {first_name} {last_name},]]></target>
+      </trans-unit>
+      <trans-unit id="dT5B5q." resname="footer">
+        <source>footer</source>
+        <target><![CDATA[This is an automated message from Skeleton.<br>
+<br>
+Skeleton GmbH<br>
+Fakestreet 123<br>
+1050 Vienna<br>
+Austria<br>
+<br>
+<a href="https://skeleton.com/">skeleton.com</a> - <a href="https://skeleton.com/privacy-policy">Privacy policy</a> - <a href="mailto:office@skeleton.com">Contact us</a>
+]]></target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

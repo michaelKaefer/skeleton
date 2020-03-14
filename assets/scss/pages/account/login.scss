@@ -1,0 +1,11 @@
+@import './../../_variables';
+
+/* stylelint-disable */
+@import '~bootstrap';
+/* stylelint-enable */
+
+.login {
+  @include media-breakpoint-up(lg) {
+    min-width: 50%;
+  }
+}

@@ -1,0 +1,11 @@
+{% trans_default_domain 'confirmation' %}
+
+{% extends 'emails/user/base.html.twig' %}
+
+{% block title %}{{ 'title'|trans }}{% endblock %}
+
+{% block message %}
+    {{ 'message'|trans({
+        '%url%': url('confirmation', { confirmationToken: user.confirmationToken }),
+    })|raw }}
+{% endblock %}

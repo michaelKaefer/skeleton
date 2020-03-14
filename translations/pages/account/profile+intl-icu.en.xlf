@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="GQDqtsA" resname="profile">
+        <source>profile</source>
+        <target>Profile</target>
+      </trans-unit>
+      <trans-unit id="1BIqiqj" resname="please_confirm_your_account">
+        <source>please_confirm_your_account</source>
+        <target>We sent you an email, please confirm your account!</target>
+      </trans-unit>
+      <trans-unit id="giREF.l" resname="email">
+        <source>email</source>
+        <target>Email</target>
+      </trans-unit>
+      <trans-unit id="BUFvv5j" resname="first_name">
+        <source>first_name</source>
+        <target>First name</target>
+      </trans-unit>
+      <trans-unit id="Iya4YwA" resname="last_name">
+        <source>last_name</source>
+        <target>Last name</target>
+      </trans-unit>
+      <trans-unit id="r.ZOT9U" resname="country">
+        <source>country</source>
+        <target>Country</target>
+      </trans-unit>
+      <trans-unit id="XjlwE6c" resname="approve_newsletter">
+        <source>approve_newsletter</source>
+        <target>I want to subscribe to the newsletter.</target>
+      </trans-unit>
+      <trans-unit id="FX3KkuQ" resname="save">
+        <source>save</source>
+        <target>Save</target>
+      </trans-unit>
+      <trans-unit id="YZdZVQP" resname="delete">
+        <source>delete</source>
+        <target>Delete my account</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

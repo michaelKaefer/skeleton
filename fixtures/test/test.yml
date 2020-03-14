@@ -1,0 +1,41 @@
+App\Entity\User:
+    unconfirmed_user:
+        email: 'unconfirmed@example.com'
+        password: '123123'
+        firstName: 'John'
+        lastName: 'Doe'
+        country: 'AT'
+        roles: '[ROLE_USER]'
+        receivesNewsletter: false
+        subscribedToNewsletterAt: ~
+        unsubscribedFromNewsletterAt: ~
+        lastLoginAt: '<datetime()>'
+        lastFailedLoginAt: ~
+        failedLoginsCount: 0
+        confirmationToken: '1234567890'
+    confirmed_user:
+        email: 'confirmed@example.com'
+        password: '123123'
+        firstName: 'John'
+        lastName: 'Doe'
+        country: 'AT'
+        roles: '[ROLE_USER]'
+        receivesNewsletter: false
+        subscribedToNewsletterAt: ~
+        unsubscribedFromNewsletterAt: ~
+        lastLoginAt: '<datetime()>'
+        lastFailedLoginAt: ~
+        failedLoginsCount: 0
+    admin:
+        email: 'admin@example.com'
+        password: '123123'
+        firstName: 'John'
+        lastName: 'Doe'
+        country: 'AT'
+        roles: '[ROLE_ADMIN]'
+        receivesNewsletter: false
+        subscribedToNewsletterAt: ~
+        unsubscribedFromNewsletterAt: ~
+        lastLoginAt: '<datetime()>'
+        lastFailedLoginAt: ~
+        failedLoginsCount: 0

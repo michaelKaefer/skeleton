@@ -1,0 +1,16 @@
+{% trans_default_domain 'emails-for-users-base' %}
+
+{% extends 'emails/base.html.twig' %}
+
+{% block body %}
+    <p>
+        {{ 'salutation'|trans({
+            '%first_name%': user.firstName,
+            '%last_name%': user.lastName,
+        })|raw }}
+    </p>
+
+    <p>{% block message %}{% endblock %}</p>
+
+    <p style="font-size: 80%;">{{ 'footer'|trans|raw }}</p>
+{% endblock %}

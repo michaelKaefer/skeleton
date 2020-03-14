@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="H._22Mz" resname="choose_language">
+        <source>choose_language</source>
+        <target>Language</target>
+      </trans-unit>
+      <trans-unit id="GQDqtsA" resname="profile">
+        <source>profile</source>
+        <target>Profile</target>
+      </trans-unit>
+      <trans-unit id="7fuA6D0" resname="admin_area">
+        <source>admin_area</source>
+        <target>Admin area</target>
+      </trans-unit>
+      <trans-unit id="ACcM9j_" resname="logout">
+        <source>logout</source>
+        <target>Logout</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

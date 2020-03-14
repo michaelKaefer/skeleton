@@ -1,0 +1,9 @@
+{% trans_default_domain 'email-welcome' %}
+
+{% extends 'emails/user/base.html.twig' %}
+
+{% block title %}{{ 'title'|trans }} {{ user }}{% endblock %}
+
+{% block message %}
+    Your account is now active.
+{% endblock %}

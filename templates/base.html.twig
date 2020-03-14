@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>{% block title %}??????{% endblock %}</title>
+    <title>{% block title %}{% endblock %}</title>
 
     {% block stylesheets %}
         {{ encore_entry_link_tags('app') }}
@@ -14,21 +14,25 @@
 <div id="app" class="container-fluid p-0">
     <div id="spinner"></div>
 
-    <header>
-        {% include '_header.html.twig' %}
-    </header>
+    <div id="app" class="container-fluid p-0">
+        <header>
+            {% include '_header.html.twig' %}
+        </header>
 
-    <div class="flash">
-        {{ include('_flash_messages.html.twig') }}
+        <main class="container">
+            <div class="flash">
+                {{ include('_flash_messages.html.twig') }}
+            </div>
+
+            <div class="content">
+                {% block body %}{% endblock %}
+            </div>
+        </main>
+
+        <footer>
+            {% include '_footer.html.twig' %}
+        </footer>
     </div>
-
-    <main class="container">
-        {% block body %}{% endblock %}
-    </main>
-
-    <footer>
-        {% include '_footer.html.twig' %}
-    </footer>
 </div>
 
 {% block javascripts %}

@@ -18,4 +18,5 @@ return [
     Hautelook\AliceBundle\HautelookAliceBundle::class => ['dev' => true, 'test' => true],
     Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle::class => ['all' => true],
     Oneup\FlysystemBundle\OneupFlysystemBundle::class => ['all' => true],
+    DAMA\DoctrineTestBundle\DAMADoctrineTestBundle::class => ['test' => true],
 ];
