@@ -28,6 +28,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "@fortawesome/fontawesome-free": "^5.12.1",
         "bootstrap": "^4.4.1",
         "bs-custom-file-input": "^1.3.4",
         "jquery": "^3.4.1",
