@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+    skeleton_dev_database:
+        image: mysql:5.7.29
+        container_name: skeleton_dev_database
+        environment:
+            MYSQL_ALLOW_EMPTY_PASSWORD: "1"
+            MYSQL_ROOT_PASSWORD: ""
+            MYSQL_DATABASE: "skeleton_dev"
+            MYSQL_PASSWORD: ""
+        ports:
+            - "3309:3306"
+
+    skeleton_dev_phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        container_name: skeleton_dev_phpmyadmin
+        links:
+            - skeleton_dev_database
+        environment:
+            PMA_HOST: mysql
+            PMA_PORT: 3306
+            PMA_ARBITRARY: 1
+        restart: always
+        ports:
+            - 8184:80
