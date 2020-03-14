@@ -1,6 +1,8 @@
 @import './_variables';
 
-// add vendors here: @import "~bootstrap/scss/bootstrap";
+/* stylelint-disable */
+@import '~bootstrap';
+/* stylelint-enable */
 
 // add components here: @import './components/_my-component';
 
