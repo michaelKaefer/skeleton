@@ -1,1 +1,1 @@
-
+import '../scss/app.scss';
