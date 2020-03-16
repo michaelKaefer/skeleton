@@ -24,7 +24,9 @@ security:
                 # Route for logging in
                 path: logout
                 # Route to redirect to after logout
-                target: profile
+                target: login
+                # Service that gets called on successful logout
+                success_handler: App\Service\LogoutSuccessHandler
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

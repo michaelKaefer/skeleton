@@ -28,7 +28,7 @@
                 {% endif %}
 
                 <div class="form-group">
-                    <label for="inputEmail">{{ 'email_label'|trans }}</label>
+                    <label for="inputEmail" class="required">{{ 'email_label'|trans }}</label>
                     <input
                             type="email"
                             value="{{ last_username }}"
@@ -41,7 +41,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="inputPassword">{{ 'password_label'|trans }}</label>
+                    <label for="inputPassword" class="required">{{ 'password_label'|trans }}</label>
                     <input type="password" name="password" id="inputPassword" class="form-control" required>
                 </div>
 

@@ -15,24 +15,21 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class DeleteAccountController extends BaseController
 {
     /**
-     * @Route("/user/delete/{id}", name="user_delete", methods={"GET"})
+     * @Route("/user/{id}", name="user_delete", methods={"DELETE"})
      * @IsGranted("ROLE_USER")
      * @param Request $request
      * @param User $user
-     * @param TranslatorInterface $translator
-     *
-     * @param EventDispatcherInterface $dispatcher
      * @return Response
      */
-    public function delete(Request $request, User $user, TranslatorInterface $translator, EventDispatcherInterface $dispatcher): Response
+    public function delete(Request $request, User $user): Response
     {
-        if ($user->getId() !== $this->getUser()->getId()) {
-            $this->addFlash('warning', 'You are not allowed to delete users, we redirected you here.');
-            return $this->redirectToRoute('profile');
+        if (!$this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+            return new Response('Forbidden', 403);
         }
 
-        $event = new UserWantsToDeleteAccountEvent($user);
-        $dispatcher->dispatch($event, UserWantsToDeleteAccountEvent::USER_WANTS_TO_DELETE_ACCOUNT);
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($user);
+        $em->flush();
 
         return $this->redirectToRoute('logout');
     }

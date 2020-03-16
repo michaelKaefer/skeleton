@@ -6,53 +6,46 @@ use App\Tests\BaseTest;
 
 class DeleteAccountControllerTest extends BaseTest
 {
-    public function testUserCanDeleteHimself()
+    /**
+     * @dataProvider getUsers
+     */
+    public function testUserCanDeleteHimself(string $email, string $password)
     {
-        $client = $this->request('GET', '/en/register');
-        $client->submitForm('Register', [
-            'registration_form[email]' => 'john.doe@example.com',
-            'registration_form[plainPassword]' => '123123',
-            'registration_form[firstName]' => 'John',
-            'registration_form[lastName]' => 'Doe',
-            'registration_form[country]' => 'AT',
-            'registration_form[agreeToTermsAndDataPrivacy]' => '1',
+        $client = static::createClient();
+        $client->request('GET', '/en/profile', [], [], [
+            'PHP_AUTH_USER' => $email,
+            'PHP_AUTH_PW' => $password,
         ]);
-        $userBeforeDeletion = $this->findUser('john.doe@example.com');
-        $this->request('GET', sprintf('/en/user/delete/%d', $userBeforeDeletion->getId()), [
-            'PHP_AUTH_USER' => 'john.doe@example.com',
-            'PHP_AUTH_PW' => '123123',
-        ]);
+        $userId = $this->findUserByEmail($email)->getId();
+        $client->submitForm('Delete my account');
 
         $this->assertResponseRedirects('/en/logout');
+        $client->followRedirect();
 
-        /* The rest is not testable because of the authentication which is used in automatic tests. It would like:
-        $userAfterDeletion = $this->findOneBy(User::class, ['id' => $userBeforeDeletion->getId()]);
-        $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains(
-            'body',
-            sprintf('We deleted your account. Your deletion ID is "%s".', $userAfterDeletion->getDeletionId())
-        );
-        */
+        $user = $this->findUserById($userId);
+        $this->assertResponseRedirects(sprintf('/en/account-deleted/%s', $user->getDeletionId()));
+        $client->followRedirect();
+
+        $this->assertSelectorTextContains('body', sprintf('Your deletion ID: %s', $user->getDeletionId()));
     }
-    public function testUserCannotBeDeletedByOtherUser()
+
+    /**
+     * @dataProvider getUsers
+     */
+    public function testUserCannotBeDeletedWithoutCsrfToken(string $email, string $password)
     {
-        $client = $this->request('GET', '/en/register');
-        $client->submitForm('Register', [
-            'registration_form[email]' => 'john.doe@example.com',
-            'registration_form[plainPassword]' => '123123',
-            'registration_form[firstName]' => 'John',
-            'registration_form[lastName]' => 'Doe',
-            'registration_form[country]' => 'AT',
-            'registration_form[agreeToTermsAndDataPrivacy]' => '1',
-        ]);
-        $userBeforeDeletion = $this->findUser('john.doe@example.com');
-        $this->request('GET', sprintf('/en/user/delete/%d', $userBeforeDeletion->getId()), [
-            'PHP_AUTH_USER' => 'confirmed@example.com',
+        $client = static::createClient([], [
+            'PHP_AUTH_USER' => 'admin@example.com',
             'PHP_AUTH_PW' => '123123',
         ]);
+        $userId = $this->findUserByEmail($email)->getId();
+        $client->request('DELETE', sprintf('/en/user/%s', $userId));
 
-        $this->assertResponseRedirectsAndFollowRedirect('/en/profile', $client);
+        $this->assertResponseStatusCodeSame(403);
+    }
 
-        $this->assertSelectorTextContains('body', 'You are not allowed to delete users, we redirected you here.');
+    public function getUsers()
+    {
+        yield ['confirmed@example.com', '123123'];
     }
 }

@@ -1,0 +1,17 @@
+{% trans_default_domain 'account_deleted' %}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ 'title'|trans }}{% endblock %}
+
+{% block body %}
+    <div class="w-100">
+        <h1 class="h3 mb-4">{{ 'heading'|trans }}</h1>
+
+        <p>
+            {{ 'info'|trans({
+                deletion_id: deletionId,
+            })|raw }}
+        </p>
+    </div>
+{% endblock %}

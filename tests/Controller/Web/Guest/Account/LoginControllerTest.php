@@ -57,6 +57,6 @@ class LoginControllerTest extends BaseTest
     {
         yield ['unconfirmed@example.com', '123123', '/en/profile'];
         yield ['confirmed@example.com', '123123', '/en/profile'];
-        yield ['admin@example.com', '123123', '/en/medani/'];
+        yield ['admin@example.com', '123123', '/en/profile'];
     }
 }

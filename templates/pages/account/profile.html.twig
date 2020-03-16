@@ -60,44 +60,57 @@
                 <i class="fa fa-exclamation"></i>&nbsp;&nbsp;{{ 'please_confirm_your_account'|trans }}
             </div>
         {% else %}
-            <div>
-                {{ form_start(form) }}
-                    <div class="row">
-                        <div class="col-md-12">
-                            {{ form_row(form.email, {
-                                label: 'email',
-                                attr: {
-                                    autofocus: true,
-                                    placeholder: 'email',
-                                },
-                            }) }}
+            <div class="row">
+                <div class="col-lg-9">
+                    {{ form_start(form) }}
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{ form_row(form.email, {
+                                    label: 'email',
+                                    attr: {
+                                        autofocus: true,
+                                        placeholder: 'email',
+                                    },
+                                }) }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_row(form.firstName, {
+                                    label: 'first_name',
+                                }) }}
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_row(form.lastName, {
+                                    label: 'last_name',
+                                }) }}
+                            </div>
+                            <div class="col-md-12">
+                                {{ form_row(form.country, {
+                                    label: 'country',
+                                }) }}
+                            </div>
+                            <div class="col-md-12">
+                                {{ form_row(form.receivesNewsletter, {
+                                    label: 'approve_newsletter',
+                                }) }}
+                            </div>
+                            <div class="col-md-12">
+                                <button class="btn btn-primary">{{ 'save'|trans }}</button>
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            {{ form_row(form.firstName, {
-                                label: 'first_name',
-                            }) }}
-                        </div>
-                        <div class="col-md-6">
-                            {{ form_row(form.lastName, {
-                                label: 'last_name',
-                            }) }}
-                        </div>
-                        <div class="col-md-12">
-                            {{ form_row(form.country, {
-                                label: 'country',
-                            }) }}
-                        </div>
-                        <div class="col-md-12">
-                            {{ form_row(form.receivesNewsletter, {
-                                label: 'approve_newsletter',
-                            }) }}
-                        </div>
-                        <div class="col-md-12">
-                            <button class="btn btn-primary">{{ 'save'|trans }}</button>
-                            <button class="btn btn-danger js-delete-account" data-id="{{ path('user_delete', {id: user.id}) }}">{{ 'delete'|trans }}</button>
-                        </div>
-                    </div>
-                {{ form_end(form) }}
+                    {{ form_end(form) }}
+                </div>
+                <div class="col-lg-3">
+                    <h2 class="h5">{{ 'account_deletion_heading'|trans }}</h2>
+                    <p>
+                        {{ 'account_deletion_info'|trans }}
+                    </p>
+                    {% include 'partials/_delete_button.html.twig' with {
+                        route: path('user_delete', {'id': user.id}),
+                        csrf_token: csrf_token('delete' ~ user.id),
+                        button_label: 'delete_account_button_label'|trans,
+                        question: 'are_you_sure_to_delete_your_account_question'|trans,
+                    } %}
+                </div>
             </div>
         {% endif %}
     </div>

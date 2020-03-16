@@ -8,35 +8,55 @@ class RegistrationController extends BaseTest
 {
     public function testRegisterForm()
     {
-        $this->request('GET', '/en/register');
+        $client = static::createClient();
+        $client->request('GET', '/en/register');
 
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('h1', 'Register');
     }
 
-    public function testRegisterSubmit()
+    /**
+     * @dataProvider getValidRegistrations
+     */
+    public function testRegistration(
+        string $email,
+        string $password,
+        string $firstName,
+        string $lastName,
+        string $country,
+        string $agreeToTermsAndDataPrivacy
+    )
     {
-        $client = $this->request('GET', '/en/register');
+        $client = static::createClient();
+        $client->request('GET', '/en/register');
         $client->submitForm('Register', [
-            'registration_form[email]' => 'john.doe@example.com',
-            'registration_form[plainPassword]' => '123123',
-            'registration_form[firstName]' => 'John',
-            'registration_form[lastName]' => 'Doe',
-            'registration_form[country]' => 'AT',
-            'registration_form[agreeToTermsAndDataPrivacy]' => '1',
+            'registration_form[email]' => $email,
+            'registration_form[plainPassword]' => $password,
+            'registration_form[firstName]' => $firstName,
+            'registration_form[lastName]' => $lastName,
+            'registration_form[country]' => $country,
+            'registration_form[agreeToTermsAndDataPrivacy]' => $agreeToTermsAndDataPrivacy,
         ]);
 
-        $this->assertEmailCount(1);
-        $email = $this->getMailerMessage(0);
-        $this->assertEmailHeaderSame($email, 'To', 'John Doe <john.doe@example.com>');
-        $this->assertEmailHtmlBodyContains($email, 'You recently registered for MyGTS at Global TCAD Solutions. Please confirm and activate your account');
-        $confirmationToken = $this->findUser('john.doe@example.com')->getConfirmationToken();
-        $this->assertEmailHtmlBodyContains($email, "/en/confirm/$confirmationToken");
+        $confirmationToken = $this->findUserByEmail($email)->getConfirmationToken();
 
-        $this->assertResponseRedirectsAndFollowRedirect('/en/profile', $client);
+        $this->assertEmailCount(1);
+
+        $confirmationEmail = $this->getMailerMessage(0);
+        $this->assertEmailHeaderSame($confirmationEmail, 'To', sprintf('%s %s <%s>', $firstName, $lastName, $email));
+        $this->assertEmailHeaderSame($confirmationEmail, 'Subject', 'Please confirm your account');
+        $this->assertEmailHtmlBodyContains($confirmationEmail, sprintf('/en/confirm/%s', $confirmationToken));
+
+        $this->assertResponseRedirects('/en/profile');
+        $client->followRedirect();
 
         $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('h1', 'John Doe');
+        $this->assertSelectorTextContains('h1', sprintf('%s %s', $firstName, $lastName));
         $this->assertSelectorTextContains('.alert-warning', 'We sent you an email, please confirm your account!');
+    }
+
+    public function getValidRegistrations()
+    {
+        yield ['john.doe@example.com', '123123', 'John', 'Doe', 'AT', '1'];
     }
 }

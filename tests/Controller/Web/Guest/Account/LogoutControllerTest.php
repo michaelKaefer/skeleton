@@ -20,9 +20,6 @@ class LogoutControllerTest extends BaseTest
 
         $client->request('GET', '/en/logout');
 
-        $this->assertResponseRedirects('/en/profile');
-        $client->followRedirect();
-
         $this->assertResponseRedirects('/en/login');
     }
 }

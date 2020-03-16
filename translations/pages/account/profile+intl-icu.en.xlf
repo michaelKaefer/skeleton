@@ -37,9 +37,21 @@
         <source>save</source>
         <target>Save</target>
       </trans-unit>
-      <trans-unit id="YZdZVQP" resname="delete">
-        <source>delete</source>
+      <trans-unit id="sZdZVQP" resname="account_deletion_heading">
+        <source>account_deletion_heading</source>
+        <target>Account deletion</target>
+      </trans-unit>
+      <trans-unit id="YsdZVQP" resname="account_deletion_info">
+        <source>account_deletion_info</source>
+        <target>You can completely delete your account here according to GDPR. You will receive a deletion ID to request a confirmation.</target>
+      </trans-unit>
+      <trans-unit id="YZdZVQP" resname="delete_account_button_label">
+        <source>delete_account_button_label</source>
         <target>Delete my account</target>
+      </trans-unit>
+      <trans-unit id="ttdZVQP" resname="are_you_sure_to_delete_your_account_question">
+        <source>are_you_sure_to_delete_your_account_question</source>
+        <target>Are you sure you want to delete your account? Your data will be deleted forever.</target>
       </trans-unit>
     </body>
   </file>

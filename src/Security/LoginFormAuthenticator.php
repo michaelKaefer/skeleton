@@ -3,7 +3,10 @@
 namespace App\Security;
 
 use App\Entity\User;
+use DateInterval;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -28,13 +31,27 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
     private $urlGenerator;
     private $csrfTokenManager;
     private $passwordEncoder;
+    private $failedLoginTimePenaltyInMinutes;
+    private $failedLoginAttemptsUntilTimePenalty;
+    private $failedLoginAttemptsUntilBan;
 
-    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        UrlGeneratorInterface $urlGenerator,
+        CsrfTokenManagerInterface $csrfTokenManager,
+        UserPasswordEncoderInterface $passwordEncoder,
+        int $failedLoginTimePenaltyInMinutes,
+        int $failedLoginAttemptsUntilTimePenalty,
+        int $failedLoginAttemptsUntilBan
+    )
     {
         $this->entityManager = $entityManager;
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->passwordEncoder = $passwordEncoder;
+        $this->failedLoginTimePenaltyInMinutes = $failedLoginTimePenaltyInMinutes;
+        $this->failedLoginAttemptsUntilTimePenalty = $failedLoginAttemptsUntilTimePenalty;
+        $this->failedLoginAttemptsUntilBan = $failedLoginAttemptsUntilBan;
     }
 
     public function supports(Request $request)
@@ -77,7 +94,31 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
 
     public function checkCredentials($credentials, UserInterface $user)
     {
-        return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
+        /** @var User $user */
+        if ($this->isBanned($user)) {
+            throw new CustomUserMessageAuthenticationException('Too many wrong attempts, we disabled your account! Please contact us to enable your account again.');
+        }
+
+        if ($this->isPenaltyTimeRunning($user)) {
+            throw new CustomUserMessageAuthenticationException(sprintf('Too many wrong attempts, try again in %d minutes!', $this->failedLoginTimePenaltyInMinutes));
+        }
+
+        $areCredentialsValid = $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
+
+        if ($areCredentialsValid) {
+            if (0 < $user->getFailedLoginsCount()) {
+                $user->setFailedLoginsCount(0);
+            }
+            $user->setLastLoginAt(new DateTime());
+        } else {
+            $user->setFailedLoginsCount($user->getFailedLoginsCount() + 1)
+                ->setLastFailedLoginAt(new DateTime());
+        }
+
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
+
+        return $areCredentialsValid;
     }
 
     /**
@@ -94,12 +135,42 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
             return new RedirectResponse($targetPath);
         }
 
-        // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
-        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+//        /** @var User $user */
+//        $user = $token->getUser();
+//
+//        if ($user->isAdmin()) {
+//            return new RedirectResponse($this->urlGenerator->generate('easyadmin'));
+//        }
+
+        return new RedirectResponse($this->urlGenerator->generate('profile'));
     }
 
     protected function getLoginUrl()
     {
         return $this->urlGenerator->generate('login');
+    }
+
+    private function isBanned(User $user): bool
+    {
+        return $this->failedLoginAttemptsUntilBan <= $user->getFailedLoginsCount();
+    }
+
+    /**
+     * @param User $user
+     * @return bool
+     * @throws Exception
+     */
+    private function isPenaltyTimeRunning(User $user)
+    {
+        if (!($this->failedLoginAttemptsUntilTimePenalty <= $user->getFailedLoginsCount())) {
+            return false;
+        }
+
+        $now = new DateTime();
+
+        $penaltyTime = new DateInterval(sprintf('PT%dM', $this->failedLoginTimePenaltyInMinutes));
+        $penaltyTime->invert = 1;
+
+        return $now->add($penaltyTime) < $user->getLastFailedLoginAt();
     }
 }

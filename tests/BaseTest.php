@@ -10,8 +10,6 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 abstract class BaseTest extends WebTestCase
 {
-    private $unauthenticatedClient;
-
     protected function setUp()
     {
         parent::setUp();
@@ -22,33 +20,17 @@ abstract class BaseTest extends WebTestCase
         parent::tearDown();
     }
 
-    public function assertResponseRedirectsAndFollowRedirect(string $url, KernelBrowser $client)
+    protected function findUserById(string $id): User
     {
-        $this->assertResponseRedirects($url);
-        $client->followRedirect();
+        return $this->findOneBy(User::class, ['id' => $id]);
     }
 
-    public function request(string $method, string $url, array $auth = [])
-    {
-        $client = $this->getUnauthenticatedClient();
-        $client->request($method, $url, [], [], $auth);
-        return $client;
-    }
-
-    protected function getUnauthenticatedClient(): KernelBrowser
-    {
-        if (null !== $this->unauthenticatedClient) {
-            return $this->unauthenticatedClient;
-        }
-        return $this->unauthenticatedClient = static::createClient();
-    }
-
-    protected function findUser(string $email): User
+    protected function findUserByEmail(string $email): User
     {
         return $this->findOneBy(User::class, ['email' => $email]);
     }
 
-    protected function findOneBy(string $entityClass, array $options)
+    private function findOneBy(string $entityClass, array $options)
     {
         $entityManager = static::$container
             ->get('doctrine')
@@ -63,25 +45,5 @@ abstract class BaseTest extends WebTestCase
         $entityManager = null;
 
         return $entity;
-    }
-
-    protected function persistFile(string $filename): File
-    {
-        $download = (new Download())->setTitle('Dummy')->setFilename('Dummy')->setStatus('published');
-        $file = (new File())->setName($filename)->setDownload($download);
-
-        $entityManager = static::$container
-            ->get('doctrine')
-            ->getManager();
-
-        $entityManager->persist($download);
-        $entityManager->persist($file);
-        $entityManager->flush();
-
-        // doing this is recommended to avoid memory leaks
-        $entityManager->close();
-        $entityManager = null;
-
-        return $file;
     }
 }

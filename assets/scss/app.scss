@@ -4,7 +4,7 @@
 @import '~bootstrap';
 /* stylelint-enable */
 
-// add components here: @import './components/_my-component';
+@import './components/_required_inputs';
 
 @import './layout/_header';
 @import './layout/_main';

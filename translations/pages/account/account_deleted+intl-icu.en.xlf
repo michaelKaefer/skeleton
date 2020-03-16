@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="GQDqtsA" resname="title">
+        <source>title</source>
+        <target>Account deleted</target>
+      </trans-unit>
+      <trans-unit id="1BIqiqj" resname="heading">
+        <source>heading</source>
+        <target>Account has been deleted</target>
+      </trans-unit>
+      <trans-unit id="XjlwE6c" resname="info">
+        <source>info</source>
+        <target><![CDATA[We have completely deleted your account according to GDPR. With your deletion ID you can request a confirmation.<br>
+<br>
+Your deletion ID: <strong>{deletion_id}</strong>]]></target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
