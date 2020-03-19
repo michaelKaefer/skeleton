@@ -6,6 +6,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "antishov/doctrine-extensions-bundle": "^1.4",
+        "api-platform/api-pack": "^1.2",
         "hautelook/alice-bundle": "^2.7",
         "oneup/flysystem-bundle": "^3.4",
         "sensio/framework-extra-bundle": "^5.1",

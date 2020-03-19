@@ -19,4 +19,6 @@ return [
     Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle::class => ['all' => true],
     Oneup\FlysystemBundle\OneupFlysystemBundle::class => ['all' => true],
     DAMA\DoctrineTestBundle\DAMADoctrineTestBundle::class => ['test' => true],
+    Nelmio\CorsBundle\NelmioCorsBundle::class => ['all' => true],
+    ApiPlatform\Core\Bridge\Symfony\Bundle\ApiPlatformBundle::class => ['all' => true],
 ];
