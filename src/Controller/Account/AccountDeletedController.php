@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Controller\Web\Guest\Account;
+namespace App\Controller\Account;
 
-use App\Controller\Web\BaseController;
+use App\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 

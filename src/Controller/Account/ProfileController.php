@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Controller\Web\User\Account;
+namespace App\Controller\Account;
 
-use App\Controller\Web\BaseController;
+use App\Controller\BaseController;
 use App\Entity\User;
 use App\Form\ProfileFormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;

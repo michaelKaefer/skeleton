@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Controller\Web\OpenToPublic\User;
+namespace App\Tests\Controller\Account;
 
 use App\Tests\BaseTest;
 

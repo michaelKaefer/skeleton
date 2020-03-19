@@ -1,16 +1,13 @@
 <?php
 
-namespace App\Controller\Web\User\Account;
+namespace App\Controller\Account;
 
-use App\Controller\Web\BaseController;
+use App\Controller\BaseController;
 use App\Entity\User;
-use App\Event\UserWantsToDeleteAccountEvent;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DeleteAccountController extends BaseController
 {

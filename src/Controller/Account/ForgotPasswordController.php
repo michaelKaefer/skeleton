@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Controller\Web\Guest\Account;
+namespace App\Controller\Account;
 
-use App\Controller\Web\BaseController;
+use App\Controller\BaseController;
 use App\Form\ForgotPasswordFormType;
 use App\Repository\UserRepository;
-use Exception;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

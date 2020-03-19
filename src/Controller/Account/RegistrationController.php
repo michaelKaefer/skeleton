@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Controller\Web\Guest\Account;
+namespace App\Controller\Account;
 
-use App\Controller\Web\BaseController;
+use App\Controller\BaseController;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\LoginFormAuthenticator;
