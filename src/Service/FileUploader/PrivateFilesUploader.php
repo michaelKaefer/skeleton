@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Service;
+namespace App\Service\FileUploader;
 
-use App\FileUploader;
 use Psr\Log\LoggerInterface;
 use League\Flysystem\FilesystemInterface;
 

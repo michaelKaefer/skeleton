@@ -27,6 +27,13 @@ security:
                 target: login
                 # Service that gets called on successful logout
                 success_handler: App\Service\LogoutSuccessHandler
+            json_login:
+                # Route which is used for JSON login
+                check_path: api_login
+                # Key of the JSON request which is used as the username for logging the user in
+                username_path: email
+                # Key of the JSON request which is used as the password for logging the user in
+                password_path: password
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication

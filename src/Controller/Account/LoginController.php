@@ -11,6 +11,9 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class LoginController extends BaseController
 {
     /**
+     * On GET this route renders a login form, on POST this route is used to
+     * authenticate the user.
+     *
      * @Route("/login", name="login")
      *
      * @param Security $security
@@ -34,5 +37,15 @@ class LoginController extends BaseController
             // last authentication error (if any)
             'error' => $authenticationUtils->getLastAuthenticationError(),
         ]);
+    }
+
+	/**
+	 * @Route("/api-login", name="api_login", methods={"POST"})
+	 */
+    public function apiLogin()
+    {
+    	return [
+    		'user' => $this->getUser() ? $this->getUser()->getId() : null,
+	    ];
     }
 }
