@@ -11,10 +11,9 @@
     {% endblock %}
 </head>
 <body>
-<div id="app" class="container-fluid p-0">
-    <div id="spinner"></div>
-
     <div id="app" class="container-fluid p-0">
+        <div id="spinner"></div>
+
         <header>
             {% include '_header.html.twig' %}
         </header>
@@ -33,10 +32,9 @@
             {% include '_footer.html.twig' %}
         </footer>
     </div>
-</div>
 
-{% block javascripts %}
-    {{ encore_entry_script_tags('app') }}
-{% endblock %}
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
 </body>
 </html>
