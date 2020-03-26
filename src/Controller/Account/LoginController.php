@@ -44,8 +44,16 @@ class LoginController extends BaseController
 	 */
     public function apiLogin()
     {
-    	return [
+    	return $this->json([
     		'user' => $this->getUser() ? $this->getUser()->getId() : null,
-	    ];
+	    ]);
     }
+
+	/**
+	 * @Route("/test", name="test", methods={"POST"})
+	 */
+	public function test()
+	{
+		return new Response('asdf', 200);
+	}
 }

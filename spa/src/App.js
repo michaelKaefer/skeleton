@@ -13,11 +13,12 @@ import Header from './Components/Header';
 import FlashMessage from './Components/FlashMessage';
 import NotFound from './Components/Pages/NotFound';
 import AppRouting from './AppRouting';
-import {withTranslation, Trans, useTranslation} from 'react-i18next';
+import { withTranslation } from 'react-i18next';
+import Footer from './Components/Footer';
+import HomeRedirect from './Components/HomeRedirect';
 
 function App() {
   const routing = new AppRouting();
-  const { t } = useTranslation();
 
   return (
     <Router>
@@ -44,19 +45,25 @@ function App() {
                     </Route>
                   ))}
 
+                  {/*Home does not exist so we redirect to login*/}
+                  <Route
+                    path={routing.getHomeRegex()}
+                  >
+                    <HomeRedirect/>
+                    {/*{console.log(this.props)}*/}
+                    {/*{console.log(useParams())}*/}
+                    {/*<Redirect to={`/${routing.defaultLocale}/`} />*/}
+                  </Route>
+
                   {/*NotFound*/}
                   <Route>
                     <NotFound />
                   </Route>
+
                 </Switch>
               </div>
             </main>
-            <footer>
-              Footer
-
-
-              <h2>{ t('welcome') }</h2>
-            </footer>
+            <Footer/>
           </div>
         </Route>
 

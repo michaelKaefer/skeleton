@@ -1,6 +1,8 @@
 # Start developing
 ```console
 ./bin/develop.sh
+cd spa/
+yarn start
 ```
 
 # Testing

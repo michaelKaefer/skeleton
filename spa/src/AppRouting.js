@@ -29,6 +29,11 @@ export default class AppRouting {
     return `/${locale}/(${path})`;
   }
 
+  getHomeRegex() {
+    const locale = `:locale(${[...this.supportedLocales].join('|')})`;
+    return `/${locale}/`;
+  }
+
   getRelativeUrl(locale, route) {
     return `/${locale}/${this.routes[route].path[locale]}`;
   }

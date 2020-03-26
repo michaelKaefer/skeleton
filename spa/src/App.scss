@@ -3,10 +3,21 @@
 main {
   margin-top: 55px;
   padding-top: 30px;
-  min-height: 80vh;
+  min-height: 56vh;
 
   .content {
     display: flex;
     justify-content: center;
   }
+}
+
+.error {
+  border: 2px solid #FF6565 !important; // the important overrides the border of Bootstrap's form-control
+}
+
+.error-message {
+  color: #FF6565;
+  padding: .35em .2em;
+  height: 1em;
+  font-size: .8em;
 }

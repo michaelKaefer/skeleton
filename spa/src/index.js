@@ -8,43 +8,43 @@ import i18next from 'i18next';
 
 i18next.init({
   interpolation: { escapeValue: false },  // React already does escaping
-  lng: "de",
-  fallbackLng: "en",
+  lng: 'de',
+  fallbackLng: 'en',
   resources: {
     en: {
       translation: {
-        "welcome": "EN Welcome to React and react-i18next"
-      }
+        // Header
+        'profile': 'Profile',
+        'admin_area': 'Admin area',
+        'logout': 'Logout',
+        'choose_language': 'Language',
+        // Login
+        'heading': 'Login',
+        'go_to_registration': 'Go to registration',
+        'email_label': 'Email',
+        'password_label': 'Password',
+        'forgot_password': 'Forgot password',
+        'login_button_label': 'Login',
+      },
     },
     de: {
       translation: {
-        "welcome": "DE Welcome to React and react-i18next"
-      }
+        // Header
+        'profile': 'Profil',
+        'admin_area': 'Adminbereich',
+        'logout': 'Logout',
+        'choose_language': 'Sprache',
+        // Login
+        'heading': 'Login',
+        'go_to_registration': 'Zur Registrierung',
+        'email_label': 'E-Mail',
+        'password_label': 'Passwort',
+        'forgot_password': 'Passwort vergessen',
+        'login_button_label': 'Login',
+      },
     },
   },
 });
-// i18n
-//   .use(initReactI18next) // passes i18n down to react-i18next
-//   .init({
-//     resources: {
-//       en: {
-//         translation: {
-//           "welcome": "EN Welcome to React and react-i18next"
-//         }
-//       },
-//       de: {
-//         translation: {
-//           "welcome": "DE Welcome to React and react-i18next"
-//         }
-//       },
-//     },
-//     lng: "de",
-//     fallbackLng: "en",
-//
-//     interpolation: {
-//       escapeValue: false
-//     }
-//   });
 
 ReactDOM.render(
     <I18nextProvider i18n={i18next}>
