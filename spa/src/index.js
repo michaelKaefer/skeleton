@@ -3,13 +3,24 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import {I18nextProvider} from 'react-i18next';
+import { I18nextProvider } from 'react-i18next';
 import i18next from 'i18next';
+import AppRouting from './AppRouting';
+
+const routing = new AppRouting();
+
+// After a locale switch or on initial request for a locale (eg: /de) we set the locale
+let locale = routing.defaultLocale;
+const localesRegex = [...routing.supportedLocales].join('|');
+const regex = new RegExp(`^/(${localesRegex})/?`);
+if (regex.test(window.location.pathname)) {
+  locale = window.location.pathname.match(regex)[1];
+}
 
 i18next.init({
   interpolation: { escapeValue: false },  // React already does escaping
-  lng: 'de',
-  fallbackLng: 'en',
+  lng: locale,
+  fallbackLng: routing.defaultLocale,
   resources: {
     en: {
       translation: {
@@ -48,7 +59,7 @@ i18next.init({
 
 ReactDOM.render(
     <I18nextProvider i18n={i18next}>
-      <App/>
+      <App routing={routing}/>
     </I18nextProvider>,
     document.getElementById('root')
 );
