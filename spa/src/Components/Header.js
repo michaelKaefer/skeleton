@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faUser} from '@fortawesome/free-solid-svg-icons';
 import {Link, useParams} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
 import ISO6391 from 'iso-639-1';
+import { AuthenticationContext } from '../Security/AuthenticationContext';
 
 export default function Header(params) {
   const { locale } = useParams();
   const { t, i18n } = useTranslation();
   const { routing } = params;
+  const { user, logoutUser } = useContext(AuthenticationContext);
 
   return (
       <nav
@@ -61,7 +63,7 @@ export default function Header(params) {
             <a className="nav-link dropdown-toggle" href="###"
                id="navbarDropdown" role="button" data-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false">
-              <FontAwesomeIcon icon={faUser}/>
+              {user ? user.firstName : ''} {user ? user.lastName : ''}&nbsp;&nbsp;<FontAwesomeIcon icon={faUser}/>
             </a>
             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
               {/*Profile*/}
@@ -76,8 +78,11 @@ export default function Header(params) {
               {/*{% endif %}*/}
               <div className="dropdown-divider"/>
               {/*Logout*/}
-              <a className="dropdown-item"
-                 href="###">{ t('logout') }</a>
+              <Link
+                  className="dropdown-item"
+                  to={`/${locale}/`}
+                  onClick={() => logoutUser()}
+              >{ t('logout') }</Link>
             </div>
           </div>
         </div>

@@ -1,12 +1,14 @@
 import './Login.scss';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
 import { Alert, Spinner } from 'react-bootstrap';
+import { AuthenticationContext } from '../../Security/AuthenticationContext';
 
 export default function Login() {
   const { t } = useTranslation();
+  const { loginUser } = useContext(AuthenticationContext);
 
   const validationSchema = yup.object().shape({
     email: yup
@@ -53,7 +55,7 @@ export default function Login() {
                   actions.setSubmitting(false);
                   return;
                 }
-                if (response.status !== 204) {
+                if (response.status !== 200) {
                   actions.setFieldError('server', 'Unknown error, please try again or contact us!');
                   actions.setSubmitting(false);
                   return;
@@ -62,10 +64,13 @@ export default function Login() {
                 // for(const header of response.headers){
                 //   console.log(header);
                 // }
-                // console.log(response.headers.get('location'));
+                const userIri = await response.text();
+
+                console.log(userIri); // HIER WEITER TODO
+                loginUser({firstName: 'John', lastName: 'Doe'});
+                // console.log(1, useContext(AuthenticationContext));
                 actions.setSubmitting(false);
               } catch (e) {
-                throw e;
                 actions.setFieldError('server', 'Network error or malformed JSON response.');
                 actions.setSubmitting(false);
               }
