@@ -13,33 +13,36 @@ import FlashMessage from './Components/FlashMessage';
 import { withTranslation } from 'react-i18next';
 import Footer from './Components/Footer';
 import Content from './Components/Content';
+import { AuthenticationContext } from './Security/AuthenticationContext';
 
 function App(params) {
   const { routing } = params;
 
   return (
-    <Router>
-      <Switch>
-        <Route path={`/:locale(${[...routing.supportedLocales].join('|')})`}>
-          <DocumentLanguage />
-          <div className="App container-fluid p-0">
-            <Header routing={routing}/>
-            <main className="container">
-              <div className="flash">
-                <FlashMessage/>
-              </div>
-              <Content routing={routing}/>
-            </main>
-            <Footer/>
-          </div>
-        </Route>
+    <AuthenticationContext.Provider value={false}>
+      <Router>
+        <Switch>
+          <Route path={`/:locale(${[...routing.supportedLocales].join('|')})`}>
+            <DocumentLanguage />
+            <div className="App container-fluid p-0">
+              <Header routing={routing}/>
+              <main className="container">
+                <div className="flash">
+                  <FlashMessage/>
+                </div>
+                <Content routing={routing}/>
+              </main>
+              <Footer/>
+            </div>
+          </Route>
 
-        {/*Missing locale*/}
-        <Route>
-          <Redirect to={`/${routing.defaultLocale}/`} />
-        </Route>
-      </Switch>
-    </Router>
+          {/*Missing locale*/}
+          <Route>
+            <Redirect to={`/${routing.defaultLocale}/`} />
+          </Route>
+        </Switch>
+      </Router>
+    </AuthenticationContext.Provider>
   );
 }
 

@@ -5,7 +5,7 @@ import {Link, useParams} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
 import ISO6391 from 'iso-639-1';
 
-export default function Header( params ) {
+export default function Header(params) {
   const { locale } = useParams();
   const { t, i18n } = useTranslation();
   const { routing } = params;

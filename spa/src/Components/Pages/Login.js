@@ -32,7 +32,7 @@ export default function Login() {
         </p>
 
         <Formik
-            initialValues={{ email: 'admin@example.com', password: '123123tttttttttttttttttt', server: '' }}
+            initialValues={{ email: 'admin@example.com', password: '123123', server: '' }}
             onSubmit={async (values, actions) => {
               try {
                 const response = await fetch(process.env.REACT_APP_LOGIN_URL, {
@@ -43,21 +43,29 @@ export default function Login() {
                   // credentials: 'include',
                   body: JSON.stringify( values ),
                 });
-                const data = await response.json();
-                if (response.status === 401) {
+                if (response.status === 400) { // Malformed request
+                  actions.setFieldError('server', 'We are facing technical difficulties, please come back later!');
+                  actions.setSubmitting(false);
+                  return;
+                }
+                if (response.status === 401) { // Unauthorized
                   actions.setFieldError('server', 'Invalid credentials, please try again!');
                   actions.setSubmitting(false);
                   return;
                 }
-                if (!response.ok) {
+                if (response.status !== 204) {
                   actions.setFieldError('server', 'Unknown error, please try again or contact us!');
                   actions.setSubmitting(false);
                   return;
                 }
                 // Success
-                console.log(data);
+                // for(const header of response.headers){
+                //   console.log(header);
+                // }
+                // console.log(response.headers.get('location'));
                 actions.setSubmitting(false);
               } catch (e) {
+                throw e;
                 actions.setFieldError('server', 'Network error or malformed JSON response.');
                 actions.setSubmitting(false);
               }
