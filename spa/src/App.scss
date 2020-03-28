@@ -1,15 +1,14 @@
-@import "~bootstrap/scss/bootstrap";
+@import './scss/_variables';
 
-main {
-  margin-top: 55px;
-  padding-top: 30px;
-  min-height: 56vh;
+/* stylelint-disable */
+@import "~bootstrap";
+/* stylelint-enable */
 
-  .content {
-    display: flex;
-    justify-content: center;
-  }
-}
+@import './scss/components/_required_inputs';
+
+@import './scss/layout/_header';
+@import './scss/layout/_main';
+@import './scss/layout/_footer';
 
 .error {
   border: 2px solid #FF6565 !important; // the important overrides the border of Bootstrap's form-control

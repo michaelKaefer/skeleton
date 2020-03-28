@@ -1,20 +1,20 @@
+import './Header.scss';
 import React, { useContext } from 'react';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faUser} from '@fortawesome/free-solid-svg-icons';
-import {Link, useParams} from 'react-router-dom';
-import {useTranslation} from 'react-i18next';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { Link, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import ISO6391 from 'iso-639-1';
 import { AuthenticationContext } from '../Security/AuthenticationContext';
 
-export default function Header(params) {
+export default function Header({ routing }) {
   const { locale } = useParams();
   const { t, i18n } = useTranslation();
-  const { routing } = params;
   const { user, logoutUser } = useContext(AuthenticationContext);
 
   return (
       <nav
-          className="navbar navbar-expand-lg fixed-top navbar-light bg-light px-md-5">
+          className="navbar navbar-expand-lg fixed-top navbar-light bg-white px-md-5">
         {/*Brand*/}
         <a className="navbar-brand ml-lg-3 px-md-5"
            href="/">Skeleton</a>
@@ -44,7 +44,7 @@ export default function Header(params) {
                 aria-haspopup="true"
                 aria-expanded="false"
             >
-              { t('choose_language') }
+              { t('header__choose_language') }
             </button>
             <div className="dropdown-menu" aria-labelledby="languageSelector">
               {[...routing.supportedLocales].map(locale => (
@@ -70,11 +70,11 @@ export default function Header(params) {
               <Link
                   className="dropdown-item"
                   to={routing.getRelativeUrl( locale, 'profile' )}
-              >{ t('profile') }</Link>
+              >{t('header__profile')}</Link>
               {/*Admin*/}
               {/*{% if is_granted('ROLE_ADMIN') %}*/}
               <a className="dropdown-item"
-                 href="###">{ t('admin_area') }</a>
+                 href="###">{ t('header__admin_area') }</a>
               {/*{% endif %}*/}
               <div className="dropdown-divider"/>
               {/*Logout*/}
@@ -82,7 +82,7 @@ export default function Header(params) {
                   className="dropdown-item"
                   to={`/${locale}/`}
                   onClick={() => logoutUser()}
-              >{ t('logout') }</Link>
+              >{t('header__logout')}</Link>
             </div>
           </div>
         </div>

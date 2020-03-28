@@ -1,0 +1,20 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins/breakpoints";
+
+main {
+  margin-top: 55px;
+  padding-top: 30px;
+  min-height: 56vh;
+
+  .content {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.main-page-content {
+  @include media-breakpoint-up(lg) {
+    min-width: 50%;
+  }
+}

@@ -28,6 +28,11 @@ function App(params) {
     setUser(user);
   }
 
+  function updateUser(user) {
+    localStorage.setItem('user', JSON.stringify(user));
+    setUser(user);
+  }
+
   async function logoutUser(user) {
     localStorage.removeItem('user');
     setUser(null);
@@ -74,7 +79,7 @@ function App(params) {
   }
 
   return (
-    <AuthenticationContext.Provider value={{ user, loginUser, logoutUser }}>
+    <AuthenticationContext.Provider value={{ user, loginUser, logoutUser, updateUser }}>
       <Router>
         <Switch>
           <Route path={`/:locale(${[...routing.supportedLocales].join('|')})`}>

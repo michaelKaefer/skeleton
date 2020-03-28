@@ -1,5 +1,5 @@
-import Profile from './Components/Pages/Profile';
-import Login from './Components/Pages/Login';
+import Profile from './Pages/Profile';
+import Login from './Pages/Login';
 
 export default class AppRouting {
   constructor() {
@@ -12,6 +12,7 @@ export default class AppRouting {
           de: 'profil',
         },
         component: Profile,
+        authorizedRoles: ['ROLE_USER', 'ROLE_ADMIN'],
       },
       login: {
         path: {
@@ -19,6 +20,7 @@ export default class AppRouting {
           de: 'login',
         },
         component: Login,
+        authorizedRoles: null,
       },
     };
   }

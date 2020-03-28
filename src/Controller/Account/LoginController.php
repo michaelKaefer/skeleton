@@ -53,9 +53,14 @@ class LoginController extends BaseController
 		    ], 400);
 	    }
 
-    	return new Response(null, 204, [
-    		// 'Access-Control-Expose-Headers' => 'Location',
+	    /*return new Response($iriConverter->getIriFromItem($this->getUser()), 204, [
+    		'Access-Control-Expose-Headers' => 'Location', // Not working, why?
     		'Location' => $iriConverter->getIriFromItem($this->getUser()),
+		    'Access-Control-Allow-Origin' => '*', // Not working, why?
+	    ]);*/
+
+	    return $this->json([
+	    	'Location' => $iriConverter->getIriFromItem($this->getUser()),
 	    ]);
     }
 }

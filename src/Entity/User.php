@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -14,7 +15,10 @@ use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false, hardDelete=true)
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
- * @ApiResource()
+ * @ApiResource(
+ *     normalizationContext={"groups"={"user"}},
+ *     denormalizationContext={"groups"={"user"}}
+ * )
  */
 class User extends BaseEntity implements UserInterface
 {
@@ -26,6 +30,7 @@ class User extends BaseEntity implements UserInterface
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"user"})
      */
     private $id;
 
@@ -33,11 +38,13 @@ class User extends BaseEntity implements UserInterface
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\NotBlank()
      * @Assert\Email()
+     * @Groups({"user"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
+     * @Groups({"user"})
      */
     private $roles = [];
 
@@ -56,29 +63,34 @@ class User extends BaseEntity implements UserInterface
      * Filename of the uploaded avatar image without the path to the file
      *
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"user"})
      */
     private $avatar;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
+     * @Groups({"user"})
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
+     * @Groups({"user"})
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
+     * @Groups({"user"})
      */
     private $country;
 
     /**
      * @ORM\Column(type="boolean")
+     * @Groups({"user"})
      */
     private $receivesNewsletter;
 
