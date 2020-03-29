@@ -10290,6 +10290,16 @@ svgo@^1.0.0, svgo@^1.2.2:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
+sweetalert2-react-content@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/sweetalert2-react-content/-/sweetalert2-react-content-3.0.1.tgz#aed5fda272988a81fac576cffbbd2b7d30d6913d"
+  integrity sha512-VBybIRTIzY2bTkUddcp2wMJ3mp3gfGGX6+BfW2dDrEv6bXM2WtzJpFkM2imFpcPhpkOIf2/J8gLxEu0jBZq0DQ==
+
+sweetalert2@^9.10.7:
+  version "9.10.7"
+  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-9.10.7.tgz#4ce1a518834cd6880283ae04b337293ffc129551"
+  integrity sha512-tHgtmu68qkapnKsCfC3097qjXb5MXWavv/aOW0JyTh+/3fe3pnCphmaCgm1hI5FNkG4OoXJ86XK9PCq5Ig2ilA==
+
 symbol-tree@^3.2.2:
   version "3.2.4"
   resolved "https://registry.yarnpkg.com/symbol-tree/-/symbol-tree-3.2.4.tgz#430637d248ba77e078883951fb9aa0eed7c63fa2"

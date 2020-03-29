@@ -1,110 +1,65 @@
 import './Login.scss';
 import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form } from 'formik';
 import * as yup from 'yup';
-import { Alert, Card, Spinner } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import { AuthenticationContext } from '../Security/AuthenticationContext';
 import { useHistory, useParams } from 'react-router-dom';
-import FormGroup from 'react-bootstrap/FormGroup';
+import client from '../Utils/Client';
+import flash from '../Components/Flash';
+import SubmitButton from '../Components/SubmitButton';
+import FormField from '../Components/FormField';
 
 export default function Login({routing}) {
   const {locale} = useParams();
   const {t} = useTranslation();
-  const {loginUser} = useContext( AuthenticationContext );
+  const {loginUser} = useContext(AuthenticationContext);
   let history = useHistory();
 
-  const validationSchema = yup.object().shape( {
+  const validationSchema = yup.object().shape({
     email: yup
       .string()
-      .email( 'Must be a valid email address' )
-      .max( 100, 'Email must be less than 100 characters' )
-      .required( 'An email is required' ),
+      .email('Must be a valid email address')
+      .max(100, 'Email must be less than 100 characters')
+      .required('An email is required'),
     password: yup
       .string()
-      .min( 6, 'Password must have at least 6 characters' )
-      .required( 'A password is required' ),
-  } );
+      .min(6, 'Password must have at least 6 characters')
+      .required('A password is required'),
+  });
 
   const onSubmit = async (values, actions) => {
-    // Login user on server
-    let response;
-    let payload;
-
+    // Login user on server and receive the URL where we can retrieve the user resource
+    let location;
     try {
-      response = await fetch( process.env.REACT_APP_LOGIN_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify( values ),
-      } );
-      payload = await response.json();
-    }
-    catch (e) {
-      actions.setFieldError( 'loginFailure',
-        'Network error or malformed response during login, please contact us!' );
-      actions.setSubmitting( false );
-      console.error( e );
+      const { payload } = await client.post(process.env.REACT_APP_LOGIN_URL, values);
+      location = payload.Location;
+    } catch (e) {
+      if (e.name === 'UnauthorizedError') {
+        actions.setSubmitting(false);
+        flash.error(t('errors__invalid_credentials'));
+      } else {
+        actions.setSubmitting(false);
+        flash.error(t('errors__unknown'));
+      }
       return;
-    }
-
-    switch (response.status) {
-      case 400:
-        actions.setFieldError( 'loginFailure',
-          'We are facing technical difficulties, please contact us!' );
-        actions.setSubmitting( false );
-        console.error( response, payload );
-        return;
-      case 401:
-        actions.setFieldError( 'loginFailure',
-          'Invalid credentials, please try again!' );
-        actions.setSubmitting( false );
-        console.error( response, payload );
-        return;
-      case 200:
-        break;
-      default:
-        actions.setFieldError( 'loginFailure',
-          'Unknown error, please try again or contact us!' );
-        actions.setSubmitting( false );
-        console.error( response, payload );
-        return;
     }
 
     // Get user info
-    const url = `${process.env.REACT_APP_API_BASE_URL}${payload.Location}`;
-
+    const url = `${process.env.REACT_APP_API_BASE_URL}${location}`;
     try {
-      response = await fetch( url, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      } );
-      payload = await response.json();
-    }
-    catch (e) {
-      actions.setFieldError( 'submitFailure',
-        'Network error or malformed response while fetching user info, please contact us!' );
-      actions.setSubmitting( false );
-      console.error( e );
-      return;
-    }
+      const { payload } = await client.get(url);
 
-    if ( response.status !== 200 ) {
-      actions.setFieldError('loginFailure',
-        'Unknown error, please try again or contact us!');
+      // Login user in React
+      loginUser(payload); // The payload only contains the user object
       actions.setSubmitting(false);
-      console.error(response, payload);
-      return;
+      flash.success(t('success__login'));
+      history.push(routing.getRelativeUrl(locale, 'profile'));
+    } catch (e) {
+      actions.setFieldError('submitFailure', t('errors__unknown'));
+      actions.setSubmitting(false);
     }
-
-    // Login user in React
-    loginUser( payload ); // The payload only contains the user object
-    actions.setSubmitting( false );
-
-    history.push( routing.getRelativeUrl( locale, 'profile' ) );
   };
 
   const form = (
@@ -112,73 +67,34 @@ export default function Login({routing}) {
       initialValues={{
         email: 'admin@example.com',
         password: '123123',
-        loginFailure: '',
       }} // Todo: remove dev-placeholders :)
       onSubmit={onSubmit}
       validationSchema={validationSchema}
     >
       {formikProps => (
         <Form>
-          {formikProps.isSubmitting ? (
-            <Alert variant="light" className="text-center">
-              <Spinner animation="border" role="status">
-                <span className="sr-only">Loading...</span>
-              </Spinner>
-            </Alert>
-          ) : (
-            <div>
-              {formikProps.touched.loginFailure &&
-              formikProps.errors.loginFailure ? (
-                <Alert variant="danger" className="text-center">
-                  <ErrorMessage name="loginFailure" component="div"/>
-                </Alert>
-              ) : null}
-            </div>
-          )}
-          <ErrorMessage name="general" component="div"/>
-          <FormGroup>
-            <label htmlFor="email" className="required">{t(
-              'login__email_label' )}</label>
-            <Field
-              id="email"
-              type="email"
-              name="email"
-              className={`form-control${formikProps.touched.email &&
-              formikProps.errors.email ? ' error' : ''}`}
-              placeholder="john.doe@example.com"
-              autoFocus
-            />
-            {formikProps.touched.email && formikProps.errors.email ? (
-              <div className="error-message"><ErrorMessage name="email"
-                                                           component="div"/>
-              </div>
-            ) : null}
-          </FormGroup>
-          <FormGroup>
-            <label htmlFor="password" className="required">{t(
-              'login__password_label' )}</label>
-            <Field
-              id="password"
-              type="password"
-              name="password"
-              className={`form-control${formikProps.touched.password &&
-              formikProps.errors.password ? ' error' : ''}`}
-            />
-            {formikProps.touched.password && formikProps.errors.password ? (
-              <div className="error-message"><ErrorMessage name="password"
-                                                           component="div"/>
-              </div>
-            ) : null}
-          </FormGroup>
+          <FormField
+            name="email"
+            type="email"
+            label={t('login__email_label')}
+            hasError={formikProps.touched.email && formikProps.errors.email}
+            isRequired={true}
+            placeholder="john.doe@example.com"
+            autoFocus={true}
+          />
+          <FormField
+            name="password"
+            type="password"
+            label={t('login__password_label')}
+            hasError={formikProps.touched.password && formikProps.errors.password}
+            isRequired={true}
+          />
 
-          <p>
-            <a href="/#">{t( 'login__forgot_password' )}</a>
-          </p>
-
-          <button className="btn btn-lg btn-primary" type="submit"
-                  disabled={formikProps.isSubmitting}>
-            {t( 'login__login_button_label' )}
-          </button>
+          <SubmitButton
+            isDisabled={Object.keys(formikProps.errors).length}
+            isLoading={formikProps.isSubmitting}
+            label={t('login__login_button_label')}
+          />
         </Form>
       )}
     </Formik>
@@ -188,14 +104,18 @@ export default function Login({routing}) {
     <Card className="main-page-content shadow">
       <Card.Body>
         <h1 className="h5 card-title">
-          {t( 'login__heading' )}
+          {t('login__heading')}
         </h1>
 
         <p>
-          <a href="/#">{t( 'login__go_to_registration' )}</a>
+          <a href="/#">{t('login__go_to_registration')}</a>
         </p>
 
         {form}
+
+        <p className="mt-2">
+          <a href="/#">{t('login__forgot_password')}</a>
+        </p>
       </Card.Body>
     </Card>
   );

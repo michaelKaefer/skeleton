@@ -7,12 +7,11 @@ import {
 } from "react-router-dom";
 import 'bootstrap';
 import './App.scss';
-import DocumentLanguage from './Components/DocumentLanguage';
-import Header from './Components/Header';
-import FlashMessage from './Components/FlashMessage';
+import DocumentLanguage from './Layout/DocumentLanguage';
+import Header from './Layout/Header';
 import { withTranslation } from 'react-i18next';
-import Footer from './Components/Footer';
-import Content from './Components/Content';
+import Footer from './Layout/Footer';
+import Content from './Layout/Content';
 import { AuthenticationContext } from './Security/AuthenticationContext';
 
 function App(params) {
@@ -34,48 +33,26 @@ function App(params) {
   }
 
   async function logoutUser(user) {
-    localStorage.removeItem('user');
-    setUser(null);
+    let response;
 
     try {
-      const response = await fetch(process.env.REACT_APP_LOGOUT_URL, {
-        method: 'POST',
-        // headers: {
-        //   'Content-Type': 'application/json'
-        // },
-        // credentials: 'include',
-        // body: JSON.stringify( values ),
+      response = await fetch(process.env.REACT_APP_LOGOUT_URL, {
+        method: 'GET',
       });
-      console.log(response);
-      // if (response.status === 400) { // Malformed request
-      //   actions.setFieldError('server', 'We are facing technical difficulties, please come back later!');
-      //   actions.setSubmitting(false);
-      //   return;
-      // }
-      // if (response.status === 401) { // Unauthorized
-      //   actions.setFieldError('server', 'Invalid credentials, please try again!');
-      //   actions.setSubmitting(false);
-      //   return;
-      // }
-      // if (response.status !== 204) {
-      //   actions.setFieldError('server', 'Unknown error, please try again or contact us!');
-      //   actions.setSubmitting(false);
-      //   return;
-      // }
-      // // Success
-      // // for(const header of response.headers){
-      // //   console.log(header);
-      // // }
-      // // console.log(response.headers.get('location'));
-      //
-      // loginUser({firstName: 'John', lastName: 'Doe'});
-      // // console.log(1, useContext(AuthenticationContext));
-      // actions.setSubmitting(false);
-    } catch (e) {
-      throw e;
-      // actions.setFieldError('server', 'Network error or malformed JSON response.');
-      // actions.setSubmitting(false);
     }
+    catch (e) {
+      console.error(e);
+      return;
+    }
+
+    if (response.status !== 200) {
+      console.error(response);
+      return;
+    }
+
+    localStorage.removeItem('user');
+    setUser(null);
+    console.log('Logged out');
   }
 
   return (
@@ -87,9 +64,6 @@ function App(params) {
             <div className="App container-fluid p-0">
               <Header routing={routing}/>
               <main className="container">
-                <div className="flash">
-                  <FlashMessage/>
-                </div>
                 <Content routing={routing}/>
               </main>
               <Footer/>

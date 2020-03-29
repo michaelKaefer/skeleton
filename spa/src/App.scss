@@ -17,6 +17,9 @@
 .error-message {
   color: #FF6565;
   padding: .35em .2em;
-  //height: 1em;
   font-size: .8em;
+}
+
+button:disabled {
+  cursor: not-allowed;
 }

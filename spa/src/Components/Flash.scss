@@ -1,0 +1,14 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins/breakpoints";
+
+.swal2-popup.swal2-modal {
+  @include media-breakpoint-up(lg) {
+    margin-top: 11% !important;
+  }
+
+  .swal2-content {
+    color: #212529;
+    font-size: 1rem !important;
+  }
+}

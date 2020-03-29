@@ -24,6 +24,12 @@ i18next.init({
   resources: {
     en: {
       translation: {
+        // Success messages
+        'success__updated': 'Updated successfully!',
+        'success__login': 'Logged in successfully!',
+        // Error messages
+        'errors__invalid_credentials': 'Invalid credentials, please try again!',
+        'errors__unknown': 'Unknown error, please try again or contact us!',
         // Header
         'header__profile': 'Profile',
         'header__admin_area': 'Admin area',
@@ -46,6 +52,12 @@ i18next.init({
     },
     de: {
       translation: {
+        // Success messages
+        'success__updated': 'Erfolgreich bearbeitet!',
+        'success__login': 'Erfolgreich eingeloggt!',
+        // Error messages
+        'errors__invalid_credentials': 'Ungültige Zugangsdaten, bitte versuchen sie es erneut!',
+        'errors__unknown': 'Unbekannter Fehler, bitte versuchen Sie es erneut oder kontaktieren Sie uns!',
         // Header
         'header__profile': 'Profil',
         'header__admin_area': 'Adminbereich',
