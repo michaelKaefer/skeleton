@@ -4,11 +4,11 @@ import { useTranslation } from 'react-i18next';
 import { Card, Col, Row } from 'react-bootstrap';
 import * as yup from 'yup';
 import { Form, Formik } from 'formik';
-import { AuthenticationContext } from '../Security/AuthenticationContext';
-import flash from '../Components/Flash';
-import SubmitButton from '../Components/SubmitButton';
-import FormField from '../Components/FormField';
-import client from '../Utils/Client';
+import { AuthenticationContext } from '../../Security/AuthenticationContext';
+import flash from '../../Components/Flash';
+import SubmitButton from '../../Components/SubmitButton';
+import FormField from '../../Components/FormField';
+import client from '../../Utils/Client';
 
 export default function Profile() {
   const {t} = useTranslation();
@@ -56,10 +56,10 @@ export default function Profile() {
           <FormField
             name="email"
             type="email"
-            label={t('login__email_label')}
+            label={t('profile__email_label')}
             hasError={formikProps.touched.email && formikProps.errors.email}
             isRequired={true}
-            placeholder="john.doe@example.com"
+            placeholder={t('profile__email_placeholder')}
             autoFocus={true}
           />
 
@@ -68,22 +68,22 @@ export default function Profile() {
               <FormField
                 name="firstName"
                 type="text"
-                label={t('login__first_name_label')}
+                label={t('profile__first_name_label')}
                 hasError={formikProps.touched.firstName &&
                 formikProps.errors.firstName}
                 isRequired={true}
-                placeholder="John"
+                placeholder={t('profile__first_name_placeholder')}
               />
             </Col>
             <Col>
               <FormField
                 name="lastName"
                 type="text"
-                label={t('login__last_name_label')}
+                label={t('profile__last_name_label')}
                 hasError={formikProps.touched.lastName &&
                 formikProps.errors.lastName}
                 isRequired={true}
-                placeholder="Doe"
+                placeholder={t('profile__last_name_placeholder')}
               />
             </Col>
           </Row>

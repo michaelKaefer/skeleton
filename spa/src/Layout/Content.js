@@ -1,3 +1,4 @@
+import './Content.scss';
 import React, { useContext } from 'react';
 import { Redirect, Route, Switch, useParams } from 'react-router-dom';
 import NotFound from '../Pages/NotFound';

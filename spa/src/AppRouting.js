@@ -1,11 +1,20 @@
-import Profile from './Pages/Profile';
-import Login from './Pages/Login';
+import Login from './Pages/Account/Login';
+import Profile from './Pages/Account/Profile';
+import Registration from './Pages/Account/Registration';
 
 export default class AppRouting {
   constructor() {
     this.supportedLocales = new Set(['en', 'de']);
     this.defaultLocale = 'en';
     this.routes = {
+      login: {
+        path: {
+          en: 'login',
+          de: 'login',
+        },
+        component: Login,
+        authorizedRoles: null,
+      },
       profile: {
         path: {
           en: 'profile',
@@ -14,12 +23,12 @@ export default class AppRouting {
         component: Profile,
         authorizedRoles: ['ROLE_USER', 'ROLE_ADMIN'],
       },
-      login: {
+      registration: {
         path: {
-          en: 'login',
-          de: 'login',
+          en: 'registration',
+          de: 'registrierung',
         },
-        component: Login,
+        component: Registration,
         authorizedRoles: null,
       },
     };

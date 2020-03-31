@@ -118,7 +118,7 @@ then
   echo "$OUTPUT"
   exit
 fi
-if OUTPUT="$( yarn start &>./var/.react-yarn-start )"
+if OUTPUT="$( yarn start &>../var/.react-yarn-start & )"
 then
   printf "6/6 Success\n\n"
 else
@@ -141,14 +141,14 @@ printf "\t\t[USER]   \"root\"\n"
 printf "\t\t[PW]     \"\"\n"
 printf "\t\t[DB]     \"skeleton_dev\"\n"
 printf "\tphpMyAdmin:\n"
-printf "\t\t[URL]    http://localhost:8183\n"
+printf "\t\t[URL]    http://localhost:8183/\n"
 printf "\t\t[Server] \"mysql\"\n"
 printf "\t\t[User]   \"root\"\n"
 printf "\t\t[PW]     \"\"\n"
 printf "\tEncore is watching assets:\n"
 printf "\t\t[LOGS]   tail -f ./var/.encore-dev\n"
 printf "\tReact SPA:\n"
-printf "\t\t[URL]    http://localhost:3002//\n"
+printf "\t\t[URL]    http://localhost:3002/\n"
 printf "\t\t[LOGS]   tail -f ./var/.react-yarn-start\n"
 printf "\n"
 
