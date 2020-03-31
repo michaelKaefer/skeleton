@@ -23,3 +23,14 @@
 button:disabled {
   cursor: not-allowed;
 }
+
+.custom-switch {
+  cursor: pointer;
+
+  input,
+  input::before,
+  label,
+  label::before {
+    cursor: pointer;
+  }
+}

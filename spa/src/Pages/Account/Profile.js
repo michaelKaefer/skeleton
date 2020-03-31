@@ -1,7 +1,7 @@
 import './Profile.scss';
-import React, { useContext } from 'react';
+import React, { useContext, useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Card, Col, Row } from 'react-bootstrap';
+import { Card, Col, FormCheck, Row } from 'react-bootstrap';
 import * as yup from 'yup';
 import { Form, Formik } from 'formik';
 import { AuthenticationContext } from '../../Security/AuthenticationContext';
@@ -9,10 +9,12 @@ import flash from '../../Components/Flash';
 import SubmitButton from '../../Components/SubmitButton';
 import FormField from '../../Components/FormField';
 import client from '../../Utils/Client';
+import {useDropzone} from 'react-dropzone'
 
 export default function Profile() {
   const {t} = useTranslation();
   const {user, updateUser} = useContext(AuthenticationContext);
+  const [isOrganization, setIsOrganization] = useState(false);
 
   const validationSchema = yup.object().shape({
     email: yup
@@ -21,12 +23,19 @@ export default function Profile() {
       .max(100, 'Email must be less than 100 characters')
       .required('An email is required'),
     firstName: yup
-      .string()
-      .required('A first name is required'),
+      .string(),
     lastName: yup
-      .string()
-      .required('A last name is required'),
+      .string(),
   });
+
+  const onDrop = useCallback(acceptedFiles => {
+    // Do something with the files
+  }, [])
+  const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
+
+  const toggleIsOrganization = (event) => {
+    setIsOrganization(!isOrganization);
+  };
 
   const onSubmit = async (values, actions) => {
     const url = `${process.env.REACT_APP_API_BASE_URL}${user['@id']}`;
@@ -63,30 +72,66 @@ export default function Profile() {
             autoFocus={true}
           />
 
-          <Row>
-            <Col>
-              <FormField
-                name="firstName"
-                type="text"
-                label={t('profile__first_name_label')}
-                hasError={formikProps.touched.firstName &&
-                formikProps.errors.firstName}
-                isRequired={true}
-                placeholder={t('profile__first_name_placeholder')}
-              />
-            </Col>
-            <Col>
-              <FormField
-                name="lastName"
-                type="text"
-                label={t('profile__last_name_label')}
-                hasError={formikProps.touched.lastName &&
-                formikProps.errors.lastName}
-                isRequired={true}
-                placeholder={t('profile__last_name_placeholder')}
-              />
-            </Col>
-          </Row>
+
+
+
+          <div {...getRootProps()}>
+            <input {...getInputProps()} />
+            {
+              isDragActive ?
+                  <p>Drop the files here ...</p> :
+                  <p>Drag 'n' drop some files here, or click to select files</p>
+            }
+          </div>
+
+
+
+          <div style={{marginBottom: '12px'}}>
+            <FormCheck
+                type="switch"
+                id="is-organization-switch"
+                label={t('profile__is_a_organization_profile')}
+                onClick={toggleIsOrganization}
+            />
+          </div>
+
+          {isOrganization ? (
+              <Row>
+                <Col>
+                  <FormField
+                      name="name"
+                      type="text"
+                      label={t('profile__name_label')}
+                      hasError={formikProps.touched.name &&
+                      formikProps.errors.name}
+                      placeholder={t('profile__name_placeholder')}
+                  />
+                </Col>
+              </Row>
+          ) : (
+              <Row>
+                <Col>
+                  <FormField
+                      name="firstName"
+                      type="text"
+                      label={t('profile__first_name_label')}
+                      hasError={!isOrganization && formikProps.touched.firstName &&
+                      formikProps.errors.firstName}
+                      placeholder={t('profile__first_name_placeholder')}
+                  />
+                </Col>
+                <Col>
+                  <FormField
+                      name="lastName"
+                      type="text"
+                      label={t('profile__last_name_label')}
+                      hasError={!isOrganization && formikProps.touched.lastName &&
+                      formikProps.errors.lastName}
+                      placeholder={t('profile__last_name_placeholder')}
+                  />
+                </Col>
+              </Row>
+          )}
 
           <SubmitButton
             isDisabled={Object.keys(formikProps.errors).length}
