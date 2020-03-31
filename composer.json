@@ -45,6 +45,7 @@
         "twig/string-extra": "^3.0"
     },
     "require-dev": {
+        "api-platform/schema-generator": "^2.2",
         "dama/doctrine-test-bundle": "^6.3",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.14",

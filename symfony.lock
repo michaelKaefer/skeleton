@@ -28,8 +28,17 @@
             "src/Entity/.gitignore"
         ]
     },
+    "api-platform/schema-generator": {
+        "version": "v2.2.2"
+    },
     "behat/transliterator": {
         "version": "v1.3.0"
+    },
+    "composer/semver": {
+        "version": "1.5.1"
+    },
+    "composer/xdebug-handler": {
+        "version": "1.4.1"
     },
     "dama/doctrine-test-bundle": {
         "version": "4.0",
@@ -147,11 +156,26 @@
             "config/routes/easy_admin.yaml"
         ]
     },
+    "easyrdf/easyrdf": {
+        "version": "0.9.1"
+    },
     "egulias/email-validator": {
         "version": "2.1.17"
     },
     "fig/link-util": {
         "version": "1.1.0"
+    },
+    "friendsofphp/php-cs-fixer": {
+        "version": "2.2",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "2.2",
+            "ref": "cc05ab6abf6894bddb9bbd6a252459010ebe040b"
+        },
+        "files": [
+            ".php_cs.dist"
+        ]
     },
     "fzaninotto/faker": {
         "version": "v1.9.1"
@@ -178,6 +202,9 @@
     },
     "league/flysystem": {
         "version": "1.0.65"
+    },
+    "league/html-to-markdown": {
+        "version": "4.9.1"
     },
     "lorenzo/pinky": {
         "version": "1.0.5"
@@ -239,6 +266,9 @@
     },
     "php": {
         "version": "7.2"
+    },
+    "php-cs-fixer/diff": {
+        "version": "v1.3.0"
     },
     "php-webdriver/webdriver": {
         "version": "1.8.2"
