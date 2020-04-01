@@ -23,9 +23,6 @@ class ProfileFormType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class)
-            ->add('firstName')
-            ->add('lastName')
-            ->add('country', CountryType::class)
             ->add('receivesNewsletter', CheckboxType::class, [
                 'required' => false,
             ])

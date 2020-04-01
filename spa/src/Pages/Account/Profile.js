@@ -1,5 +1,5 @@
 import './Profile.scss';
-import React, { useContext, useState, useCallback } from 'react';
+import React, { useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Card, Col, FormCheck, Row } from 'react-bootstrap';
 import * as yup from 'yup';
@@ -9,7 +9,7 @@ import flash from '../../Components/Flash';
 import SubmitButton from '../../Components/SubmitButton';
 import FormField from '../../Components/FormField';
 import client from '../../Utils/Client';
-import {useDropzone} from 'react-dropzone'
+import '../../Utils/Dropzone';
 
 export default function Profile() {
   const {t} = useTranslation();
@@ -27,11 +27,6 @@ export default function Profile() {
     lastName: yup
       .string(),
   });
-
-  const onDrop = useCallback(acceptedFiles => {
-    // Do something with the files
-  }, [])
-  const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
 
   const toggleIsOrganization = (event) => {
     setIsOrganization(!isOrganization);
@@ -71,20 +66,6 @@ export default function Profile() {
             placeholder={t('profile__email_placeholder')}
             autoFocus={true}
           />
-
-
-
-
-          <div {...getRootProps()}>
-            <input {...getInputProps()} />
-            {
-              isDragActive ?
-                  <p>Drop the files here ...</p> :
-                  <p>Drag 'n' drop some files here, or click to select files</p>
-            }
-          </div>
-
-
 
           <div style={{marginBottom: '12px'}}>
             <FormCheck
@@ -146,9 +127,25 @@ export default function Profile() {
   return (
     <Card className="main-page-content shadow">
       <Card.Body>
-        <h1 className="h5 card-title">
-          {t('profile__heading')}
-        </h1>
+        <Row>
+          <Col sm="6">
+            <h1 className="h5 card-title">
+              {t('profile__heading')}
+            </h1>
+          </Col>
+          <Col>
+            <form
+                action={process.env.REACT_APP_UPLOAD_URL}
+                method="POST"
+                encType="multipart/form-data"
+                className="dropzone avatar"
+            >
+              <input type="hidden" name="resource" value="user" />
+              <input type="hidden" name="property" value="avatar" />
+              <input type="hidden" name="id" value={user.id} />
+            </form>
+          </Col>
+        </Row>
 
         {form}
       </Card.Body>

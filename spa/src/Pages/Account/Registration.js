@@ -1,6 +1,6 @@
 import './Registration.scss';
 import React from 'react';
-import { Card, Col, Row } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
 import client from '../../Utils/Client';
@@ -28,7 +28,7 @@ export default function Registration() {
     const url = `${process.env.REACT_APP_API_BASE_URL}${process.env.REACT_APP_API_URL_PATH}/users`;
 
     try {
-      const { payload } = await client.post(url, values);
+      await client.post(url, values);
       flash.success(t('success__registration'));
     } catch (e) {
       actions.setSubmitting(false);

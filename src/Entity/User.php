@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -68,27 +70,6 @@ class User extends BaseEntity implements UserInterface
     private $avatar;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank()
-     * @Groups({"user"})
-     */
-    private $firstName;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank()
-     * @Groups({"user"})
-     */
-    private $lastName;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank()
-     * @Groups({"user"})
-     */
-    private $country;
-
-    /**
      * @ORM\Column(type="boolean")
      * @Groups({"user"})
      */
@@ -134,9 +115,19 @@ class User extends BaseEntity implements UserInterface
      */
     private $passwordResetTokenExpiresAt;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Person", cascade={"persist", "remove"})
+     */
+    private $person;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Organization", inversedBy="user", cascade={"persist", "remove"})
+     */
+    private $organization;
+
     public function __toString(): string
     {
-        return sprintf('%s %s', $this->firstName, $this->lastName);
+        return $this->email;
     }
 
     public function getId(): ?int
@@ -232,42 +223,6 @@ class User extends BaseEntity implements UserInterface
     public function getAvatarUrl(): ?string
     {
         return self::RELATIVE_PATH_TO_UPLOADED_AVATARS . $this->avatar;
-    }
-
-    public function getFirstName(): ?string
-    {
-        return $this->firstName;
-    }
-
-    public function setFirstName(string $firstName): self
-    {
-        $this->firstName = $firstName;
-
-        return $this;
-    }
-
-    public function getLastName(): ?string
-    {
-        return $this->lastName;
-    }
-
-    public function setLastName(string $lastName): self
-    {
-        $this->lastName = $lastName;
-
-        return $this;
-    }
-
-    public function getCountry(): ?string
-    {
-        return $this->country;
-    }
-
-    public function setCountry(string $country): self
-    {
-        $this->country = $country;
-
-        return $this;
     }
 
     public function getReceivesNewsletter(): ?bool
@@ -386,6 +341,30 @@ class User extends BaseEntity implements UserInterface
     public function setPasswordResetTokenExpiresAt(?\DateTimeInterface $passwordResetTokenExpiresAt): self
     {
         $this->passwordResetTokenExpiresAt = $passwordResetTokenExpiresAt;
+
+        return $this;
+    }
+
+    public function getPerson(): ?Person
+    {
+        return $this->person;
+    }
+
+    public function setPerson(?Person $person): self
+    {
+        $this->person = $person;
+
+        return $this;
+    }
+
+    public function getOrganization(): ?Organization
+    {
+        return $this->organization;
+    }
+
+    public function setOrganization(?Organization $organization): self
+    {
+        $this->organization = $organization;
 
         return $this;
     }

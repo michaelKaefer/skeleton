@@ -39,9 +39,6 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('firstName')
-            ->add('lastName')
-            ->add('country', CountryType::class)
             ->add('agreeToTermsAndDataPrivacy', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
