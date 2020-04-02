@@ -135,14 +135,15 @@ export default function Profile() {
           </Col>
           <Col>
             <form
-                action={process.env.REACT_APP_UPLOAD_URL}
+                action={process.env.REACT_APP_UPLOAD_PUBLIC_FILE_URL}
                 method="POST"
                 encType="multipart/form-data"
                 className="dropzone avatar"
             >
-              <input type="hidden" name="resource" value="user" />
-              <input type="hidden" name="property" value="avatar" />
+              <input type="hidden" name="entity" value="App\Entity\User" />
               <input type="hidden" name="id" value={user.id} />
+              <input type="hidden" name="getter" value="getAvatar" />
+              <input type="hidden" name="setter" value="setAvatar" />
             </form>
           </Col>
         </Row>
