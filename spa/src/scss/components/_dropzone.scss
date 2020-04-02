@@ -5,12 +5,11 @@
 form.dropzone {
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
+  min-height: 0;
+  width: 240px;
 
-  //&.avatar {
-  //  @include media-breakpoint-up(sm) {
-  //    float: right;
-  //    width: 40%;
-  //  }
-  //}
+  .dz-default {
+    margin: 0;
+  }
 }

@@ -27,6 +27,7 @@ i18next.init({
         // Success messages
         'success__updated': 'Updated successfully!',
         'success__login': 'Logged in successfully!',
+        'success__file_uploaded': 'File uploaded successfully!',
         // Error messages
         'errors__invalid_credentials': 'Invalid credentials, please try again!',
         'errors__unknown': 'Unknown error, please try again or contact us!',
@@ -45,9 +46,17 @@ i18next.init({
         // Profile
         'profile__heading': 'Profile',
         'profile__go_to_registration': 'Go to registration',
-        'login__first_name_label': 'First name',
-        'login__last_name_label': 'Last name',
         'profile__save_button_label': 'Save',
+        'profile__upload_avatar': 'Upload new profile image',
+        'profile__email_label': 'Email',
+        'profile__email_placeholder': 'john.doe@example.com',
+        'profile__is_a_organization_profile': 'Company profile',
+        'profile__name_label': 'Name',
+        'profile__name_placeholder': 'Acme Inc.',
+        'profile__first_name_label': 'First name',
+        'profile__first_name_placeholder': 'John',
+        'profile__last_name_label': 'Last name',
+        'profile__last_name_placeholder': 'Doe',
       },
     },
     de: {
@@ -55,6 +64,7 @@ i18next.init({
         // Success messages
         'success__updated': 'Erfolgreich bearbeitet!',
         'success__login': 'Erfolgreich eingeloggt!',
+        'success__file_uploaded': 'Datei erfolgreich hochgeladen!',
         // Error messages
         'errors__invalid_credentials': 'Ungültige Zugangsdaten, bitte versuchen sie es erneut!',
         'errors__unknown': 'Unbekannter Fehler, bitte versuchen Sie es erneut oder kontaktieren Sie uns!',
@@ -73,9 +83,17 @@ i18next.init({
         // Profile
         'profile__heading': 'Profil',
         'profile__go_to_registration': 'Zur Registrierung',
-        'login__first_name_label': 'Vorname',
-        'login__last_name_label': 'Nachname',
         'profile__save_button_label': 'Speichern',
+        'profile__upload_avatar': 'Neues Profilbild hochladen',
+        'profile__email_label': 'E-Mail',
+        'profile__email_placeholder': 'max.mustermann@example.com',
+        'profile__is_a_organization_profile': 'Firmenprofil',
+        'profile__name_label': 'Name',
+        'profile__name_placeholder': 'Firma GmbH',
+        'profile__first_name_label': 'Vorname',
+        'profile__first_name_placeholder': 'Max',
+        'profile__last_name_label': 'Nachname',
+        'profile__last_name_placeholder': 'Mustermann',
       },
     },
   },

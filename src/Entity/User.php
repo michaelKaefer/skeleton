@@ -61,13 +61,17 @@ class User extends BaseEntity implements UserInterface
      */
     private $confirmationToken;
 
-    /**
-     * Filename of the uploaded avatar image without the path to the file
-     *
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"user"})
-     */
-    private $avatar;
+	/**
+	 * Filename of the uploaded avatar image without the path to the file
+	 *
+	 * @ORM\OneToOne(targetEntity="App\Entity\File", cascade={"persist", "remove"})
+	 */
+	private $avatar;
+
+	/**
+	 * @Groups({"user"})
+	 */
+	private $avatarUrl;
 
     /**
      * @ORM\Column(type="boolean")
@@ -208,21 +212,29 @@ class User extends BaseEntity implements UserInterface
         // $this->plainPassword = null;
     }
 
-    public function getAvatar(): ?string
+	public function getAvatar(): ?File
+	{
+		return $this->avatar;
+	}
+
+	public function setAvatar(?File $avatar): self
+	{
+		$this->avatar = $avatar;
+
+		return $this;
+	}
+
+	public function getAvatarUrl(): ?string
     {
-        return $this->avatar;
+    	if (null === $this->avatar) {
+    		return null;
+	    }
+        return $this->getAvatarRelativePath() . $this->getAvatar()->getName();
     }
 
-    public function setAvatar(?string $avatar): self
+	public function getAvatarRelativePath(): string
     {
-        $this->avatar = $avatar;
-
-        return $this;
-    }
-
-    public function getAvatarUrl(): ?string
-    {
-        return self::RELATIVE_PATH_TO_UPLOADED_AVATARS . $this->avatar;
+        return self::RELATIVE_PATH_TO_UPLOADED_AVATARS;
     }
 
     public function getReceivesNewsletter(): ?bool

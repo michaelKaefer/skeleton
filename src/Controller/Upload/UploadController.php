@@ -3,12 +3,14 @@
 namespace App\Controller\Upload;
 
 use App\Controller\BaseController;
+use App\Entity\File;
 use App\Entity\User;
 use App\Service\FileUploader\FileUploader;
 use App\Service\FileUploader\PublicFilesUploader;
 use Exception;
 use League\Flysystem\FileExistsException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class UploadController extends BaseController
 {
 	/**
-	 * @Route("/public-file-upload", name="upload", methods={"POST", "GET"})
+	 * @Route("/public-file-upload", name="public_file_upload", methods={"POST", "GET"})
 	 * @param Request $request
 	 *
 	 * @param PublicFilesUploader $uploader
@@ -34,7 +36,7 @@ class UploadController extends BaseController
 	}
 
 	/**
-	 * @Route("/public-files-upload", name="upload", methods={"POST", "GET"})
+	 * @Route("/public-files-upload", name="public_files_upload", methods={"POST", "GET"})
 	 * @param Request $request
 	 *
 	 * @return Response
@@ -47,20 +49,27 @@ class UploadController extends BaseController
 		$em = $this->getDoctrine()->getManagerForClass($entity);
 		$entity = $em->find($entity, $id);
 
-		/** @var UploadedFile $file */
-		foreach ($request->files->all() as $file) {
-			$filename = $uploader->upload(
-				User::RELATIVE_PATH_TO_UPLOADED_AVATARS,
-				$file,
-				$entity->$getter()
-			);
-			$entity->$setter($filename);
+		$relativePath = $entity->{$getter.'RelativePath'}(); // e.g.: $user->getAvatarRelativePath()
+		$previousFile = null;
+		/** @var File $previousFile */
+		if (null !== $previousFile = $entity->$getter()) {
+			$fileToReplace = $previousFile->getName();
+		}
+
+		/** @var UploadedFile $uploadedFile */
+		foreach ($request->files->all() as $uploadedFile) {
+			$filename = $uploader->upload($relativePath, $uploadedFile, $fileToReplace);
+
+			$file = (new File())->setName($filename)->setSize($uploadedFile->getSize());
+			$entity->$setter($file);
 		}
 
 		$em->persist($entity);
 		$em->flush();
 
-		return new Response(null, 204, [
+		return new JsonResponse([
+			'url' => $entity->{$getter.'Url'}(),
+		], 201, [
 			'Access-Control-Allow-Origin' => '*',
 		]);
 	}

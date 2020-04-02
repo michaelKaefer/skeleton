@@ -1,4 +1,12 @@
 api_platform:
+    # The title of the API.
+    title: 'Skeleton API'
+    # The description of the API.
+    description: 'API for Skeleton.'
+    # The version of the API.
+    version: '1.0.0'
+    # Set this to false if you want Webby to disappear.
+    show_webby: false
     mapping:
         paths: ['%kernel.project_dir%/src/Entity']
     patch_formats:

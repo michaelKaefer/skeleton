@@ -1,1 +1,27 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins/breakpoints";
 
+.main-page-content {
+  .card-body .row {
+    @include media-breakpoint-down(xs) {
+      flex-wrap: wrap-reverse;
+    }
+  }
+}
+
+.avatar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: $light;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+
+  img {
+    max-height: 208px;
+    max-width: 240px;
+    margin: 8px;
+    border-radius: 4px;
+  }
+}

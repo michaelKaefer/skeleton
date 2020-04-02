@@ -28,8 +28,14 @@ function App(params) {
   }
 
   function updateUser(user) {
-    localStorage.setItem('user', JSON.stringify(user));
-    setUser(user);
+    // Create a clone because otherwise React does not update if one property was changed, Todo: find a better solution to this problem
+    let clone = user.constructor();
+    for (let attr in user) {
+      if (user.hasOwnProperty(attr)) clone[attr] = user[attr];
+    }
+
+    localStorage.setItem('user', JSON.stringify(clone));
+    setUser(clone);
   }
 
   async function logoutUser(user) {
