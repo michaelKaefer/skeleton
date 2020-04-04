@@ -1,5 +1,6 @@
 import './DocumentLanguage.scss';
 import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 
 export default function DocumentLanguage() {
   const { locale } = useParams();
@@ -8,7 +9,9 @@ export default function DocumentLanguage() {
     throw Error('The current route does not contain a locale parameter.');
   }
 
-  document.documentElement.lang = locale;
+  useEffect(() => {
+    document.documentElement.lang = locale;
+  });
 
   return null;
 }

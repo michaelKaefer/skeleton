@@ -32,21 +32,21 @@ abstract class FileUploader
      *
      * @throws FileExistsException
      */
-    public function upload(string $relativeDestinationPath, File $file, ?string $fileToReplace)
+    public function upload(string $relativeDestinationPath, File $file, ?string $fileToReplace): array
     {
         $relativeDestinationPath = rtrim($relativeDestinationPath, '/');
 
-        $filename = $this->createFilename($file);
+	    [$nameWithoutExtension, $extension] = $this->createFilename($file);
 
         $stream = fopen($file->getPathname(), 'r');
 
         $status = $this->filesystem->writeStream(
-            $relativeDestinationPath . '/' . $filename,
+            sprintf('%s/%s.%s', $relativeDestinationPath, $nameWithoutExtension, $extension),
             $stream
         );
 
         if (false === $status) {
-            throw new \RuntimeException(sprintf('Could not create file "%s".', $filename));
+            throw new \RuntimeException(sprintf('Could not create file "%s.%s".', $nameWithoutExtension, $extension));
         }
 
         // Not all flysystem adapters close the stream
@@ -59,10 +59,10 @@ abstract class FileUploader
         }
 
         // Return the filename without the path so that e.g. it can be stored on an entity
-        return $filename;
+        return [$nameWithoutExtension, $extension];
     }
 
-    private function createFilename(File $file): string
+    private function createFilename(File $file): array
     {
         if ($file instanceof UploadedFile) {
             $originalFilename = $file->getClientOriginalName();
@@ -75,7 +75,7 @@ abstract class FileUploader
         $originalFilenameWithoutExtension = pathinfo($originalFilename, PATHINFO_FILENAME);
 
         // Remove characters to create a safe name
-        $name = transliterator_transliterate(
+        $nameWithoutExtension = transliterator_transliterate(
             'Any-Latin; Latin-ASCII; [^A-Za-z0-9_] remove; Lower()',
             $originalFilenameWithoutExtension
         );
@@ -90,7 +90,7 @@ abstract class FileUploader
 
         $hash = uniqid();
 
-        return "$name-$hash.$extension";
+        return ["$nameWithoutExtension-$hash", $extension];
     }
 
     private function deleteFile(string $relativePath, string $filename)

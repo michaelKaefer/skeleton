@@ -1,3 +1,4 @@
+import './SubmitButton.scss';
 import Button from 'react-bootstrap/Button';
 import { Spinner } from 'react-bootstrap';
 import React from 'react';

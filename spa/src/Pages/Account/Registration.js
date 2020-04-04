@@ -1,6 +1,6 @@
 import './Registration.scss';
-import React from 'react';
-import { Card } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Card, Col, FormCheck, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
 import client from '../../Utils/Client';
@@ -48,23 +48,29 @@ export default function Registration() {
       >
         {formikProps => (
             <Form>
-              <FormField
-                  name="email"
-                  type="email"
-                  label={t('registration__email_label')}
-                  hasError={formikProps.touched.email && formikProps.errors.email}
-                  isRequired={true}
-                  placeholder={t('registration__email_placeholder')}
-                  autoFocus={true}
-              />
-              <FormField
-                  name="password"
-                  type="password"
-                  label={t('login__password_label')}
-                  hasError={formikProps.touched.password &&
-                  formikProps.errors.password}
-                  isRequired={true}
-              />
+              <Row>
+                <Col lg="6">
+                  <FormField
+                      name="email"
+                      type="email"
+                      label={t('registration__email_label')}
+                      hasError={formikProps.touched.email && formikProps.errors.email}
+                      isRequired={true}
+                      placeholder={t('registration__email_placeholder')}
+                      autoFocus={true}
+                  />
+                </Col>
+                <Col lg="6">
+                  <FormField
+                      name="password"
+                      type="password"
+                      label={t('registration__password_label')}
+                      hasError={formikProps.touched.password &&
+                      formikProps.errors.password}
+                      isRequired={true}
+                  />
+                </Col>
+              </Row>
 
               <SubmitButton
                   isDisabled={Object.keys(formikProps.errors).length}

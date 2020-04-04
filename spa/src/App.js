@@ -58,7 +58,6 @@ function App(params) {
 
     localStorage.removeItem('user');
     setUser(null);
-    console.log('Logged out');
   }
 
   return (

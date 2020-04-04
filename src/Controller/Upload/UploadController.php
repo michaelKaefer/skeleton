@@ -39,8 +39,10 @@ class UploadController extends BaseController
 	 * @Route("/public-files-upload", name="public_files_upload", methods={"POST", "GET"})
 	 * @param Request $request
 	 *
+	 * @param PublicFilesUploader $uploader
+	 *
 	 * @return Response
-	 * @throws Exception
+	 * @throws FileExistsException
 	 */
 	public function uploadPublicFiles(Request $request, PublicFilesUploader $uploader): Response
 	{
@@ -50,7 +52,7 @@ class UploadController extends BaseController
 		$entity = $em->find($entity, $id);
 
 		$relativePath = $entity->{$getter.'RelativePath'}(); // e.g.: $user->getAvatarRelativePath()
-		$previousFile = null;
+		$fileToReplace = null;
 		/** @var File $previousFile */
 		if (null !== $previousFile = $entity->$getter()) {
 			$fileToReplace = $previousFile->getName();
@@ -58,9 +60,13 @@ class UploadController extends BaseController
 
 		/** @var UploadedFile $uploadedFile */
 		foreach ($request->files->all() as $uploadedFile) {
-			$filename = $uploader->upload($relativePath, $uploadedFile, $fileToReplace);
+			[$nameWithoutExtension, $extension] = $uploader->upload($relativePath, $uploadedFile, $fileToReplace);
 
-			$file = (new File())->setName($filename)->setSize($uploadedFile->getSize());
+			$file = (new File())
+				->setNameWithoutExtension($nameWithoutExtension)
+				->setExtension($extension)
+				->setOriginalNameWithoutExtension(pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_BASENAME))
+				->setSize($uploadedFile->getSize());
 			$entity->$setter($file);
 		}
 

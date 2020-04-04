@@ -28,6 +28,9 @@ class User extends BaseEntity implements UserInterface
 
     const RELATIVE_PATH_TO_UPLOADED_AVATARS = 'avatars/';
 
+	const TYPE_PERSON = 'PERSON';
+	const TYPE_ORGANIZATION = 'ORGANIZATION';
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -118,6 +121,12 @@ class User extends BaseEntity implements UserInterface
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $passwordResetTokenExpiresAt;
+
+	/**
+	 * @ORM\Column(type="string", length=30)
+	 * @Groups({"user"})
+	 */
+	private $type = 'PERSON';
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Person", cascade={"persist", "remove"})
@@ -213,29 +222,29 @@ class User extends BaseEntity implements UserInterface
     }
 
 	public function getAvatar(): ?File
-	{
-		return $this->avatar;
-	}
+    {
+        return $this->avatar;
+    }
 
 	public function setAvatar(?File $avatar): self
-	{
-		$this->avatar = $avatar;
+    {
+        $this->avatar = $avatar;
 
-		return $this;
-	}
+        return $this;
+    }
 
 	public function getAvatarUrl(): ?string
-    {
-    	if (null === $this->avatar) {
-    		return null;
-	    }
-        return $this->getAvatarRelativePath() . $this->getAvatar()->getName();
-    }
+	{
+		if (null === $this->avatar) {
+			return null;
+		}
+		return $this->getAvatarRelativePath() . $this->getAvatar()->getName();
+	}
 
 	public function getAvatarRelativePath(): string
-    {
-        return self::RELATIVE_PATH_TO_UPLOADED_AVATARS;
-    }
+	{
+		return self::RELATIVE_PATH_TO_UPLOADED_AVATARS;
+	}
 
     public function getReceivesNewsletter(): ?bool
     {
@@ -356,6 +365,18 @@ class User extends BaseEntity implements UserInterface
 
         return $this;
     }
+
+	public function getType(): ?string
+	{
+		return $this->type;
+	}
+
+	public function setType(string $type): self
+	{
+		$this->type = $type;
+
+		return $this;
+	}
 
     public function getPerson(): ?Person
     {
