@@ -65,7 +65,7 @@ export default function Header( {routing} ) {
                 <a className="nav-link dropdown-toggle" href="###"
                    id="navbarDropdown" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
-                  {user.firstName} {user.lastName}&nbsp;&nbsp;<FontAwesomeIcon
+                  {user.firstName} {user.lastName} {user.email}&nbsp;&nbsp;<FontAwesomeIcon
                     icon={faUser}/>
                 </a>
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">

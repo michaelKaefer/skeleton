@@ -4,9 +4,10 @@
 
 {% block body %}
     <p>
+{#        // Todo hanlde organizations and confirmation mail where there is no name at all#}
         {{ 'salutation'|trans({
-            '%first_name%': user.firstName,
-            '%last_name%': user.lastName,
+            '%first_name%': user.firstName ?? '',
+            '%last_name%': user.lastName ?? '',
         })|raw }}
     </p>
 

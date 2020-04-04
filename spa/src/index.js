@@ -31,11 +31,26 @@ i18next.init({
         // Error messages
         'errors__invalid_credentials': 'Invalid credentials, please try again!',
         'errors__unknown': 'Unknown error, please try again or contact us!',
+        'form_error__email_invalid': 'Must be a valid email address',
+        'form_error__email_less_than_100_characters': 'Email must be less than 100 characters',
+        'form_error__email_required': 'An email is required',
+        'form_error__password_minimum_6_characters': 'Password must have at least 6 characters',
+        'form_error__password_required': 'A password is required',
+        'form_error__agree_terms_and_data_privacy_required': 'The terms and the data privacy must be accepted.',
         // Header
         'header__profile': 'Profile',
         'header__admin_area': 'Admin area',
         'header__logout': 'Logout',
         'header__choose_language': 'Language',
+        // Registration
+        'registration__heading': 'Registration',
+        'registration__go_to_login': 'Got to login',
+        'registration__email_label': 'Email',
+        'registration__email_placeholder': 'john.doe@example.com',
+        'registration__password_label': 'Password',
+        'registration__agree_terms_and_data_privacy_label': 'I have read and accepted the <a href="{{ terms_url }}">commercial terms and conditions</a> and the <a href="{{ data_privacy_url }}">privacy policy</a>.',
+        'registration__newsletter_label': 'I want to subscribe to the newsletter.',
+        'registration__save_button_label': 'Register',
         // Login
         'login__heading': 'Login',
         'login__go_to_registration': 'Go to registration',
@@ -68,11 +83,26 @@ i18next.init({
         // Error messages
         'errors__invalid_credentials': 'Ungültige Zugangsdaten, bitte versuchen sie es erneut!',
         'errors__unknown': 'Unbekannter Fehler, bitte versuchen Sie es erneut oder kontaktieren Sie uns!',
+        'form_error__email_invalid': 'Die eingegebene E-Mail-Adresse ist ungültig.',
+        'form_error__email_less_than_100_characters': 'Die E-Mail-Adresse muss darf maximal 99 Zeichen lang sein.',
+        'form_error__email_required': 'Es muss eine E-Mail-Adresse angegeben werden.',
+        'form_error__password_minimum_6_characters': 'Das Passwort muss mindestens 6 Zeichen lang sein.',
+        'form_error__password_required': 'Es muss ein Passwort eingegeben werden.',
+        'form_error__agree_terms_and_data_privacy_required': 'Die AGB und die Datenschutzbestimmungen müssen akzeptiert werden..',
         // Header
         'header__profile': 'Profil',
         'header__admin_area': 'Adminbereich',
         'header__logout': 'Logout',
         'header__choose_language': 'Sprache',
+        // Registration
+        'registration__heading': 'Registrierung',
+        'registration__go_to_login': 'Zum Login',
+        'registration__email_label': 'E-Mail',
+        'registration__email_placeholder': 'max.mustermann@example.com',
+        'registration__password_label': 'Passwort',
+        'registration__agree_terms_and_data_privacy_label': 'Ich habe sowohl die <a href="{{ terms_url }}">AGB</a> als auch die <a href="{{ data_privacy_url }}">Datenschutzbestimmungen</a> gelesen und akzeptiere sie.',
+        'registration__newsletter_label': 'Ich melde mich für den Newsletter an.',
+        'registration__save_button_label': 'Registrieren',
         // Login
         'login__heading': 'Login',
         'login__go_to_registration': 'Zur Registrierung',

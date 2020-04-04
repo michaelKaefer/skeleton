@@ -1,3 +1,6 @@
+App\Entity\Organization:
+    acme_inc:
+        name: 'Acme Inc.'
 App\Entity\Person:
     john_doe:
         firstName: 'John'
