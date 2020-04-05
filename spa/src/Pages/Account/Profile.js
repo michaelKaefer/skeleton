@@ -165,6 +165,11 @@ export default function Profile() {
 
   return (
     <Card className="main-page-content shadow">
+
+
+      {console.log(client.get(`${process.env.REACT_APP_API_BASE_URL}/api/users/1`))} // Todo remove tis as it is for debugging login
+
+
       <Card.Body>
         <h1 className="h5 card-title">
           <FontAwesomeIcon icon={faUser}/> <span>{t('profile__heading')}</span>

@@ -67,6 +67,7 @@ class RegistrationController extends BaseController
             'form' => $form->createView(),
         ]);
     }
+
 	/**
 	 * @Route("/api-register", name="api_registration", methods={"POST"})
 	 * @param Request $request
@@ -75,9 +76,9 @@ class RegistrationController extends BaseController
 	 * @param TokenGeneratorInterface $tokenGenerator
 	 * @param LoginFormAuthenticator $authenticator
 	 * @param MailerInterface $mailer
+	 * @param IriConverterInterface $iriConverter
 	 *
 	 * @return Response
-	 * @throws TransportExceptionInterface
 	 */
 	public function apiRegister(
 		Request $request,

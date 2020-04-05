@@ -28,9 +28,6 @@
 //   </div>
 // </div>\
 // `;
-import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
 
 // <FontAwesomeIcon className="text-danger" icon={faTimesCircle}/>
 const previewTemplate = `\

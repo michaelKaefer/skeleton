@@ -1,6 +1,6 @@
 import './Registration.scss';
-import React, { useContext, useState } from 'react';
-import { Card, Col, FormCheck, Row } from 'react-bootstrap';
+import React, { useContext } from 'react';
+import { Card, Col, Row } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
 import client from '../../Utils/Client';

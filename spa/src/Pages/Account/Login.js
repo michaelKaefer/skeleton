@@ -50,6 +50,16 @@ export default function Login({ routing }) {
       return;
     }
 
+
+
+
+
+    const { payload } = await client.get('https://127.0.0.1:3000/en/debug');
+    console.log(location, payload);
+    return;
+
+
+
     // Get user info
     const url = `${process.env.REACT_APP_API_BASE_URL}${location}`;
     try {

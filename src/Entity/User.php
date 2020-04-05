@@ -18,6 +18,7 @@ use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
  * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false, hardDelete=true)
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  * @ApiResource(
+ *     attributes={"security"="is_granted('ROLE_ADMIN') or (is_granted('ROLE_USER') and object == user)"},
  *     normalizationContext={"groups"={"user"}},
  *     denormalizationContext={"groups"={"user"}}
  * )

@@ -13,16 +13,23 @@ class UnauthorizedError extends Error {
 }
 
 class Client {
+  constructor() {
+    this.defaultOptions = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    }
+  }
+
   async get(url) {
     let response;
     let payload;
 
     try {
       response = await fetch(url, {
+        ...this.defaultOptions,
         method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
       });
       payload = await response.json();
     } catch (e) {
@@ -41,10 +48,8 @@ class Client {
 
     try {
       response = await fetch(url, {
+        ...this.defaultOptions,
         method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/merge-patch+json',
-        },
         body: JSON.stringify(data),
       });
       payload = await response.json();
@@ -65,9 +70,7 @@ class Client {
     try {
       response = await fetch(url, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        ...this.defaultOptions,
         body: JSON.stringify(data),
       });
       payload = await response.json();
