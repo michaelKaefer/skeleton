@@ -45,7 +45,7 @@ export default function Registration({ routing }) {
       flash.error(t('errors__unknown'));
     }
 
-    // Get user info
+    // Get user info and login user
     const url = `${process.env.REACT_APP_API_BASE_URL}${location}`;
     try {
       const { payload } = await client.get(url);
@@ -53,7 +53,6 @@ export default function Registration({ routing }) {
       // Login user in React
       loginUser(payload); // The payload only contains the user object
       actions.setSubmitting(false);
-      flash.success(t('success__login'));
       history.push(routing.getRelativeUrl(locale, 'profile'));
     }
     catch (e) {

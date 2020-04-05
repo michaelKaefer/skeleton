@@ -1,7 +1,7 @@
 import './Profile.scss';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Card, Col, FormCheck, Row } from 'react-bootstrap';
+import { Alert, Card, Col, FormCheck, Row } from 'react-bootstrap';
 import * as yup from 'yup';
 import { Form, Formik } from 'formik';
 import { AuthenticationContext } from '../../Security/AuthenticationContext';
@@ -10,8 +10,7 @@ import SubmitButton from '../../Components/SubmitButton';
 import FormField from '../../Components/FormField';
 import client from '../../Utils/Client';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faUser} from '@fortawesome/free-solid-svg-icons';
-// import 'dropzone/dist/dropzone.css';
+import {faUser, faExclamation} from '@fortawesome/free-solid-svg-icons';
 import Dropzone from 'dropzone';
 import dropzoneConfiguration from '../../Configuration/DropzoneConfiguration';
 Dropzone.autoDiscover = false;
@@ -52,34 +51,28 @@ export default function Profile() {
 
   const dropzoneElement = useRef(null);
   dropzoneConfiguration.setDescription(t('profile__upload_avatar'));
-  console.log(dropzoneConfiguration.get());
   useEffect(() => {
-    new Dropzone(dropzoneElement.current, {
-      ...dropzoneConfiguration.get(),
-      init: function() {
-        this.on('error', (file, data) => {
-          if (data.detail) {
-            this.emit('error', file, data.detail);
-          }
-          flash.error(t('error__file_upload'));
-        });
-        this.on('success', async (file, data) => {
-          const { url } = data;
-
-          // eslint-disable-next-line react-hooks/exhaustive-deps
-          user.avatarUrl = url;
-          // eslint-disable-next-line react-hooks/exhaustive-deps
-          updateUser(user);
-
-          // eslint-disable-next-line react-hooks/exhaustive-deps
-          flash.success(t('success__file_uploaded'));
-
-          this.removeFile(file);
-
-        });
-      }
-    });
-  }, []);
+    if (!user.confirmationTokenWasSent) {
+      new Dropzone(dropzoneElement.current, {
+        ...dropzoneConfiguration.get(),
+        init: function() {
+          this.on('error', (file, data) => {
+            if (data.detail) {
+              this.emit('error', file, data.detail);
+            }
+            flash.error(t('error__file_upload'));
+          });
+          this.on('success', async (file, data) => {
+            const { url } = data;
+            user.avatarUrl = url;
+            updateUser(user);
+            flash.success(t('success__file_uploaded'));
+            this.removeFile(file);
+          });
+        }
+      });
+    }
+  }, [t, updateUser, user]);
 
   const form = (
     <Formik
@@ -165,11 +158,6 @@ export default function Profile() {
 
   return (
     <Card className="main-page-content shadow">
-
-
-      {console.log(client.get(`${process.env.REACT_APP_API_BASE_URL}/api/users/1`))} // Todo remove tis as it is for debugging login
-
-
       <Card.Body>
         <h1 className="h5 card-title">
           <FontAwesomeIcon icon={faUser}/> <span>{t('profile__heading')}</span>
@@ -178,32 +166,37 @@ export default function Profile() {
         <hr />
         <br />
 
-        <Row>
-          <Col sm="6" lg="8">
-            {form}
-          </Col>
-          <Col sm="6" lg="4">
-            <div className="avatar">
-              <img
-                  src={`${process.env.REACT_APP_PUBLIC_UPLOADS_BASE_URL}/${user.avatarUrl}`}
-                  alt="Avatar"
-              />
-              <form
-                  action={process.env.REACT_APP_UPLOAD_PUBLIC_FILE_URL}
-                  method="POST"
-                  encType="multipart/form-data"
-                  className="dropzone avatar"
-                  ref={dropzoneElement}
-              >
-                <input type="hidden" name="entity" value="App\Entity\User" />
-                <input type="hidden" name="id" value={user.id} />
-                <input type="hidden" name="getter" value="getAvatar" />
-                <input type="hidden" name="setter" value="setAvatar" />
-              </form>
-            </div>
-          </Col>
-        </Row>
-
+        {user.confirmationTokenWasSent ? (
+            <Alert variant="warning">
+              <FontAwesomeIcon icon={faExclamation}/>&nbsp;&nbsp;{t('profile__please_confirm_your_account')}
+            </Alert>
+        ) : (
+          <Row>
+            <Col sm="6" lg="8">
+              {form}
+            </Col>
+            <Col sm="6" lg="4">
+              <div className="avatar">
+                <img
+                    src={`${process.env.REACT_APP_PUBLIC_UPLOADS_BASE_URL}/${user.avatarUrl}`}
+                    alt="Avatar"
+                />
+                <form
+                    action={process.env.REACT_APP_UPLOAD_PUBLIC_FILE_URL}
+                    method="POST"
+                    encType="multipart/form-data"
+                    className="dropzone avatar"
+                    ref={dropzoneElement}
+                >
+                  <input type="hidden" name="entity" value="App\Entity\User" />
+                  <input type="hidden" name="id" value={user.id} />
+                  <input type="hidden" name="getter" value="getAvatar" />
+                  <input type="hidden" name="setter" value="setAvatar" />
+                </form>
+              </div>
+            </Col>
+          </Row>
+        )}
       </Card.Body>
     </Card>
   );

@@ -13,20 +13,23 @@ use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class ConfirmAccountController extends BaseController
 {
-    /**
-     * @Route("/confirm/{confirmationToken}", name="confirmation")
-     * @param Request $request
-     * @param string $confirmationToken
-     * @param UserRepository $users
-     * @param MailerInterface $mailer
-     *
-     * @return Response
-     * @throws TransportExceptionInterface
-     */
-    public function confirm(Request $request, string $confirmationToken, UserRepository $users, MailerInterface $mailer): Response
+	/**
+	 * @Route("/confirm/{confirmationToken}", name="confirmation")
+	 * @param Request $request
+	 * @param string $confirmationToken
+	 * @param UserRepository $users
+	 * @param MailerInterface $mailer
+	 *
+	 * @param SerializerInterface $serializer
+	 *
+	 * @return Response
+	 * @throws TransportExceptionInterface
+	 */
+    public function confirm(Request $request, string $confirmationToken, UserRepository $users, MailerInterface $mailer, SerializerInterface $serializer): Response
     {
         $user = $users->findOneBy(['confirmationToken' => $confirmationToken]);
 
@@ -56,7 +59,7 @@ class ConfirmAccountController extends BaseController
             ->subject('New user registration')
             ->htmlTemplate('emails/admin/registration-info.html.twig')
             ->context([
-                'user' => $user,
+                'user' => $serializer->serialize($user, 'json'),
             ]);
         $mailer->send($email);
 

@@ -11,8 +11,6 @@ class ConfirmAccountControllerTest extends BaseTest
      */
     public function testConfirmAuthenticatedUser(
         string $confirmationToken,
-        string $firstName,
-        string $lastName,
         string $email,
         string $password
     )
@@ -26,7 +24,7 @@ class ConfirmAccountControllerTest extends BaseTest
         $this->assertResponseRedirects('/en/profile');
         $client->followRedirect();
 
-        $this->assertSelectorTextContains('body', sprintf('%s %s', $firstName, $lastName));
+        $this->assertSelectorTextContains('body', sprintf('%s', $email));
         $this->assertNull($this->findUserByEmail('unconfirmed@example.com')->getConfirmationToken());
     }
 
@@ -35,8 +33,6 @@ class ConfirmAccountControllerTest extends BaseTest
      */
     public function testConfirmUnauthenticatedUserRedirectsToLogin(
         string $confirmationToken,
-        string $firstName,
-        string $lastName,
         string $email,
         string $password
     )
@@ -47,7 +43,7 @@ class ConfirmAccountControllerTest extends BaseTest
         $this->assertEmailCount(2);
 
         $welcomeEmail = $this->getMailerMessage(0);
-        $this->assertEmailHeaderSame($welcomeEmail, 'To', sprintf('%s %s <%s>', $firstName, $lastName, $email));
+        $this->assertEmailHeaderSame($welcomeEmail, 'To', sprintf('"%s" <%s>', $email, $email));
         $this->assertEmailHtmlBodyContains($welcomeEmail, 'Your account is now active.');
 
         $infoEmail = $this->getMailerMessage(1);
@@ -62,6 +58,6 @@ class ConfirmAccountControllerTest extends BaseTest
 
     public function getUnconfirmedUsers()
     {
-        yield ['1234567890', 'John', 'Doe', 'unconfirmed@example.com', '123123'];
+        yield ['1234567890', 'unconfirmed@example.com', '123123'];
     }
 }

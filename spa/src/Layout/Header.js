@@ -1,11 +1,11 @@
 import './Header.scss';
 import React, {useContext} from 'react';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faUser} from '@fortawesome/free-solid-svg-icons';
 import {Link, useParams} from 'react-router-dom';
 import {useTranslation} from 'react-i18next';
 import ISO6391 from 'iso-639-1';
 import {AuthenticationContext} from '../Security/AuthenticationContext';
+import UserInfo from '../Components/UserInfo';
+import { Navbar } from 'react-bootstrap';
 
 export default function Header( {routing} ) {
   const {locale} = useParams();
@@ -13,11 +13,12 @@ export default function Header( {routing} ) {
   const {user, logoutUser} = useContext( AuthenticationContext );
 
   return (
-      <nav
-          className="navbar navbar-expand-lg fixed-top navbar-light bg-white px-md-5">
+      <Navbar bg="white" expand="lg"
+          className="fixed-top px-md-5"
+      >
         {/*Brand*/}
-        <a className="navbar-brand ml-lg-3 px-md-5"
-           href="/">Skeleton</a>
+        <Navbar.Brand className="ml-lg-3 px-md-5"
+           href="/">Skeleton</Navbar.Brand>
 
         {/*Burger*/}
         <button
@@ -62,24 +63,23 @@ export default function Header( {routing} ) {
           {/*Account*/}
           {user ? (
               <div className="account nav-item dropdown px-md-5">
-                <a className="nav-link dropdown-toggle" href="###"
-                   id="navbarDropdown" role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
-                  {user.firstName} {user.lastName} {user.email}&nbsp;&nbsp;<FontAwesomeIcon
-                    icon={faUser}/>
-                </a>
+                {/*User info*/}
+                <UserInfo user={user}/>
+
                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                   {/*Profile*/}
                   <Link
                       className="dropdown-item"
                       to={routing.getRelativeUrl( locale, 'profile' )}
                   >{t( 'header__profile' )}</Link>
+
                   {/*Admin*/}
                   {/*{% if is_granted('ROLE_ADMIN') %}*/}
                   <a className="dropdown-item"
                      href="###">{t( 'header__admin_area' )}</a>
                   {/*{% endif %}*/}
                   <div className="dropdown-divider"/>
+
                   {/*Logout*/}
                   <Link
                       className="dropdown-item"
@@ -90,7 +90,7 @@ export default function Header( {routing} ) {
               </div>
           ) : ''}
         </div>
-      </nav>
+      </Navbar>
   );
 }
 

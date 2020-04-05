@@ -1,10 +1,20 @@
+App\Entity\Organization:
+    acme_inc:
+        name: 'Acme Inc.'
+App\Entity\Person:
+    john_doe:
+        firstName: 'John'
+        lastName: 'Doe'
+    jane_doe:
+        firstName: 'Jane'
+        lastName: 'Doe'
+    max_mustermann:
+        firstName: 'Max'
+        lastName: 'Mustermann'
 App\Entity\User:
     unconfirmed_user:
         email: 'unconfirmed@example.com'
         password: '123123'
-        firstName: 'John'
-        lastName: 'Doe'
-        country: 'AT'
         roles: '[ROLE_USER]'
         receivesNewsletter: false
         subscribedToNewsletterAt: ~
@@ -16,9 +26,6 @@ App\Entity\User:
     confirmed_user:
         email: 'confirmed@example.com'
         password: '123123'
-        firstName: 'John'
-        lastName: 'Doe'
-        country: 'AT'
         roles: '[ROLE_USER]'
         receivesNewsletter: false
         subscribedToNewsletterAt: ~
@@ -29,9 +36,6 @@ App\Entity\User:
     admin:
         email: 'admin@example.com'
         password: '123123'
-        firstName: 'John'
-        lastName: 'Doe'
-        country: 'AT'
         roles: '[ROLE_ADMIN]'
         receivesNewsletter: false
         subscribedToNewsletterAt: ~

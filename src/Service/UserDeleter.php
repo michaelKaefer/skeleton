@@ -23,9 +23,6 @@ class UserDeleter
             ->setEmail($deletionId) // the email must be unique, so we use deletion ID
             ->setRoles([])
             ->setPassword('')
-            ->setFirstName('')
-            ->setLastName('')
-            ->setCountry('')
             ->setCreatedAt($unixTime)
             ->setUpdatedAt($unixTime)
             ->setDeletionId($deletionId);

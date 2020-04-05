@@ -20,7 +20,7 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
 
 	public function handle(Request $request, AccessDeniedException $accessDeniedException)
 	{
-		if (preg_match('/^api/', $request->attributes->get('_route'))) {
+		if (in_array($request->headers->get('content-type'), ['application/json'])) {
 			return new JsonResponse([
 				'details' => 'Access denied.'
 			], 403);

@@ -32,9 +32,6 @@ class RegistrationController extends BaseTest
         $client->submitForm('Register', [
             'registration_form[email]' => $email,
             'registration_form[plainPassword]' => $password,
-            'registration_form[firstName]' => $firstName,
-            'registration_form[lastName]' => $lastName,
-            'registration_form[country]' => $country,
             'registration_form[agreeToTermsAndDataPrivacy]' => $agreeToTermsAndDataPrivacy,
         ]);
 
@@ -43,7 +40,7 @@ class RegistrationController extends BaseTest
         $this->assertEmailCount(1);
 
         $confirmationEmail = $this->getMailerMessage(0);
-        $this->assertEmailHeaderSame($confirmationEmail, 'To', sprintf('%s %s <%s>', $firstName, $lastName, $email));
+        $this->assertEmailHeaderSame($confirmationEmail, 'To', sprintf('"%s" <%s>', $email, $email));
         $this->assertEmailHeaderSame($confirmationEmail, 'Subject', 'Please confirm your account');
         $this->assertEmailHtmlBodyContains($confirmationEmail, sprintf('/en/confirm/%s', $confirmationToken));
 
@@ -51,7 +48,7 @@ class RegistrationController extends BaseTest
         $client->followRedirect();
 
         $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('h1', sprintf('%s %s', $firstName, $lastName));
+        $this->assertSelectorTextContains('body', $email);
         $this->assertSelectorTextContains('.alert-warning', 'We sent you an email, please confirm your account!');
     }
 
@@ -59,4 +56,28 @@ class RegistrationController extends BaseTest
     {
         yield ['john.doe@example.com', '123123', 'John', 'Doe', 'AT', '1'];
     }
+
+	/**
+	 * The "api_register" route must be accessible for the frontend application.
+	 */
+	public function testCors()
+	{
+		$frontendAppUrl = 'https://my-frontend-app.com'; // This is set in .env.test
+
+		$client = static::createClient();
+		$client->request('OPTIONS', '/en/api-register', [], [], [
+			'HTTP_ACCESS_CONTROL_REQUEST_METHOD' => 'POST',
+			'HTTP_ORIGIN' => $frontendAppUrl,
+		]);
+
+		$this->assertResponseIsSuccessful();
+		$this->assertResponseHasHeader('access-control-allow-origin');
+		$this->assertResponseHeaderSame('access-control-allow-origin', $frontendAppUrl);
+		$this->assertResponseHasHeader('access-control-allow-methods');
+		$this->assertResponseHeaderSame('access-control-allow-methods', 'GET, OPTIONS, POST, PUT, PATCH, DELETE');
+		$this->assertResponseHasHeader('access-control-allow-headers');
+		$this->assertResponseHeaderSame('access-control-allow-headers', 'content-type, cookie, origin, x-requested-with');
+		$this->assertResponseHasHeader('access-control-allow-credentials');
+		$this->assertResponseHeaderSame('access-control-allow-credentials', 'true');
+	}
 }

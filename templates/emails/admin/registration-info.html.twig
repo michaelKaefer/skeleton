@@ -13,29 +13,30 @@
 {#        >{{ 'edit_the_new_user_here'|trans }}</a>#}
 {#    </p>#}
 
-    <table>
-        <tbody>
-        <tr>
-            <td>{{ 'id'|trans }}</td>
-            <td>{{ user.id }}</td>
-        </tr>
-        <tr>
-            <td>{{ 'first_name'|trans }}</td>
-            <td>{{ user.firstName }}</td>
-        </tr>
-        <tr>
-            <td>{{ 'last_name'|trans }}</td>
-            <td>{{ user.lastName }}</td>
-        </tr>
-        <tr>
-            <td>{{ 'country'|trans }}</td>
-            <td>{{ user.country|country_name }}</td>
-        </tr>
-        <tr>
-            <td>{{ 'receives_newsletter'|trans }}</td>
-            <td>{% if user.receivesNewsletter %}yes{% else %}no{% endif %}</td>
-        </tr>
-        </tbody>
-    </table>
+    {{ user }}
+{#    <table>#}
+{#        <tbody>#}
+{#        <tr>#}
+{#            <td>{{ 'id'|trans }}</td>#}
+{#            <td>{{ user.id }}</td>#}
+{#        </tr>#}
+{#        <tr>#}
+{#            <td>{{ 'first_name'|trans }}</td>#}
+{#            <td>{{ user.firstName }}</td>#}
+{#        </tr>#}
+{#        <tr>#}
+{#            <td>{{ 'last_name'|trans }}</td>#}
+{#            <td>{{ user.lastName }}</td>#}
+{#        </tr>#}
+{#        <tr>#}
+{#            <td>{{ 'country'|trans }}</td>#}
+{#            <td>{{ user.country|country_name }}</td>#}
+{#        </tr>#}
+{#        <tr>#}
+{#            <td>{{ 'receives_newsletter'|trans }}</td>#}
+{#            <td>{% if user.receivesNewsletter %}yes{% else %}no{% endif %}</td>#}
+{#        </tr>#}
+{#        </tbody>#}
+{#    </table>#}
 {% endblock %}
 

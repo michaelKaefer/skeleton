@@ -66,6 +66,11 @@ class User extends BaseEntity implements UserInterface
     private $confirmationToken;
 
 	/**
+	 * @Groups({"user"})
+	 */
+    private $confirmationTokenWasSent;
+
+	/**
 	 * Filename of the uploaded avatar image without the path to the file
 	 *
 	 * @ORM\OneToOne(targetEntity="App\Entity\File", cascade={"persist", "remove"})
@@ -270,6 +275,11 @@ class User extends BaseEntity implements UserInterface
 
         return $this;
     }
+
+	public function getConfirmationTokenWasSent(): bool
+	{
+		return $this->confirmationToken !== null;
+	}
 
     public function getLastLoginAt(): ?\DateTimeInterface
     {

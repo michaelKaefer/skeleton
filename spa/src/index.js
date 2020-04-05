@@ -72,6 +72,7 @@ i18next.init({
         'profile__first_name_placeholder': 'John',
         'profile__last_name_label': 'Last name',
         'profile__last_name_placeholder': 'Doe',
+        'profile__please_confirm_your_account': 'We sent you an email, please confirm your account!',
       },
     },
     de: {
@@ -124,6 +125,7 @@ i18next.init({
         'profile__first_name_placeholder': 'Max',
         'profile__last_name_label': 'Nachname',
         'profile__last_name_placeholder': 'Mustermann',
+        'profile__please_confirm_your_account': 'Wir haben Ihnen ein E-Mail zugesandt, bitte bestätigen Sie Ihre Anmeldung.',
       },
     },
   },

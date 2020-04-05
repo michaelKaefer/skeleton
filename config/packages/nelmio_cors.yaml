@@ -1,14 +1,21 @@
 nelmio_cors:
+    # The defaults are the default values applied to all the paths that match, unless overridden in a
+    # specific URL configuration. If you want them to apply to everything, you must define a path with ^/.
     defaults:
+        # Allows to set the Access-Control-Allow-Credentials header to "true" which is needed if requests
+        # sent via JavaScript should be able to authenticate via the session cookie
+        allow_credentials: true
+        # If "origin_regex" is set, "allow_origin" must be a list of regular expressions matching allowed
+        # origins. Remember to use ^ and $ to clearly define the boundaries of the regex. Defaults to "false".
         origin_regex: true
+        # "allow_origin" can be set to * to accept any value.
         allow_origin: ['%env(CORS_ALLOW_ORIGIN)%']
+        # "allowed_methods" have to be explicitly listed.
         allow_methods: ['GET', 'OPTIONS', 'POST', 'PUT', 'PATCH', 'DELETE']
-        allow_headers: ['Content-Type', 'Authorization']
+        # "allow_headers" can be set to * to accept any value.
+        allow_headers: ['Content-Type', 'Cookie', 'Origin', 'X-Requested-With']
         expose_headers: ['Link']
         max_age: 3600
+    # "paths" must contain at least one item.
     paths:
-        '^/':
-            allow_origin: ['*']
-            allow_headers: ['*']
-            allow_methods: ['POST', 'PUT', 'GET', 'DELETE', 'PATCH']
-            max_age: 3600
+        '^/': ~
