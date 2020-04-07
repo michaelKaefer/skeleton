@@ -15,6 +15,44 @@ class LoginControllerTest extends BaseTest
         $this->assertSelectorTextContains('h1', 'Login');
     }
 
+	/**
+	 * @dataProvider getUsers
+	 */
+	public function testUserGetsRedirectedToProfile(string $email, string $password)
+	{
+		$client = static::createClient([], [
+			'PHP_AUTH_USER' => $email,
+			'PHP_AUTH_PW' => $password,
+		]);
+		$client->request('GET', '/en/login');
+
+		$this->assertResponseRedirects('/en/profile');
+	}
+
+	public function getUsers()
+	{
+		yield ['confirmed@example.com', '123123'];
+	}
+
+	/**
+	 * @dataProvider getAdmins
+	 */
+	public function testAdminGetsRedirectedToAdminArea(string $email, string $password)
+	{
+		$client = static::createClient([], [
+			'PHP_AUTH_USER' => $email,
+			'PHP_AUTH_PW' => $password,
+		]);
+		$client->request('GET', '/en/login');
+
+		$this->assertResponseRedirects('/admin/');
+	}
+
+	public function getAdmins()
+	{
+		yield ['admin@example.com', '123123'];
+	}
+
     /**
      * @dataProvider getInvalidCredentials
      */

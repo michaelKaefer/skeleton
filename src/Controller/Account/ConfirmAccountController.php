@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Account;
 
 use App\Controller\BaseController;
@@ -62,10 +64,6 @@ class ConfirmAccountController extends BaseController
                 'user' => $serializer->serialize($user, 'json'),
             ]);
         $mailer->send($email);
-
-        if ($uri = $request->getSession()->get('last_requested_download_file_uri_when_account_was_not_enabled')) {
-            return new RedirectResponse($uri);
-        }
 
         return $this->redirectToRoute('profile');
     }

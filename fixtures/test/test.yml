@@ -33,6 +33,20 @@ App\Entity\User:
         lastLoginAt: '<datetime()>'
         lastFailedLoginAt: ~
         failedLoginsCount: 0
+        passwordResetToken: '000000000'
+        passwordResetTokenExpiresAt: '<(new DateTime("2999-10-10 19:28:21"))>'
+    confirmed_user_with_expired_password_reset_token:
+        email: 'confirmed.with_expired_password_reset_token@example.com'
+        password: '123123'
+        roles: '[ROLE_USER]'
+        receivesNewsletter: false
+        subscribedToNewsletterAt: ~
+        unsubscribedFromNewsletterAt: ~
+        lastLoginAt: '<datetime()>'
+        lastFailedLoginAt: ~
+        failedLoginsCount: 0
+        passwordResetToken: '111111111'
+        passwordResetTokenExpiresAt: '<(new DateTime("1999-10-10 19:28:21"))>'
     admin:
         email: 'admin@example.com'
         password: '123123'
@@ -43,3 +57,4 @@ App\Entity\User:
         lastLoginAt: '<datetime()>'
         lastFailedLoginAt: ~
         failedLoginsCount: 0
+        passwordResetToken: '222222222'

@@ -28,36 +28,55 @@ class ConfirmAccountControllerTest extends BaseTest
         $this->assertNull($this->findUserByEmail('unconfirmed@example.com')->getConfirmationToken());
     }
 
-    /**
-     * @dataProvider getUnconfirmedUsers
-     */
-    public function testConfirmUnauthenticatedUserRedirectsToLogin(
-        string $confirmationToken,
-        string $email,
-        string $password
-    )
-    {
-        $client = static::createClient();
-        $client->request('GET', sprintf('/en/confirm/%s', $confirmationToken));
+	/**
+	 * @dataProvider getUnconfirmedUsers
+	 */
+	public function testConfirmUnauthenticatedUserRedirectsToLogin(
+		string $confirmationToken,
+		string $email,
+		string $password
+	)
+	{
+		$client = static::createClient();
+		$client->request('GET', sprintf('/en/confirm/%s', $confirmationToken));
 
-        $this->assertEmailCount(2);
+		$this->assertEmailCount(2);
 
-        $welcomeEmail = $this->getMailerMessage(0);
-        $this->assertEmailHeaderSame($welcomeEmail, 'To', sprintf('"%s" <%s>', $email, $email));
-        $this->assertEmailHtmlBodyContains($welcomeEmail, 'Your account is now active.');
+		$welcomeEmail = $this->getMailerMessage(0);
+		$this->assertEmailHeaderSame($welcomeEmail, 'To', sprintf('"%s" <%s>', $email, $email));
+		$this->assertEmailHtmlBodyContains($welcomeEmail, 'Your account is now active.');
 
-        $infoEmail = $this->getMailerMessage(1);
-        $this->assertEmailHeaderSame($infoEmail, 'To', 'Skeleton GmbH <office@skeleton.com>');
-        $this->assertEmailHeaderSame($infoEmail, 'Subject', 'New user registration');
+		$infoEmail = $this->getMailerMessage(1);
+		$this->assertEmailHeaderSame($infoEmail, 'To', 'Skeleton GmbH <office@skeleton.com>');
+		$this->assertEmailHeaderSame($infoEmail, 'Subject', 'New user registration');
 
-        $this->assertResponseRedirects('/en/profile');
-        $client->followRedirect();
+		$this->assertResponseRedirects('/en/profile');
+		$client->followRedirect();
 
-        $this->assertResponseRedirects('/en/login');
-    }
+		$this->assertResponseRedirects('/en/login');
+	}
 
-    public function getUnconfirmedUsers()
-    {
-        yield ['1234567890', 'unconfirmed@example.com', '123123'];
-    }
+	public function getUnconfirmedUsers()
+	{
+		yield ['1234567890', 'unconfirmed@example.com', '123123'];
+	}
+
+	/**
+	 * @dataProvider getInvalidUsers
+	 */
+	public function testInvalidConfirmationTokenFails(
+		string $confirmationToken
+	)
+	{
+		$client = static::createClient();
+		$client->request('GET', sprintf('/en/confirm/%s', $confirmationToken));
+
+		$this->assertResponseStatusCodeSame(404);
+		$this->assertSelectorTextContains('body', 'Your confirmation token is invalid. Please try again or contact us.');
+	}
+
+	public function getInvalidUsers()
+	{
+		yield ['xxx'];
+	}
 }
