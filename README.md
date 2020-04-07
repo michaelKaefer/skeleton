@@ -1,3 +1,7 @@
+php ./vendor/bin/php-cs-fixer fix --diff --dry-run -v
+
+
+
 # Start developing
 ```console
 ./bin/develop.sh
@@ -8,9 +12,7 @@ yarn start
 # Testing
 ## Setup the test environment (every time your schema or your fixtures change)
 ```
-./bin/console doctrine:database:drop --force --env=test ; \
-    ./bin/console doctrine:schema:create --env=test ; \
-    ./bin/console hautelook:fixtures:load --no-interaction --env=test
+./bin/rebuild-test-database.sh
 ```
 
 ## Run the tests
