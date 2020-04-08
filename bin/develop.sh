@@ -12,7 +12,6 @@ then
 fi
 printf "1/6 Success, changed working directory to %s\n\n" "$APP_PATH/.."
 
-
 printf "2/6 Starting docker services...\n"
 if ! OUTPUT="$( docker-compose up -d 2>&1 )"
 then
@@ -21,7 +20,6 @@ then
   exit
 fi
 printf "2/6 Success\n\n"
-
 
 printf "3/6 Starting built in Symfony server...\n"
 if OUTPUT="$( symfony server:start --port=8000 -d 2>&1 )"
@@ -37,9 +35,7 @@ else
   fi
 fi
 
-
 printf "4/6 Starting browser-sync for hot reloading...\n"
-
 if [ "$(uname)" == "Darwin" ]; then
     printf "Darwin not supported"
     exit
@@ -61,7 +57,6 @@ elif [ "$(expr substr $(uname -s) 1 10)" == "MINGW64_NT" ]; then
       exit
   fi
 fi
-
 if ! OUTPUT="$( \
     browser-sync start \
         --host=127.0.0.1 \
@@ -78,9 +73,7 @@ then
 fi
 printf "4/6 Success, started brwoser-sync on https://127.0.0.1:3000/, for details use \"cat ./var/.browser-sync\"\n\n"
 
-
 printf "5/6 Starting assets build watcher...\n"
-
 if [ "$(uname)" == "Darwin" ]; then
     printf "Darwin not supported"
     exit
@@ -110,7 +103,6 @@ then
 fi
 printf "5/6 Success\n\n"
 
-
 printf "6/6 Starting React application in spa/...\n"
 if ! cd "spa/"
 then
@@ -126,7 +118,6 @@ else
   echo "$OUTPUT"
   exit
 fi
-
 
 printf "Finished.\n\n"
 printf "\tSymfony server:\n"
@@ -151,7 +142,6 @@ printf "\tReact SPA:\n"
 printf "\t\t[URL]    http://localhost:3002/\n"
 printf "\t\t[LOGS]   tail -f ./var/.react-yarn-start\n"
 printf "\n"
-
 
 #read -p "Do you want to run the assets build watcher now? [y/n, you can also hit ENTER for yes] " -n 1 -r
 #if [[ ! "$REPLY" =~ ^[Yy]$ ]] && [[ ! "$REPLY" == "" ]]; then

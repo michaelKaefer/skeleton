@@ -282,6 +282,9 @@
     "phpdocumentor/type-resolver": {
         "version": "1.1.0"
     },
+    "phpmetrics/phpmetrics": {
+        "version": "v2.6.2"
+    },
     "psr/cache": {
         "version": "1.0.1"
     },
