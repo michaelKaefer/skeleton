@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of Skeleton.
+ *
+ * (c) Michael Käfer <michael.kaefer1@gmx.at>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Controller\Account;
 
 use App\Controller\BaseController;
@@ -20,22 +29,16 @@ class ResetPasswordController extends BaseController
     /**
      * @Route("/reset-password/{passwordResetToken}", name="reset_password")
      *
-     * @param Request $request
-     * @param string $passwordResetToken
-     * @param UserRepository $users
-     * @param UserPasswordEncoderInterface $passwordEncoder
+     * @throws Exception
      *
      * @return RedirectResponse|Response
-     *
-     * @throws Exception
      */
     public function resetPassword(
         Request $request,
         string $passwordResetToken,
         UserRepository $users,
         UserPasswordEncoderInterface $passwordEncoder
-    )
-    {
+    ) {
         $form = $this->createForm(ResetPasswordFormType::class);
         $form->handleRequest($request);
 

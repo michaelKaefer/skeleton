@@ -2,12 +2,20 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of Skeleton.
+ *
+ * (c) Michael Käfer <michael.kaefer1@gmx.at>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Service;
 
 use App\Entity\User;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Http\Logout\LogoutSuccessHandlerInterface;
@@ -28,7 +36,7 @@ class LogoutSuccessHandler implements LogoutSuccessHandlerInterface
         /** @var User $user */
         $user = $this->tokenStorage->getToken()->getUser();
 
-        if (!is_string($user) && $deletionId = $user->getDeletionId()) { // User can be a string like "anonym."
+        if (!\is_string($user) && $deletionId = $user->getDeletionId()) { // User can be a string like "anonym."
             return new RedirectResponse($this->urlGenerator->generate('account_deleted', [
                 'deletionId' => $deletionId,
             ]));

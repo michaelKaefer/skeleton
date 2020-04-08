@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of Skeleton.
+ *
+ * (c) Michael Käfer <michael.kaefer1@gmx.at>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Tests\Controller\Account;
 
 use App\Tests\BaseTest;
@@ -15,43 +24,43 @@ class LoginControllerTest extends BaseTest
         $this->assertSelectorTextContains('h1', 'Login');
     }
 
-	/**
-	 * @dataProvider getUsers
-	 */
-	public function testUserGetsRedirectedToProfile(string $email, string $password)
-	{
-		$client = static::createClient([], [
-			'PHP_AUTH_USER' => $email,
-			'PHP_AUTH_PW' => $password,
-		]);
-		$client->request('GET', '/en/login');
+    /**
+     * @dataProvider getUsers
+     */
+    public function testUserGetsRedirectedToProfile(string $email, string $password)
+    {
+        $client = static::createClient([], [
+            'PHP_AUTH_USER' => $email,
+            'PHP_AUTH_PW' => $password,
+        ]);
+        $client->request('GET', '/en/login');
 
-		$this->assertResponseRedirects('/en/profile');
-	}
+        $this->assertResponseRedirects('/en/profile');
+    }
 
-	public function getUsers()
-	{
-		yield ['confirmed@example.com', '123123'];
-	}
+    public function getUsers()
+    {
+        yield ['confirmed@example.com', '123123'];
+    }
 
-	/**
-	 * @dataProvider getAdmins
-	 */
-	public function testAdminGetsRedirectedToAdminArea(string $email, string $password)
-	{
-		$client = static::createClient([], [
-			'PHP_AUTH_USER' => $email,
-			'PHP_AUTH_PW' => $password,
-		]);
-		$client->request('GET', '/en/login');
+    /**
+     * @dataProvider getAdmins
+     */
+    public function testAdminGetsRedirectedToAdminArea(string $email, string $password)
+    {
+        $client = static::createClient([], [
+            'PHP_AUTH_USER' => $email,
+            'PHP_AUTH_PW' => $password,
+        ]);
+        $client->request('GET', '/en/login');
 
-		$this->assertResponseRedirects('/admin/');
-	}
+        $this->assertResponseRedirects('/admin/');
+    }
 
-	public function getAdmins()
-	{
-		yield ['admin@example.com', '123123'];
-	}
+    public function getAdmins()
+    {
+        yield ['admin@example.com', '123123'];
+    }
 
     /**
      * @dataProvider getInvalidCredentials

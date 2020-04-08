@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of Skeleton.
+ *
+ * (c) Michael Käfer <michael.kaefer1@gmx.at>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Security;
 
 use App\Entity\User;
@@ -45,8 +54,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         int $failedLoginTimePenaltyInMinutes,
         int $failedLoginAttemptsUntilTimePenalty,
         int $failedLoginAttemptsUntilBan
-    )
-    {
+    ) {
         $this->entityManager = $entityManager;
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
@@ -158,9 +166,9 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
     }
 
     /**
-     * @param User $user
-     * @return bool
      * @throws Exception
+     *
+     * @return bool
      */
     private function isPenaltyTimeRunning(User $user)
     {

@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of Skeleton.
+ *
+ * (c) Michael Käfer <michael.kaefer1@gmx.at>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Controller\Account;
 
 use App\Controller\BaseController;
@@ -17,11 +26,6 @@ class LoginController extends BaseController
      * authenticate the user.
      *
      * @Route("/login", name="login")
-     *
-     * @param Security $security
-     * @param AuthenticationUtils $authenticationUtils
-     *
-     * @return Response
      */
     public function login(Security $security, AuthenticationUtils $authenticationUtils): Response
     {

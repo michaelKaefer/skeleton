@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of Skeleton.
+ *
+ * (c) Michael Käfer <michael.kaefer1@gmx.at>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Controller\Account;
 
 use App\Controller\BaseController;
@@ -25,6 +34,6 @@ class LogoutController extends BaseController
      */
     public function logout(): void
     {
-         throw new LogicException('This method should never be reached.');
+        throw new LogicException('This method should never be reached.');
     }
 }

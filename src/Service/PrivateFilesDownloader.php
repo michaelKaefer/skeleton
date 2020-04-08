@@ -2,12 +2,21 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of Skeleton.
+ *
+ * (c) Michael Käfer <michael.kaefer1@gmx.at>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Service;
 
+use League\Flysystem\FileNotFoundException;
+use League\Flysystem\FilesystemInterface;
 use Symfony\Component\HttpFoundation\HeaderUtils;
 use Symfony\Component\HttpFoundation\StreamedResponse;
-use League\Flysystem\FilesystemInterface;
-use League\Flysystem\FileNotFoundException;
 
 class PrivateFilesDownloader
 {
@@ -22,10 +31,9 @@ class PrivateFilesDownloader
         string $internalFilename,
         string $mimeType,
         string $publicFilename
-    ): StreamedResponse
-    {
+    ): StreamedResponse {
         $response = new StreamedResponse(function () use ($internalFilename) {
-            $outputStream = fopen('php://output', 'wb');
+            $outputStream = fopen('php://output', 'w');
             $fileStream = $this->readStream($internalFilename);
 
             stream_copy_to_stream($fileStream, $outputStream);
@@ -41,11 +49,9 @@ class PrivateFilesDownloader
     }
 
     /**
-     * @param string $filename
+     * @throws FileNotFoundException
      *
      * @return resource
-     *
-     * @throws FileNotFoundException
      */
     public function readStream(string $filename)
     {

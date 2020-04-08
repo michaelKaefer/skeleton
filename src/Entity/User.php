@@ -2,16 +2,25 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of Skeleton.
+ *
+ * (c) Michael Käfer <michael.kaefer1@gmx.at>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use Gedmo\Mapping\Annotation as Gedmo;
-use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -29,8 +38,8 @@ class User extends BaseEntity implements UserInterface
 
     const RELATIVE_PATH_TO_UPLOADED_AVATARS = 'avatars/';
 
-	const TYPE_PERSON = 'PERSON';
-	const TYPE_ORGANIZATION = 'ORGANIZATION';
+    const TYPE_PERSON = 'PERSON';
+    const TYPE_ORGANIZATION = 'ORGANIZATION';
 
     /**
      * @ORM\Id()
@@ -65,22 +74,22 @@ class User extends BaseEntity implements UserInterface
      */
     private $confirmationToken;
 
-	/**
-	 * @Groups({"user"})
-	 */
+    /**
+     * @Groups({"user"})
+     */
     private $confirmationTokenWasSent;
 
-	/**
-	 * Filename of the uploaded avatar image without the path to the file
-	 *
-	 * @ORM\OneToOne(targetEntity="App\Entity\File", cascade={"persist", "remove"})
-	 */
-	private $avatar;
+    /**
+     * Filename of the uploaded avatar image without the path to the file.
+     *
+     * @ORM\OneToOne(targetEntity="App\Entity\File", cascade={"persist", "remove"})
+     */
+    private $avatar;
 
-	/**
-	 * @Groups({"user"})
-	 */
-	private $avatarUrl;
+    /**
+     * @Groups({"user"})
+     */
+    private $avatarUrl;
 
     /**
      * @ORM\Column(type="boolean")
@@ -128,11 +137,11 @@ class User extends BaseEntity implements UserInterface
      */
     private $passwordResetTokenExpiresAt;
 
-	/**
-	 * @ORM\Column(type="string", length=30)
-	 * @Groups({"user"})
-	 */
-	private $type = 'PERSON';
+    /**
+     * @ORM\Column(type="string", length=30)
+     * @Groups({"user"})
+     */
+    private $type = 'PERSON';
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Person", cascade={"persist", "remove"})
@@ -227,30 +236,31 @@ class User extends BaseEntity implements UserInterface
         // $this->plainPassword = null;
     }
 
-	public function getAvatar(): ?File
+    public function getAvatar(): ?File
     {
         return $this->avatar;
     }
 
-	public function setAvatar(?File $avatar): self
+    public function setAvatar(?File $avatar): self
     {
         $this->avatar = $avatar;
 
         return $this;
     }
 
-	public function getAvatarUrl(): ?string
-	{
-		if (null === $this->avatar) {
-			return null;
-		}
-		return $this->getAvatarRelativePath() . $this->getAvatar()->getName();
-	}
+    public function getAvatarUrl(): ?string
+    {
+        if (null === $this->avatar) {
+            return null;
+        }
 
-	public function getAvatarRelativePath(): string
-	{
-		return self::RELATIVE_PATH_TO_UPLOADED_AVATARS;
-	}
+        return $this->getAvatarRelativePath().$this->getAvatar()->getName();
+    }
+
+    public function getAvatarRelativePath(): string
+    {
+        return self::RELATIVE_PATH_TO_UPLOADED_AVATARS;
+    }
 
     public function getReceivesNewsletter(): ?bool
     {
@@ -276,10 +286,10 @@ class User extends BaseEntity implements UserInterface
         return $this;
     }
 
-	public function getConfirmationTokenWasSent(): bool
-	{
-		return $this->confirmationToken !== null;
-	}
+    public function getConfirmationTokenWasSent(): bool
+    {
+        return null !== $this->confirmationToken;
+    }
 
     public function getLastLoginAt(): ?\DateTimeInterface
     {
@@ -377,17 +387,17 @@ class User extends BaseEntity implements UserInterface
         return $this;
     }
 
-	public function getType(): ?string
-	{
-		return $this->type;
-	}
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
 
-	public function setType(string $type): self
-	{
-		$this->type = $type;
+    public function setType(string $type): self
+    {
+        $this->type = $type;
 
-		return $this;
-	}
+        return $this;
+    }
 
     public function getPerson(): ?Person
     {

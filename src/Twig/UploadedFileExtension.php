@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of Skeleton.
+ *
+ * (c) Michael Käfer <michael.kaefer1@gmx.at>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Twig;
 
 use Symfony\Component\Asset\Context\RequestStackContext;
@@ -39,8 +48,8 @@ class UploadedFileExtension extends AbstractExtension
     public function getUrlOfUploadedFile(string $filename): string
     {
         return $this->uploadsUrl
-            . '/'
-            . $this->requestStackContext->getBasePath()
-            . $filename;
+            .'/'
+            .$this->requestStackContext->getBasePath()
+            .$filename;
     }
 }

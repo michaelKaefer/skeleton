@@ -2,10 +2,19 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of Skeleton.
+ *
+ * (c) Michael Käfer <michael.kaefer1@gmx.at>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiProperty;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\OrganizationRepository")
@@ -24,30 +33,30 @@ class Organization
         return $this->id;
     }
 
-	/**
-	 * @var string|null the name of the item
-	 *
-	 * @ORM\Column(type="text", nullable=true)
-	 * @ApiProperty(iri="http://schema.org/name")
-	 */
-	private $name;
+    /**
+     * @var string|null the name of the item
+     *
+     * @ORM\Column(type="text", nullable=true)
+     * @ApiProperty(iri="http://schema.org/name")
+     */
+    private $name;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\User", mappedBy="organization", cascade={"persist", "remove"})
      */
     private $user;
 
-	public function setName(?string $name): self
-	{
-		$this->name = $name;
-         
-		return $this;
-	}
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
 
-	public function getName(): ?string
-	{
-		return $this->name;
-	}
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
 
     public function getUser(): ?User
     {

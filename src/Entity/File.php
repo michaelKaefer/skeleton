@@ -2,6 +2,15 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of Skeleton.
+ *
+ * (c) Michael Käfer <michael.kaefer1@gmx.at>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -20,41 +29,41 @@ class File
      */
     private $id;
 
-	/**
-	 * @Groups({"user"})
-	 */
+    /**
+     * @Groups({"user"})
+     */
     private $name;
 
-	/**
-	 * @ORM\Column(type="string", length=255)
-	 */
-	private $nameWithoutExtension;
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $nameWithoutExtension;
 
-	/**
-	 * @ORM\Column(type="string", length=20, nullable=true)
-	 */
-	private $extension;
+    /**
+     * @ORM\Column(type="string", length=20, nullable=true)
+     */
+    private $extension;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $originalNameWithoutExtension;
 
-	/**
-	 * @ORM\Column(type="integer")
-	 * @Groups({"user"})
-	 */
-	private $size;
+    /**
+     * @ORM\Column(type="integer")
+     * @Groups({"user"})
+     */
+    private $size;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-	public function getName(): ?string
-	{
-		return sprintf('%s.%s', $this->nameWithoutExtension, $this->extension);
-	}
+    public function getName(): ?string
+    {
+        return sprintf('%s.%s', $this->nameWithoutExtension, $this->extension);
+    }
 
     public function getSize(): ?int
     {

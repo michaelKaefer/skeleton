@@ -2,12 +2,20 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of Skeleton.
+ *
+ * (c) Michael Käfer <michael.kaefer1@gmx.at>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Controller\Account;
 
 use App\Controller\BaseController;
 use App\Repository\UserRepository;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -19,18 +27,11 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class ConfirmAccountController extends BaseController
 {
-	/**
-	 * @Route("/confirm/{confirmationToken}", name="confirmation")
-	 * @param Request $request
-	 * @param string $confirmationToken
-	 * @param UserRepository $users
-	 * @param MailerInterface $mailer
-	 *
-	 * @param SerializerInterface $serializer
-	 *
-	 * @return Response
-	 * @throws TransportExceptionInterface
-	 */
+    /**
+     * @Route("/confirm/{confirmationToken}", name="confirmation")
+     *
+     * @throws TransportExceptionInterface
+     */
     public function confirm(Request $request, string $confirmationToken, UserRepository $users, MailerInterface $mailer, SerializerInterface $serializer): Response
     {
         $user = $users->findOneBy(['confirmationToken' => $confirmationToken]);

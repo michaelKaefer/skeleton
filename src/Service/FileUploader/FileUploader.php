@@ -2,14 +2,23 @@
 
 declare(strict_types=1);
 
+/*
+ * This file is part of Skeleton.
+ *
+ * (c) Michael Käfer <michael.kaefer1@gmx.at>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Service\FileUploader;
 
-use Symfony\Component\HttpFoundation\File\File;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Psr\Log\LoggerInterface;
-use League\Flysystem\FilesystemInterface;
 use League\Flysystem\FileExistsException;
 use League\Flysystem\FileNotFoundException;
+use League\Flysystem\FilesystemInterface;
+use Psr\Log\LoggerInterface;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 abstract class FileUploader
 {
@@ -23,22 +32,22 @@ abstract class FileUploader
     }
 
     /**
-     * @param string $relativeDestinationPath  Relative path from the uploads directory to the file. Without the
-     *                                         filename, optionally can include a trailing slash.
-     * @param File $file                    The uploaded file.
-     * @param string|null $fileToReplace    The name of the file which gets replaced by the uploaded file, so that
-     *                                      it can be deleted. Just the filename without the absolute and without
-     *                                      the relative path.
-     *
-     * @return string
+     * @param string      $relativeDestinationPath Relative path from the uploads directory to the file. Without the
+     *                                             filename, optionally can include a trailing slash.
+     * @param File        $file                    the uploaded file
+     * @param string|null $fileToReplace           The name of the file which gets replaced by the uploaded file, so that
+     *                                             it can be deleted. Just the filename without the absolute and without
+     *                                             the relative path.
      *
      * @throws FileExistsException
+     *
+     * @return string
      */
     public function upload(string $relativeDestinationPath, File $file, ?string $fileToReplace): array
     {
         $relativeDestinationPath = rtrim($relativeDestinationPath, '/');
 
-	    [$nameWithoutExtension, $extension] = $this->createFilename($file);
+        [$nameWithoutExtension, $extension] = $this->createFilename($file);
 
         $stream = fopen($file->getPathname(), 'r');
 
@@ -52,7 +61,7 @@ abstract class FileUploader
         }
 
         // Not all flysystem adapters close the stream
-        if (is_resource($stream)) {
+        if (\is_resource($stream)) {
             fclose($stream);
         }
 
@@ -83,10 +92,10 @@ abstract class FileUploader
         );
 
         /**
-         * @var string $extension
-         * The original file extension of the uploaded file cannot be trusted. For example it is
-         * easy to rename a file from "foo.sh" to "foo.png" before uploading it. File::guessExtension()
-         * guesses the extension from the content of the file not from the sent name which we ignore.
+         * @var string
+         *             The original file extension of the uploaded file cannot be trusted. For example it is
+         *             easy to rename a file from "foo.sh" to "foo.png" before uploading it. File::guessExtension()
+         *             guesses the extension from the content of the file not from the sent name which we ignore.
          */
         $extension = $file->guessExtension();
 
@@ -97,7 +106,7 @@ abstract class FileUploader
 
     private function deleteFile(string $relativePath, string $filename)
     {
-        $filename = $relativePath . '/' . $filename;
+        $filename = $relativePath.'/'.$filename;
 
         try {
             $status = $this->filesystem->delete($filename);

@@ -27,5 +27,3 @@ public/uploads
 /.php_cs
 /.php_cs.cache
 ###< friendsofphp/php-cs-fixer ###
-
-/XXX/
