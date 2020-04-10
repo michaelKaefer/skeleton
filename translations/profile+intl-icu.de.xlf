@@ -5,21 +5,13 @@
       <tool tool-id="symfony" tool-name="Symfony"/>
     </header>
     <body>
+      <trans-unit id="GQDqtsA" resname="profile">
+        <source>profile</source>
+        <target>Profil</target>
+      </trans-unit>
       <trans-unit id="1BIqiqj" resname="please_confirm_your_account">
         <source>please_confirm_your_account</source>
         <target>Wir haben Ihnen ein E-Mail zugesandt, bitte bestätigen Sie Ihre Anmeldung.</target>
-      </trans-unit>
-      <trans-unit id="YZdhVQP" resname="heading">
-        <source>heading</source>
-        <target>Profil</target>
-      </trans-unit>
-      <trans-unit id="xZdhVQP" resname="is_company">
-        <source>is_company</source>
-        <target>Firmenaccount</target>
-      </trans-unit>
-      <trans-unit id="xZdhVQd" resname="is_company_help">
-        <source>is_company_help</source>
-        <target>Handelt es sich um den Account einer Person oder einer Firma?</target>
       </trans-unit>
       <trans-unit id="giREF.l" resname="email">
         <source>email</source>
@@ -48,6 +40,26 @@
       <trans-unit id="YZdZVQP" resname="delete">
         <source>delete</source>
         <target>Meinen Account löschen</target>
+      </trans-unit>
+      <trans-unit id="JbHtlhW" resname="headline">
+        <source>headline</source>
+        <target>__headline</target>
+      </trans-unit>
+      <trans-unit id="9s9ChuT" resname="account_deletion_heading">
+        <source>account_deletion_heading</source>
+        <target>__account_deletion_heading</target>
+      </trans-unit>
+      <trans-unit id="t.r0CcF" resname="account_deletion_info">
+        <source>account_deletion_info</source>
+        <target>__account_deletion_info</target>
+      </trans-unit>
+      <trans-unit id="sVURJOs" resname="delete_account_button_label">
+        <source>delete_account_button_label</source>
+        <target>__delete_account_button_label</target>
+      </trans-unit>
+      <trans-unit id="Bafoz1F" resname="are_you_sure_to_delete_your_account_question">
+        <source>are_you_sure_to_delete_your_account_question</source>
+        <target>__are_you_sure_to_delete_your_account_question</target>
       </trans-unit>
     </body>
   </file>

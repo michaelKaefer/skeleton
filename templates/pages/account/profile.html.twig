@@ -9,7 +9,7 @@
     {{ encore_entry_link_tags('profile') }}
 {% endblock %}
 
-{#Checkbox with link...#}
+{#Checkbox with link#}
 {% form_theme form _self %}
 
 {% block checkbox_radio_label -%}
@@ -49,11 +49,11 @@
         </label>
     {%- endif -%}
 {%- endblock checkbox_radio_label %}
-{#Checkbox with link...#}
+{#Checkbox with link#}
 
 {% block body %}
     <div class="w-100">
-        <h1 class="h3 mb-4"><i class="fa fa-user"></i>&nbsp;&nbsp;{{ user }}</h1>
+        <h1 class="h3 mb-4"><i class="fa fa-user"></i>&nbsp;&nbsp;{{ 'heading'|trans }}</h1>
 
         {% if user.confirmationToken %}
             <div class="alert alert-warning">
@@ -63,25 +63,39 @@
             <div class="row">
                 <div class="col-lg-9">
                     {{ form_start(form) }}
-                        <div class="row">
-                            <div class="col-md-12">
-                                {{ form_row(form.email, {
-                                    label: 'email',
-                                    attr: {
-                                        autofocus: true,
-                                        placeholder: 'email',
-                                    },
-                                }) }}
-                            </div>
-                            <div class="col-md-12">
-                                {{ form_row(form.receivesNewsletter, {
-                                    label: 'approve_newsletter',
-                                }) }}
-                            </div>
-                            <div class="col-md-12">
-                                <button class="btn btn-primary">{{ 'save'|trans }}</button>
-                            </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {{ form_row(form.email, {
+                                label: 'email',
+                                attr: {
+                                    autofocus: true,
+                                    placeholder: 'email',
+                                },
+                            }) }}
                         </div>
+                        <div class="col-md-12">
+                            {% include 'partials/_switch.html.twig' with {
+                                id: 'is-company',
+                                label: 'is_company'|trans,
+                                checked: user.type == 'COMPANY',
+                                help: null,
+                            } %}
+                        </div>
+                        <div class="person {{ user.type == 'PERSON' ? '' : 'd-none' }}">
+                            PERSON
+                        </div>
+                        <div class="company {{ user.type == 'COMPANY' ? '' : 'd-none' }}">
+                            COMPANY
+                        </div>
+                        <div class="col-md-12">
+                            {{ form_row(form.receivesNewsletter, {
+                                label: 'approve_newsletter',
+                            }) }}
+                        </div>
+                        <div class="col-md-12">
+                            <button class="btn btn-primary">{{ 'save'|trans }}</button>
+                        </div>
+                    </div>
                     {{ form_end(form) }}
                 </div>
                 <div class="col-lg-3">
@@ -105,4 +119,3 @@
     {{ parent() }}
     {{ encore_entry_script_tags('profile') }}
 {% endblock %}
-

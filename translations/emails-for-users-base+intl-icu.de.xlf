@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="de" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="NT5B5q." resname="salutation">
+        <source>salutation</source>
+        <target>__salutation</target>
+      </trans-unit>
+      <trans-unit id="AwGETM2" resname="footer">
+        <source>footer</source>
+        <target>__footer</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
