@@ -73,23 +73,55 @@
                                 },
                             }) }}
                         </div>
-                        <div class="col-md-12">
-                            {% include 'partials/_switch.html.twig' with {
+                        <div class="col-md-12 mb-3">
+                            {% include 'partials/_radio_button.html.twig' with {
                                 id: 'is-company',
-                                label: 'is_company'|trans,
-                                checked: user.type == 'COMPANY',
-                                help: null,
+                                options: {
+                                    0: {
+                                        label: 'person'|trans,
+                                        active: user.type == 'PERSON',
+                                        value: 'PERSON',
+                                    },
+                                    1: {
+                                        label: 'company'|trans,
+                                        active: user.type == 'COMPANY',
+                                        value: 'COMPANY',
+                                    },
+                                },
                             } %}
                         </div>
-                        <div class="person {{ user.type == 'PERSON' ? '' : 'd-none' }}">
-                            PERSON
+                        <div class="person {{ user.type == 'PERSON' ? '' : 'd-none' }} col-md-12">
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    {{ form_row(form.person.firstName, {
+                                        label: 'first_name'|trans,
+                                    }) }}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form_row(form.person.lastName, {
+                                        label: 'last_name'|trans,
+                                    }) }}
+                                </div>
+                            </div>
                         </div>
-                        <div class="company {{ user.type == 'COMPANY' ? '' : 'd-none' }}">
-                            COMPANY
+                        <div class="company {{ user.type == 'COMPANY' ? '' : 'd-none' }} col-md-12">
+                            <div class="form-row">
+                                <div class="col-md-12">
+                                    {{ form_row(form.organization.name, {
+                                        label: 'name'|trans,
+                                        attr: {
+                                            class: 'custom-control custom-checkbox',
+                                        },
+                                        label_attr: {
+                                            class: 'checkbox-custom'
+                                        },
+                                    }) }}
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-12">
                             {{ form_row(form.receivesNewsletter, {
-                                label: 'approve_newsletter',
+                                label: 'approve_newsletter'|trans,
                             }) }}
                         </div>
                         <div class="col-md-12">

@@ -17,6 +17,10 @@
         <source>admin_area</source>
         <target>Admin area</target>
       </trans-unit>
+      <trans-unit id="ACcree_" resname="login">
+        <source>login</source>
+        <target>Login</target>
+      </trans-unit>
       <trans-unit id="ACcM9j_" resname="logout">
         <source>logout</source>
         <target>Logout</target>

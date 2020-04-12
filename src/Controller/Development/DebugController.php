@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace App\Controller;
+namespace App\Controller\Development;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,8 +21,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class DebugController extends AbstractController
 {
     /**
-     * @IsGranted("ROLE_USER")
      * @Route("/debug", name="debug", methods={"GET"})
+     * @IsGranted("ROLE_ADMIN")
      */
     public function index()
     {
@@ -32,5 +32,7 @@ class DebugController extends AbstractController
             $this->getUser()->getId(),
             'zuzi' => 123123,
         ]);
+
+	    return $this->render('pages/development/debug.html.twig');
     }
 }

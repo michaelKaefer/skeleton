@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace App\Controller\Account;
 
 use App\Controller\BaseController;
-use App\Form\ResetPasswordFormType;
+use App\Form\ResetPasswordType;
 use App\Repository\UserRepository;
 use Exception;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -39,7 +39,7 @@ class ResetPasswordController extends BaseController
         UserRepository $users,
         UserPasswordEncoderInterface $passwordEncoder
     ) {
-        $form = $this->createForm(ResetPasswordFormType::class);
+        $form = $this->createForm(ResetPasswordType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

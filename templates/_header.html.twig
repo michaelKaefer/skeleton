@@ -2,7 +2,7 @@
 
 <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-white px-md-5">
     {# Brand #}
-    <a class="navbar-brand ml-lg-3 px-md-5" href="{{ path('profile') }}">Skeleton</a>
+    <a class="navbar-brand ml-lg-3 px-md-5" href="{{ path('home') }}">Skeleton</a>
 
     {# Burger #}
     <button
@@ -18,6 +18,13 @@
     </button>
 
     <div class="collapse navbar-nav navbar-collapse d-lg-flex justify-content-end" id="navbarMenu">
+        {# Development #}
+        {% if is_granted('ROLE_ADMIN') %}
+            <code class="badge nav-item">
+                <a class="btn btn-link" href="{{ path('component_library') }}">Component Library <span class="badge badge-info">DEV</span></a>
+            </code>
+        {% endif %}
+
         {# Language #}
         <div class="nav-item dropdown">
             <a
@@ -56,12 +63,18 @@
                 <i class="fa fa-user"></i>
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{{ path('profile') }}">{{ 'profile'|trans }}</a>
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <a class="dropdown-item" href="{{ path('profile') }}">{{ 'profile'|trans }}</a>
+                {% endif %}
                 {% if is_granted('ROLE_ADMIN') %}
                     <a class="dropdown-item" href="{{ path('easyadmin') }}">{{ 'admin_area'|trans }}</a>
                 {% endif %}
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{{ path('logout') }}">{{ 'logout'|trans }}</a>
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{{ path('logout') }}">{{ 'logout'|trans }}</a>
+                {% else %}
+                    <a class="dropdown-item" href="{{ path('login') }}">{{ 'login'|trans }}</a>
+                {% endif %}
             </div>
         </div>
     </div>

@@ -1,3 +1,31 @@
+{#
+    Usage example:
+    {% include 'partials/_switch.html.twig' with {
+        id: 'is-company',
+        label: 'is_company'|trans,
+        checked: user.type == 'COMPANY',
+        help: null,
+    } %}
+
+    JS example:
+    const switcher = document.getElementById('is-company');
+    let switcherLabel = document.querySelector('label[for="is-company"]');
+
+    const personElement = document.querySelector('.person');
+    const companyElement = document.querySelector('.company');
+
+    switcher.addEventListener('click', (event) => {
+      if (event.currentTarget.checked) {
+        personElement.classList.remove('d-none');
+        companyElement.classList.add('d-none');
+        switcherLabel.innerHTML = 'person';
+      } else {
+        personElement.classList.add('d-none');
+        companyElement.classList.remove('d-none');
+        switcherLabel.innerHTML = 'company';
+      }
+    });
+#}
 <div class="custom-control custom-switch">
     <input type="checkbox" class="custom-control-input" id="{{ id }}" value="1" {{ checked ? 'checked' : '' }}>
     <label class="custom-control-label" for="{{ id }}">{{ label }}</label>

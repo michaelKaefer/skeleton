@@ -25,6 +25,14 @@
         <source>email</source>
         <target>E-Mail</target>
       </trans-unit>
+      <trans-unit id="grtEF.l" resname="person">
+        <source>person</source>
+        <target>Person</target>
+      </trans-unit>
+      <trans-unit id="gigsF.l" resname="company">
+        <source>company</source>
+        <target>Firma</target>
+      </trans-unit>
       <trans-unit id="BUFvv5j" resname="first_name">
         <source>first_name</source>
         <target>Vorname</target>
@@ -45,9 +53,21 @@
         <source>save</source>
         <target>Speichern</target>
       </trans-unit>
-      <trans-unit id="YZdZVQP" resname="delete">
-        <source>delete</source>
+      <trans-unit id="sZddZVQP" resname="account_deletion_heading">
+        <source>account_deletion_heading</source>
+        <target>Account löschen</target>
+      </trans-unit>
+      <trans-unit id="dYsdZVQP" resname="account_deletion_info">
+        <source>account_deletion_info</source>
+        <target>Sie können Ihren Account vollständig und DSGVO-konform löschen lassen. Nach der Löschung erhalten Sie eine Lösch-ID mit der Sie eine Bestätigung der Löschung anfordern können.</target>
+      </trans-unit>
+      <trans-unit id="YZdZdVQP" resname="delete_account_button_label">
+        <source>delete_account_button_label</source>
         <target>Meinen Account löschen</target>
+      </trans-unit>
+      <trans-unit id="ttdZVQdP" resname="are_you_sure_to_delete_your_account_question">
+        <source>are_you_sure_to_delete_your_account_question</source>
+        <target>Sind Sie sicher, dass Sie Ihren Account löschen wollen? Ihre Daten werden für immer gelöscht.</target>
       </trans-unit>
     </body>
   </file>

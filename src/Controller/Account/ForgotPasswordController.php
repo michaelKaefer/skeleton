@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace App\Controller\Account;
 
 use App\Controller\BaseController;
-use App\Form\ForgotPasswordFormType;
+use App\Form\ForgotPasswordType;
 use App\Repository\UserRepository;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,7 +34,7 @@ class ForgotPasswordController extends BaseController
      */
     public function forgotPassword(Request $request, UserRepository $users, MailerInterface $mailer, TokenGeneratorInterface $tokenGenerator): Response
     {
-        $form = $this->createForm(ForgotPasswordFormType::class);
+        $form = $this->createForm(ForgotPasswordType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

@@ -15,7 +15,7 @@ namespace App\Controller\Account;
 
 use App\Controller\BaseController;
 use App\Entity\User;
-use App\Form\ProfileFormType;
+use App\Form\ProfileType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,7 +33,7 @@ class ProfileController extends BaseController
     {
         /** @var User $user */
         $user = $this->getUser();
-        $form = $this->createForm(ProfileFormType::class, $user);
+        $form = $this->createForm(ProfileType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

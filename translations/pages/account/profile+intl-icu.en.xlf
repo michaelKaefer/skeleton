@@ -17,6 +17,14 @@
         <source>email</source>
         <target>Email</target>
       </trans-unit>
+      <trans-unit id="gstEF.l" resname="person">
+        <source>person</source>
+        <target>Person</target>
+      </trans-unit>
+      <trans-unit id="aigsF.l" resname="company">
+        <source>company</source>
+        <target>Company</target>
+      </trans-unit>
       <trans-unit id="BUFvv5j" resname="first_name">
         <source>first_name</source>
         <target>First name</target>
