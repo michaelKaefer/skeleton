@@ -27,4 +27,3 @@ composer init
 composer require dephpend/dephpend:dev-master
 sudo apt-get install -y plantuml
 ./vendor/bin/dephpend  uml --output=uml.png /var/www/html/skeleton/src/
-
