@@ -23,7 +23,7 @@ matrix:
 #           ACTION="update"
     - php: 7.4
 
-before-install:
+before_install:
   - '[[ "$TRAVIS_PHP_VERSION" == "7.4snapshot" ]] || phpenv config-rm xdebug.ini'
   - composer self-update
   # Set memory to max (memory fail)
