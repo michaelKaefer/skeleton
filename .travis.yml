@@ -28,9 +28,9 @@ before_install:
   # Set memory to max (memory fail)
   - '[[ "$ACTION" == "install" ]] || echo "memory_limit=-1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini'
   # Set stability to dev to allow 4.4dev and 5.0dev
-  - '[[ "$ACTION" == "install" ]] || composer config minimum-stability dev'
+#  - '[[ "$ACTION" == "install" ]] || composer config minimum-stability dev'
   # Change version of symfony when need
-  - '[[ "$ACTION" == "install" ]] || composer config extra.symfony.require $SYMFONY'
+#  - '[[ "$ACTION" == "install" ]] || composer config extra.symfony.require $SYMFONY'
 
 install:
   - php -r "echo ini_get('memory_limit').PHP_EOL;"
