@@ -7,11 +7,11 @@ sudo: false
 #    - $HOME/.composer/cache/files
 #    - ./bin/.phpunit
 
-#env:
-#  global:
+env:
+  global:
 #    - SYMFONY_PHPUNIT_DIR=./bin/.phpunit
 #    - SYMFONY_DEPRECATIONS_HELPER=9
-#    - ACTION="install"
+    - ACTION="install"
 
 matrix:
 #  fast_finish: true
@@ -32,14 +32,14 @@ before_install:
   # Change version of symfony when need
   - '[[ "$ACTION" == "install" ]] || composer config extra.symfony.require $SYMFONY'
 
-#install:
-#  - php -r "echo ini_get('memory_limit').PHP_EOL;"
-#  # install or update
-#  - composer $ACTION
-#  - ./bin/phpunit install
-#
-#script:
-#  - ./bin/phpunit
+install:
+  - php -r "echo ini_get('memory_limit').PHP_EOL;"
+  # install or update
+  - composer $ACTION
+  - ./bin/phpunit install
+
+script:
+  - ./bin/phpunit
 #  # this checks that the source code follows the Symfony Code Syntax rules
 #  - '[[ "$TRAVIS_PHP_VERSION" == "7.4" ]] || ./vendor/bin/php-cs-fixer fix --diff --dry-run -v'
 #  # this checks that the YAML config files contain no syntax errors
