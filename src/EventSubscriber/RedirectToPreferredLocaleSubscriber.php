@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace App\EventSubscriber;
 
+use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -24,8 +25,14 @@ class RedirectToPreferredLocaleSubscriber implements EventSubscriberInterface
     private $defaultLocale;
     private $supportedLocales;
     private $urlGenerator;
+    private $logger;
 
-    public function __construct(string $defaultLocale, string $supportedLocales, UrlGeneratorInterface $urlGenerator)
+    public function __construct(
+    	string $defaultLocale,
+	    string $supportedLocales,
+	    UrlGeneratorInterface $urlGenerator,
+		LoggerInterface $logger
+	)
     {
         $this->urlGenerator = $urlGenerator;
 
@@ -45,6 +52,8 @@ class RedirectToPreferredLocaleSubscriber implements EventSubscriberInterface
         // returns the first element when no an appropriate language is found
         array_unshift($this->supportedLocales, $this->defaultLocale);
         $this->supportedLocales = array_unique($this->supportedLocales);
+
+        $this->logger = $logger;
     }
 
     public static function getSubscribedEvents(): array
@@ -65,13 +74,15 @@ class RedirectToPreferredLocaleSubscriber implements EventSubscriberInterface
 
         // Ignore requests from referrers with the same HTTP host in order to prevent
         // changing language for users who possibly already selected it for this application.
-        if (0 === mb_stripos($request->headers->get('referer'), $request->getSchemeAndHttpHost())) {
+	    $referer = $request->headers->get('referer');
+        if ($referer && 0 === mb_stripos($referer, $request->getSchemeAndHttpHost())) {
             return;
         }
 
         $preferredLanguage = $request->getPreferredLanguage($this->supportedLocales);
 
-        $response = new RedirectResponse($this->urlGenerator->generate('login', ['_locale' => $preferredLanguage]));
+        $this->logger->info(sprintf('Since no locale was requested redirecting to the preferred locale "%s".', $preferredLanguage));
+        $response = new RedirectResponse($this->urlGenerator->generate('home', ['_locale' => $preferredLanguage]));
         $event->setResponse($response);
     }
 }
