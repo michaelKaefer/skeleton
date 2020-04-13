@@ -1,4 +1,6 @@
 - write jest tests for: spa/
+- profile form
+- success messages
 - automatically run cs fixer either on:
 
     BEFORE PULL REQUEST OR PUSH IS ACCEPTED BY THE REMOTE REPO

@@ -91,7 +91,7 @@
                             } %}
                         </div>
                         <div class="person {{ user.type == 'PERSON' ? '' : 'd-none' }} col-md-12">
-                            {% if user.type == 'PERSON' %}
+                            {% if form.person is defined %}
                                 <div class="form-row">
                                     <div class="col-md-6">
                                         {{ form_row(form.person.firstName, {
@@ -107,7 +107,7 @@
                             {% endif %}
                         </div>
                         <div class="organization {{ user.type == 'ORGANIZATION' ? '' : 'd-none' }} col-md-12">
-                            {% if user.type == 'ORGANIZATION' %}
+                            {% if form.organization is defined %}
                                 <div class="form-row">
                                     <div class="col-md-12">
                                         {{ form_row(form.organization.name, {

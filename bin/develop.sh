@@ -9,7 +9,7 @@ then
 fi
 
 printf "2/8 Updating composer...\n"
-if OUTPUT="$( sudo composer self:update )"
+if OUTPUT="$( sudo composer self-update )"
 then
   printf "2/8 Success\n\n"
 fi

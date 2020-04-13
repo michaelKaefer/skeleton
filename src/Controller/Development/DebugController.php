@@ -27,12 +27,15 @@ class DebugController extends AbstractController
     public function index()
     {
 //    	dd($this->getUser());
-        return new JsonResponse([
-            'here' => 'Hello!',
-            $this->getUser()->getId(),
-            'zuzi' => 123123,
-        ]);
+//        return new JsonResponse([
+//            'here' => 'Hello!',
+//            $this->getUser()->getId(),
+//            'zuzi' => 123123,
+//        ]);
 
+        $this->addFlash('success', 'Success 1');
+        $this->addFlash('success', 'Success2');
+        $this->addFlash('danger', 'Success 33');
 	    return $this->render('pages/development/debug.html.twig');
     }
 }
