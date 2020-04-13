@@ -19,7 +19,7 @@ printf "1/5 Success, changed working directory to %s\n\n" "$APP_PATH/.."
 printf "2/5 Dropping test database...\n"
 if ! OUTPUT="$( bin/console doctrine:database:drop --force --env=test 2>&1 )"
 then
-  if echo "$OUTPUT" | grep "database doesn't exist" >/dev/null; then
+  if echo "$OUTPUT" | grep "database doesn\'t exist" >/dev/null; then
     printf "2/5 Success, test database does not exist\n\n"
   else
     echo "2/5 Error on dropping test database:"
@@ -44,7 +44,7 @@ printf "3/5 Success\n\n"
 printf "4/5 Loading test fixtures...\n"
 if ! OUTPUT="$( bin/console hautelook:fixtures:load --no-interaction --env=test 2>&1 )"
 then
-  echo "4/5 Error on loading test fuxtures:"
+  echo "4/5 Error on loading test fixtures:"
   echo "$OUTPUT"
   exit
 fi

@@ -13,6 +13,7 @@ env:
   global:
 #    - SYMFONY_PHPUNIT_DIR=./bin/.phpunit
 #    - SYMFONY_DEPRECATIONS_HELPER=9
+    # Install Composer packages (including dev dependencies)
     - ACTION="install"
 
 matrix:
@@ -39,6 +40,7 @@ install:
   - ./bin/phpunit install
 
 script:
+  - ./bin/rebuild-test-database.sh
   - ./bin/phpunit
 #  # this checks that the source code follows the Symfony Code Syntax rules
 #  - '[[ "$TRAVIS_PHP_VERSION" == "7.4" ]] || ./vendor/bin/php-cs-fixer fix --diff --dry-run -v'
