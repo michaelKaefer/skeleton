@@ -33,7 +33,7 @@ class ForgotPasswordControllerTest extends BaseTest
         $client->request('GET', '/en/forgot-password');
 
         $client->submitForm('Request password reset email', [
-            'forgot_password_form[email]' => $email,
+            'forgot_password[email]' => $email,
         ]);
 
         $this->assertResponseIsSuccessful();

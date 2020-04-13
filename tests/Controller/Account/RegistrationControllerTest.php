@@ -38,9 +38,9 @@ class RegistrationControllerTest extends BaseTest
         $client = static::createClient();
         $client->request('GET', '/en/register');
         $client->submitForm('Register', [
-            'registration_form[email]' => $email,
-            'registration_form[plainPassword]' => $password,
-            'registration_form[agreeToTermsAndDataPrivacy]' => $agreeToTermsAndDataPrivacy,
+            'registration[email]' => $email,
+            'registration[plainPassword]' => $password,
+            'registration[agreeToTermsAndDataPrivacy]' => $agreeToTermsAndDataPrivacy,
         ]);
 
         $confirmationToken = $this->findUserByEmail($email)->getConfirmationToken();
@@ -56,7 +56,7 @@ class RegistrationControllerTest extends BaseTest
         $client->followRedirect();
 
         $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('body', $email);
+        $this->assertSelectorTextContains('body', 'Profile');
         $this->assertSelectorTextContains('.alert-warning', 'We sent you an email, please confirm your account!');
     }
 

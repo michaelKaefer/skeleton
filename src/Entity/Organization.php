@@ -15,6 +15,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiProperty;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\OrganizationRepository")
@@ -37,6 +38,7 @@ class Organization
      * @var string|null the name of the item
      *
      * @ORM\Column(type="text", nullable=true)
+     * @Assert\NotBlank()
      * @ApiProperty(iri="http://schema.org/name")
      */
     private $name;

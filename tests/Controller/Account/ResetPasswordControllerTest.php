@@ -36,7 +36,7 @@ class ResetPasswordControllerTest extends BaseTest
         $client->request('GET', sprintf('/en/reset-password/%s', $passwordResetToken));
 
         $client->submitForm('Save password', [
-            'reset_password_form[plainPassword]' => '111111',
+            'reset_password[plainPassword]' => '111111',
         ]);
 
         $this->assertResponseRedirects('/en/login');
@@ -56,7 +56,7 @@ class ResetPasswordControllerTest extends BaseTest
         $client->request('GET', sprintf('/en/reset-password/%s', $passwordResetToken));
 
         $client->submitForm('Save password', [
-            'reset_password_form[plainPassword]' => '654321',
+            'reset_password[plainPassword]' => '654321',
         ]);
 
         $this->assertResponseStatusCodeSame(404);

@@ -33,6 +33,10 @@
         <source>last_name</source>
         <target>Last name</target>
       </trans-unit>
+      <trans-unit id="Iya4ddu" resname="name">
+        <source>name</source>
+        <target>Name</target>
+      </trans-unit>
       <trans-unit id="r.ZOT9U" resname="country">
         <source>country</source>
         <target>Country</target>

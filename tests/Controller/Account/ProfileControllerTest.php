@@ -27,7 +27,7 @@ class ProfileControllerTest extends BaseTest
         $client->request('GET', '/en/profile');
 
         $this->assertResponseIsSuccessful();
-        $this->assertSelectorTextContains('body', $email);
+        $this->assertSelectorTextContains('body', 'Profile');
     }
 
     /**
@@ -42,7 +42,7 @@ class ProfileControllerTest extends BaseTest
         $client->request('GET', '/en/profile');
 
         $client->submitForm('Save', [
-            'profile_form[email]' => $email.'foo',
+            'profile[email]' => $email.'foo',
         ]);
 
         $this->assertResponseIsSuccessful();

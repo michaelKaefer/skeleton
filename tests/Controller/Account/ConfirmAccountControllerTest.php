@@ -32,7 +32,7 @@ class ConfirmAccountControllerTest extends BaseTest
         $this->assertResponseRedirects('/en/profile');
         $client->followRedirect();
 
-        $this->assertSelectorTextContains('body', sprintf('%s', $email));
+        $this->assertSelectorTextContains('body', sprintf('%s', 'Profile'));
         $this->assertNull($this->findUserByEmail('unconfirmed@example.com')->getConfirmationToken());
     }
 

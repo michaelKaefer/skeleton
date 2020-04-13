@@ -53,7 +53,7 @@ printf "4/5 Success\n\n"
 printf "5/5 Loading fuxtures...\n"
 if ! OUTPUT="$(bin/console hautelook:fixtures:load --no-interaction 2>&1 )"
 then
-  echo "5/5 Error on loading fuxtures:"
+  echo "5/5 Error on loading fixtures:"
   echo "$OUTPUT"
   exit
 fi

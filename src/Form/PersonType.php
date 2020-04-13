@@ -13,8 +13,14 @@ class PersonType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('firstName', TextType::class)
-            ->add('lastName', TextType::class)
+            ->add('firstName', TextType::class, [
+                'required' => true,
+                'empty_data' => '',
+            ])
+            ->add('lastName', TextType::class, [
+                'required' => true,
+                'empty_data' => '',
+            ])
         ;
     }
 

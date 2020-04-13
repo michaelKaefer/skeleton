@@ -41,6 +41,10 @@
         <source>last_name</source>
         <target>Nachname</target>
       </trans-unit>
+      <trans-unit id="Iya4ddA" resname="name">
+        <source>name</source>
+        <target>Name</target>
+      </trans-unit>
       <trans-unit id="r.ZOT9U" resname="country">
         <source>country</source>
         <target>Staat</target>

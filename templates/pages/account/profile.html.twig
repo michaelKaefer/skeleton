@@ -62,7 +62,7 @@
         {% else %}
             <div class="row">
                 <div class="col-lg-9">
-                    {{ form_start(form) }}
+                    {{ form_start(form, {attr: {'novalidate': 'novalidate'}}) }}
                     <div class="row">
                         <div class="col-md-12">
                             {{ form_row(form.email, {
@@ -75,7 +75,7 @@
                         </div>
                         <div class="col-md-12 mb-3">
                             {% include 'partials/_radio_button.html.twig' with {
-                                id: 'is-company',
+                                id: 'is-organization',
                                 options: {
                                     0: {
                                         label: 'person'|trans,
@@ -84,40 +84,44 @@
                                     },
                                     1: {
                                         label: 'company'|trans,
-                                        active: user.type == 'COMPANY',
-                                        value: 'COMPANY',
+                                        active: user.type == 'ORGANIZATION',
+                                        value: 'ORGANIZATION',
                                     },
                                 },
                             } %}
                         </div>
                         <div class="person {{ user.type == 'PERSON' ? '' : 'd-none' }} col-md-12">
-                            <div class="form-row">
-                                <div class="col-md-6">
-                                    {{ form_row(form.person.firstName, {
-                                        label: 'first_name'|trans,
-                                    }) }}
+                            {% if user.type == 'PERSON' %}
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        {{ form_row(form.person.firstName, {
+                                            label: 'first_name'|trans,
+                                        }) }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        {{ form_row(form.person.lastName, {
+                                            label: 'last_name'|trans,
+                                        }) }}
+                                    </div>
                                 </div>
-                                <div class="col-md-6">
-                                    {{ form_row(form.person.lastName, {
-                                        label: 'last_name'|trans,
-                                    }) }}
-                                </div>
-                            </div>
+                            {% endif %}
                         </div>
-                        <div class="company {{ user.type == 'COMPANY' ? '' : 'd-none' }} col-md-12">
-                            <div class="form-row">
-                                <div class="col-md-12">
-                                    {{ form_row(form.organization.name, {
-                                        label: 'name'|trans,
-                                        attr: {
-                                            class: 'custom-control custom-checkbox',
-                                        },
-                                        label_attr: {
-                                            class: 'checkbox-custom'
-                                        },
-                                    }) }}
+                        <div class="organization {{ user.type == 'ORGANIZATION' ? '' : 'd-none' }} col-md-12">
+                            {% if user.type == 'ORGANIZATION' %}
+                                <div class="form-row">
+                                    <div class="col-md-12">
+                                        {{ form_row(form.organization.name, {
+                                            label: 'name'|trans,
+                                            attr: {
+                                                class: 'custom-control custom-checkbox',
+                                            },
+                                            label_attr: {
+                                                class: 'checkbox-custom'
+                                            },
+                                        }) }}
+                                    </div>
                                 </div>
-                            </div>
+                            {% endif %}
                         </div>
                         <div class="col-md-12">
                             {{ form_row(form.receivesNewsletter, {
