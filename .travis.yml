@@ -4,6 +4,7 @@ sudo: false
 cache:
   yarn: true
   directories:
+    # Cache PHPUnit
     - ./bin/.phpunit
     # Cache composer packages so "composer install" is faster
     - $HOME/.composer/cache/files
