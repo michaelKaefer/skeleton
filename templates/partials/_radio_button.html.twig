@@ -49,7 +49,11 @@
 #}
 <div class="btn-group btn-group-toggle" id="js-{{ id }}">
     {% for i, option in options %}
-        <label class="btn btn-outline-primary {{ option.active ? 'active' : ''}}" data-value="{{ option.value }}">
+        <label
+                title="{{ help }}"
+                class="btn btn-outline-primary {{ option.active ? 'active' : ''}}"
+                data-value="{{ option.value }}"
+        >
             <input type="radio" name="options" id="{{ id }}-{{ i + 1 }}"> {{ option.label }}
         </label>
     {% endfor %}

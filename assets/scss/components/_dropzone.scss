@@ -1,0 +1,72 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins/breakpoints";
+
+form.dropzone {
+  border-radius: 0.25rem;
+  margin-bottom: 0.5rem;
+  min-height: 0;
+  width: 100%;
+
+  .dz-default {
+    margin: 0;
+  }
+
+  .dz-message {
+    width: 100%;
+    border: 1px dashed #ced4da;
+
+    .dz-button {
+      width: 100%;
+      padding: 16px;
+      background-color: transparent;
+      border: none;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  .dz-preview {
+    padding: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 3px;
+    margin-top: 8px;
+
+    .dz-error-message {
+      color: $danger;
+      padding: 3px;
+      border-radius: 3px;
+      margin-top: 4px;
+      line-height: 1.15;
+    }
+
+    .thumbnail {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .dz-error-mark svg {
+        height: 2.3em;
+        width: 2.3em;
+        margin-left: 5px;
+      }
+    }
+
+    .dz-details .dz-filename {
+      font-size: smaller;
+      display: flex;
+      justify-content: space-between;
+
+      .data-dz-size {
+        min-width: 50px;
+        text-align: right;
+      }
+
+      strong {
+        font-weight: normal !important;
+      }
+    }
+  }
+}

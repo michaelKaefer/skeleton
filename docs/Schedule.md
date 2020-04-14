@@ -1,6 +1,7 @@
 - write jest tests for: spa/
-- profile form
-- success messages
+- profile form validation
+- profile avatar/photo
+- lazy load images bene
 - automatically run cs fixer either on:
 
     BEFORE PULL REQUEST OR PUSH IS ACCEPTED BY THE REMOTE REPO

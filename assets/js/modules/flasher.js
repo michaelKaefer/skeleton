@@ -1,7 +1,7 @@
 import '../../scss/components/_flash.scss';
 import Swal from 'sweetalert2';
 
-class Flash {
+class Flasher {
   constructor() {
     this.swalMixin = Swal.mixin({
       customClass: {
@@ -13,7 +13,7 @@ class Flash {
   }
 
   success(html) {
-    this.swalMixin.fire({
+    return this.swalMixin.fire({
       title: '<i class="fa fa-check-circle text-success"/>',
       html,
       showConfirmButton: false,
@@ -22,7 +22,7 @@ class Flash {
   }
 
   error(html) {
-    this.swalMixin.fire({
+    return this.swalMixin.fire({
       title: '<i class="fa fa-times-circle text-danger"/>',
       html,
     });
@@ -40,34 +40,23 @@ class Flash {
       cancelButtonText: 'Abort',
     });
   }
+
+  batch(flashes) {
+    const initialResolvedPromise = Promise.resolve();
+
+    return flashes.reduce(async (previous, flash) => {
+      await previous;
+
+      switch (flash.type) {
+        case 'success':
+          return this.success(flash.html);
+        case 'error':
+          return this.error(flash.html);
+        default:
+          throw new Error(`Unknown profile type "${flash.type}".`);
+      }
+    }, initialResolvedPromise);
+  }
 }
 
-const flash = new Flash();
-
-export default flash;
-
-const flashes = document.querySelectorAll('.flash-message');
-
-(async () => {
-  for (let i = 0; i < flashes.length; i++) {
-    const { type } = flashes[i].dataset;
-    const messageHtml = flashes[i].innerHTML;
-
-    if (i > 0) {
-      // eslint-disable-next-line
-      console.error(`Cannot show more than one flash per request. Dismissing flash of type "${type}" with message "${messageHtml}".`);
-      continue;
-    }
-
-    switch (type) {
-      case 'success':
-        await flash.success(messageHtml);
-        break;
-      case 'error':
-        await flash.success(messageHtml);
-        break;
-      default:
-        throw new Error('Unknown profile type.');
-    }
-  }
-})();
+export default new Flasher();

@@ -61,7 +61,7 @@
             </div>
         {% else %}
             <div class="row">
-                <div class="col-lg-9">
+                <div class="col-sm-6 col-lg-8">
                     {{ form_start(form, {attr: {'novalidate': 'novalidate'}}) }}
                     <div class="row">
                         <div class="col-md-12">
@@ -88,6 +88,10 @@
                                         value: 'ORGANIZATION',
                                     },
                                 },
+                                help: 'profile_type_help'|trans({
+                                    current_type: user.type == 'PERSON' ? 'person'|trans : 'company'|trans,
+                                    other_type: user.type != 'PERSON' ? 'person'|trans : 'company'|trans,
+                                })
                             } %}
                         </div>
                         <div class="person {{ user.type == 'PERSON' ? '' : 'd-none' }} col-md-12">
@@ -134,17 +138,43 @@
                     </div>
                     {{ form_end(form) }}
                 </div>
-                <div class="col-lg-3">
-                    <h2 class="h5">{{ 'account_deletion_heading'|trans }}</h2>
-                    <p>
-                        {{ 'account_deletion_info'|trans }}
-                    </p>
-                    {% include 'partials/_delete_button.html.twig' with {
-                        route: path('user_delete', {'id': user.id}),
-                        csrf_token: csrf_token('delete' ~ user.id),
-                        button_label: 'delete_account_button_label'|trans,
-                        question: 'are_you_sure_to_delete_your_account_question'|trans,
-                    } %}
+                <div class="col-sm-6 col-lg-4 d-flex flex-column align-items-center">
+                    {# Image #}
+                    {% if user.avatar %}
+                        <img
+                                style="max-width: 90%;"
+                                src="{{ uploaded_file(user.avatarUrl) }}"
+                                alt="{{ 'avatar'|trans }}"
+                                class="card-img-top rounded mb-2"
+                                id="js-avatar"
+                        />
+                    {% endif %}
+
+                    {# Dropzone #}
+                    <form
+                            action="{{ path('avatar_upload', { user: user.id }) }}"
+                            method="POST"
+                            enctype="multipart/form-data"
+                            class="dropzone avatar mb-4"
+                            data-description="{{ 'upload_avatar'|trans }}"
+                            data-error="{{ 'error_on_file_upload'|trans }}"
+                            data-success="{{ 'success_on_file_upload'|trans }}"
+                    >
+                    </form>
+
+                    {# Delete account #}
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="h5 card-title">{{ 'account_deletion_heading'|trans }}</h2>
+                            <p class="card-text">{{ 'account_deletion_info'|trans }}</p>
+                            {% include 'partials/_delete_button.html.twig' with {
+                                route: path('user_delete', {'id': user.id}),
+                                csrf_token: csrf_token('delete' ~ user.id),
+                                button_label: 'delete_account_button_label'|trans,
+                                question: 'are_you_sure_to_delete_your_account_question'|trans,
+                            } %}
+                        </div>
+                    </div>
                 </div>
             </div>
         {% endif %}

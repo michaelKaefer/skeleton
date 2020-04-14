@@ -25,6 +25,10 @@
         <source>company</source>
         <target>Company</target>
       </trans-unit>
+      <trans-unit id="khsF.l" resname="profile_type_help">
+        <source>profile_type_help</source>
+        <target><![CDATA[Currently your account is of type "{current_type}", you can switch to type "{other_type}" anytime but data like first name or last name will be lost.]]></target>
+      </trans-unit>
       <trans-unit id="BUFvv5j" resname="first_name">
         <source>first_name</source>
         <target>First name</target>
@@ -61,9 +65,21 @@
         <source>delete_account_button_label</source>
         <target>Delete my account</target>
       </trans-unit>
-      <trans-unit id="ttdZVQP" resname="are_you_sure_to_delete_your_account_question">
+      <trans-unit id="ttdZVQww" resname="are_you_sure_to_delete_your_account_question">
         <source>are_you_sure_to_delete_your_account_question</source>
         <target>Are you sure you want to delete your account? Your data will be deleted forever.</target>
+      </trans-unit>
+      <trans-unit id="ttdZVQwe" resname="upload_avatar">
+        <source>upload_avatar</source>
+        <target>Upload new profile image</target>
+      </trans-unit>
+      <trans-unit id="ttdZVQee" resname="error_on_file_upload">
+        <source>error_on_file_upload</source>
+        <target>Error on uploading file!</target>
+      </trans-unit>
+      <trans-unit id="ttdZVQer" resname="success_on_file_upload">
+        <source>success_on_file_upload</source>
+        <target>File uploaded successfully!</target>
       </trans-unit>
     </body>
   </file>

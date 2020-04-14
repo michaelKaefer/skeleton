@@ -32,10 +32,10 @@ class DebugController extends AbstractController
 //            $this->getUser()->getId(),
 //            'zuzi' => 123123,
 //        ]);
-
+dd(ini_get('upload_max_filesize'));
         $this->addFlash('success', 'Success 1');
         $this->addFlash('success', 'Success2');
-        $this->addFlash('danger', 'Success 33');
+        $this->addFlash('error', 'Success 33');
 	    return $this->render('pages/development/debug.html.twig');
     }
 }

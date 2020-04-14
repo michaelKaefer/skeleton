@@ -47,22 +47,12 @@ class ProfileType extends AbstractType
         ;
 
         $formModifier = function (FormInterface $form, string $type) {
-//            $type = $user->getType();
-//            dd(1);
-
             if (User::TYPE_PERSON === $type) {
-                $form->add('person', PersonType::class, [
-//                    'required' => false,
-//                    'empty_data' => '',
-                ]);
+                $form->add('person', PersonType::class);
                 $form->remove('organization');
             }
             if (User::TYPE_ORGANIZATION === $type) {
-                $form->add('organization', OrganizationType::class, [
-
-//                    'required' => false,
-//                    'empty_data' => '',
-                ]);
+                $form->add('organization', OrganizationType::class);
                 $form->remove('person');
             }
         };
@@ -70,33 +60,9 @@ class ProfileType extends AbstractType
         $builder->addEventListener(
             FormEvents::PRE_SET_DATA,
             function (FormEvent $event) use ($formModifier) {
-
                 $formModifier($event->getForm(), $event->getData()->getType());
             }
         );
-
-//        $builder->get('type')->addEventListener(
-//            FormEvents::POST_SUBMIT,
-//            function (FormEvent $event) use ($formModifier) {
-////                dd(2);
-//                // It's important here to fetch $event->getForm()->getData(), as
-//                // $event->getData() will get you the client data (that is, the ID)
-//                $type = $event->getForm()->getData();
-////                $user = $event->getForm()->getParent()->getData();
-//
-////dd();
-//                // since we've added the listener to the child, we'll have to pass on
-//                // the parent to the callback functions!
-////                $formModifier($event->getForm()->getParent(), $type);
-//
-//
-//                /** @var User $user */
-//                $user = $event->getForm()->getParent()->getData();
-//                $user->setPerson(null);
-//                $user->setOrganization(null);
-////                dd($event);
-//            }
-//        );
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -33,6 +33,10 @@
         <source>company</source>
         <target>Firma</target>
       </trans-unit>
+      <trans-unit id="khsF.l" resname="profile_type_help">
+        <source>profile_type_help</source>
+        <target><![CDATA[Ihr Account ist derzeit vom Typ "{current_type}", Sie können ihn jederzeit zum Typ "{other_type}" umwandeln. Bitte beachten Sie, dass dabei Daten wie Vorname oder Nachname verloren gehen.]]></target>
+      </trans-unit>
       <trans-unit id="BUFvv5j" resname="first_name">
         <source>first_name</source>
         <target>Vorname</target>
@@ -72,6 +76,18 @@
       <trans-unit id="ttdZVQdP" resname="are_you_sure_to_delete_your_account_question">
         <source>are_you_sure_to_delete_your_account_question</source>
         <target>Sind Sie sicher, dass Sie Ihren Account löschen wollen? Ihre Daten werden für immer gelöscht.</target>
+      </trans-unit>
+      <trans-unit id="ttdZVQwe" resname="upload_avatar">
+        <source>upload_avatar</source>
+        <target>Neues Profilbild hochladen</target>
+      </trans-unit>
+      <trans-unit id="ttdZVQee" resname="error_on_file_upload">
+        <source>error_on_file_upload</source>
+        <target>Datei konnte nicht hochgelden werden!</target>
+      </trans-unit>
+      <trans-unit id="ttdZVQer" resname="success_on_file_upload">
+        <source>success_on_file_upload</source>
+        <target>Datei erfolgreich hochgeladen!</target>
       </trans-unit>
     </body>
   </file>
