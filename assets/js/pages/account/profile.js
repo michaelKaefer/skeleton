@@ -33,8 +33,9 @@ radios.forEach((radio) => {
     event.stopPropagation();
 
     const type = event.currentTarget.dataset.value;
+    const { message } = event.currentTarget.parentElement.parentElement.dataset;
 
-    const { value } = await flasher.confirm('change_profile_type');
+    const { value } = await flasher.confirm(message);
     if (value !== true) {
       return;
     }

@@ -73,7 +73,10 @@
                                 },
                             }) }}
                         </div>
-                        <div class="col-md-12 mb-3">
+                        <div
+                                class="col-md-12 mb-3"
+                                data-message="{{ 'change_profile_type'|trans }}"
+                        >
                             {% include 'partials/_radio_button.html.twig' with {
                                 id: 'is-organization',
                                 options: {

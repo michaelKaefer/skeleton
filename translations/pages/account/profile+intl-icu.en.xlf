@@ -29,6 +29,10 @@
         <source>profile_type_help</source>
         <target><![CDATA[Currently your account is of type "{current_type}", you can switch to type "{other_type}" anytime but data like first name or last name will be lost.]]></target>
       </trans-unit>
+      <trans-unit id="BUttttj" resname="change_profile_type">
+        <source>change_profile_type</source>
+        <target>You are changing your profile type. All data concerning your old type will be lost.</target>
+      </trans-unit>
       <trans-unit id="BUFvv5j" resname="first_name">
         <source>first_name</source>
         <target>First name</target>

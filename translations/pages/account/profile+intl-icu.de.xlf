@@ -37,6 +37,10 @@
         <source>profile_type_help</source>
         <target><![CDATA[Ihr Account ist derzeit vom Typ "{current_type}", Sie können ihn jederzeit zum Typ "{other_type}" umwandeln. Bitte beachten Sie, dass dabei Daten wie Vorname oder Nachname verloren gehen.]]></target>
       </trans-unit>
+      <trans-unit id="BUttttj" resname="change_profile_type">
+        <source>change_profile_type</source>
+        <target>Sie ändern Ihren Profiltyp, dabei gehen alle Daten Ihres alten Typs verloren.</target>
+      </trans-unit>
       <trans-unit id="BUFvv5j" resname="first_name">
         <source>first_name</source>
         <target>Vorname</target>

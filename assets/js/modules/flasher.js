@@ -30,14 +30,14 @@ class Flasher {
 
   confirm(html) {
     return this.swalMixin.fire({
-      title: '<i class="fa fa-exclamation-triangle text-warning"/>',
+      title: '<i class="fa fa-info-circle text-info"/>',
       text: html,
       // icon: 'warning',
       showCancelButton: true,
       // confirmButtonColor: '#3085d6',
       // cancelButtonColor: '#d33',
-      confirmButtonText: 'Continue',
-      cancelButtonText: 'Abort',
+      confirmButtonText: document.documentElement.lang === 'de' ? 'Weiter' : 'Continue',
+      cancelButtonText: document.documentElement.lang === 'de' ? 'Abbruch' : 'Abort',
     });
   }
 

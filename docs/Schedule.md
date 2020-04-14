@@ -1,7 +1,6 @@
 - write jest tests for: spa/
-- profile form validation
-- profile avatar/photo
-- lazy load images bene
+- profile form validation with yup
+- lazy load images beneath the fold: https://github.com/verlok/lazyload
 - automatically run cs fixer either on:
 
     BEFORE PULL REQUEST OR PUSH IS ACCEPTED BY THE REMOTE REPO
