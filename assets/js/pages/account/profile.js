@@ -1,106 +1,12 @@
 import Dropzone from 'dropzone';
-import * as yup from 'yup';
 import flasher from '../../modules/flasher';
+import validator from '../../modules/validator';
 import dropzoneConfiguration from '../../_dropzone';
-
-const l = (...args) => console.log(args);
 
 /**
  * Form validation
  */
-const fields = [
-  {
-    id: 'email',
-    selector: 'input[name="profile[email]"]',
-    yup: yup
-      .string()
-      .email()
-      .max(1/*00*/)
-      .required(),
-  },
-];
-
-
-
-///////////////////////////////////////////
-yup.setLocale({
-  mixed: {
-    default: 'invalid',
-  },
-  string: {
-    email: () => ({ key: 'email_invalid' }), // 'Must be a valid email address',
-    max: ({ max }) => ({ key: 'email_too_long', values: { max } }), // 'Email must be less than 100 characters'
-    required: () => ({ key: 'email_required' }), // 'An email is required',
-  },
-});
-const schema = yup.object().shape(fields.reduce((shape, field) => {
-  return {
-    ...shape,
-    [field.id]: field.yup,
-  };
-}, {}));
-///////////////////////////////////////////
-
-
-
-
-// const schema = yup.object().shape({
-//   'name="profile[email]"': yup
-//       .string()
-//       .email()
-//       .max(1/*00*/)
-//       .required(),
-//   // firstName: yup
-//   //     .string(),
-//   // lastName: yup
-//   //     .string(),
-// });
-
-const submit = document.querySelector('form[name="profile"] button[type="submit"]');
-
-submit.addEventListener('click', (e) => {
-  e.preventDefault();
-
-
-
-
-
-  schema.validate(fields.reduce((shape, field) => {
-    return {
-      ...shape,
-      [field.id]: document.querySelector(field.selector).value,
-    };
-  }, {})).then((valid, x) => {
-    l(1,valid, x); // => true
-  }).catch(function(err) {
-    l(err)
-    err.name; // => 'ValidationError'
-    err.errors; // => ['Deve ser maior que 18']
-  });
-
-  // schema.validate({
-  //   'name="profile[email]"': 'jimmy@example.com',
-  //   age: 11,
-  // }).then((valid, x) => {
-  //   l(1,valid, x); // => true
-  // }).catch(function(err) {
-  //   l(err)
-  //   err.name; // => 'ValidationError'
-  //   err.errors; // => ['Deve ser maior que 18']
-  // });
-
-  // schema
-  //     .isValid({
-  //       'name="profile[email]"': 'jimmy@example.com',
-  //       age: 24,
-  //     })
-  //     .then((valid, x) => {
-  //       l(1,valid, x); // => true
-  //     });
-  // l(132);
-});
-
-l(submit);
+validator.validateForm('form[name="profile"]');
 
 /**
  * Dropzone for avatar

@@ -3,5 +3,30 @@
 {% block title %}{{ 'reset_password'|trans }}{% endblock %}
 
 {% block body %}
-debug
+    <form novalidate>
+        <div>
+            <label for="name">Enter username (upper and lowercase letters): </label>
+            <input
+                    type="text"
+                    name="name"
+                    class="form-control"
+                    id="name"
+                    required
+                    pattern="[A-Za-z]+"
+                    data-patternMismatch="Enter username (upper and lowercase letters)"
+            >
+            <div class="invalid-feedback"></div>
+        </div>
+        <div>
+            <label for="number">number: </label>
+            <input type="number" name="number" class="form-control" id="number" required>
+            <div class="invalid-feedback"></div>
+        </div>
+        <button>Submit</button>
+    </form>
+
+    <script>
+        var x = new Validator();
+        x.validate('form');
+    </script>
 {% endblock %}
