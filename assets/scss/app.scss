@@ -1,7 +1,9 @@
+@import './_reboot';
 @import './_variables';
 
 /* stylelint-disable */
 @import '~bootstrap';
+@import './components/_checkbox';
 /* stylelint-enable */
 
 @import './components/_required_inputs';

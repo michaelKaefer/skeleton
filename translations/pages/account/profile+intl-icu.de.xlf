@@ -57,6 +57,10 @@
         <source>country</source>
         <target>Staat</target>
       </trans-unit>
+      <trans-unit id="mHa0WQW" resname="approve_terms_label">
+        <source>approve_terms_label</source>
+        <target><![CDATA[Ich habe die <a href="{terms_url}">Allgemeinen Geschäftsbedingungen</a> gelesen und akzeptiere sie. Weiters habe ich die <a href="{privacy_url}">Datenschutzbestimmungen</a> gelesen und akzeptiere sie.]]></target>
+      </trans-unit>
       <trans-unit id="XjlwE6c" resname="approve_newsletter">
         <source>approve_newsletter</source>
         <target>Ich will einen Newsletter erhalten.</target>

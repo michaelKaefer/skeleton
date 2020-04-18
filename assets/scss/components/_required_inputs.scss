@@ -1,5 +1,15 @@
-label.required::after {
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins/breakpoints";
+
+label:not(.checkbox-custom).required::after {
   content: "*";
-  color: red;
+  color: $danger;
+  margin-left: 5px;
+}
+
+.js-required-checkbox::after {
+  content: "*";
+  color: $danger;
   margin-left: 5px;
 }

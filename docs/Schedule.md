@@ -1,12 +1,13 @@
+- read symfony book to understand more about environment vars; use different port for docker DB so we can have more projects running at the same time 
+- switch to php 7.4 if possible
 - write jest tests for: spa/
-- profile form validation with yup
 - lazy load images beneath the fold: https://github.com/verlok/lazyload
 - automatically run cs fixer either on:
 
     BEFORE PULL REQUEST OR PUSH IS ACCEPTED BY THE REMOTE REPO
 
 
-  - changes in src/ and test/
+  - changes in src/ and test
   - commits
   - before ./bin/develop.sh
   - with PHPStorm config 

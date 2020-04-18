@@ -26,6 +26,7 @@ use Symfony\Component\Form\FormFactory;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\IsTrue;
 
 class ProfileType extends AbstractType
 {
@@ -42,6 +43,14 @@ class ProfileType extends AbstractType
             ->add('email', EmailType::class)
             ->add('receivesNewsletter', CheckboxType::class, [
                 'required' => false,
+            ])
+            ->add('agreeToTermsAndDataPrivacy', CheckboxType::class, [
+                'mapped' => false,
+                'constraints' => [
+                    new IsTrue([
+                        'message' => 'approve_terms',
+                    ]),
+                ],
             ])
 	        ->add('type', HiddenType::class)
         ;
@@ -63,6 +72,13 @@ class ProfileType extends AbstractType
                 $formModifier($event->getForm(), $event->getData()->getType());
             }
         );
+
+//        $builder->addEventListener(
+//            FormEvents::PRE_SUBMIT,
+//            function (FormEvent $event) use ($formModifier) {
+//                $formModifier($event->getForm(), $event->getData()['type']);
+//            }
+//        );
     }
 
     public function configureOptions(OptionsResolver $resolver)

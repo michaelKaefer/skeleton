@@ -9,48 +9,6 @@
     {{ encore_entry_link_tags('profile') }}
 {% endblock %}
 
-{#Checkbox with link#}
-{% form_theme form _self %}
-
-{% block checkbox_radio_label -%}
-    {#- Do not display the label if widget is not defined in order to prevent double label rendering -#}
-    {%- if widget is defined -%}
-        {% set is_parent_custom = parent_label_class is defined and ('checkbox-custom' in parent_label_class or 'radio-custom' in parent_label_class or 'switch-custom' in parent_label_class) %}
-        {% set is_custom = label_attr.class is defined and ('checkbox-custom' in label_attr.class or 'radio-custom' in label_attr.class or 'switch-custom' in label_attr.class) %}
-        {%- if is_parent_custom or is_custom -%}
-            {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' custom-control-label')|trim}) -%}
-        {%- else %}
-            {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' form-check-label')|trim}) -%}
-        {%- endif %}
-        {%- if not compound -%}
-            {% set label_attr = label_attr|merge({'for': id}) %}
-        {%- endif -%}
-        {%- if required -%}
-            {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' required')|trim}) -%}
-        {%- endif -%}
-        {%- if parent_label_class is defined -%}
-            {%- set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' ' ~ parent_label_class)|replace({'checkbox-inline': '', 'radio-inline': '', 'checkbox-custom': '', 'radio-custom': ''})|trim}) -%}
-        {%- endif -%}
-        {%- if label is not same as(false) and label is empty -%}
-            {%- if label_format is not empty -%}
-                {%- set label = label_format|replace({
-                    '%name%': name,
-                    '%id%': id,
-                }) -%}
-            {%- else -%}
-                {%- set label = name|humanize -%}
-            {%- endif -%}
-        {%- endif -%}
-
-        {{ widget|raw }}
-        <label{% with { attr: label_attr } %}{{ block('attributes') }}{% endwith %}>
-            {{- label is not same as(false) ? (translation_domain is same as(false) ? label|raw : label|trans(label_translation_parameters, translation_domain)|raw) -}}
-            {{- form_errors(form) -}}
-        </label>
-    {%- endif -%}
-{%- endblock checkbox_radio_label %}
-{#Checkbox with link#}
-
 {% block body %}
     <div class="w-100">
         <h1 class="h3 mb-4"><i class="fa fa-user"></i>&nbsp;&nbsp;{{ 'heading'|trans }}</h1>
@@ -70,6 +28,8 @@
                                 attr: {
                                     autofocus: true,
                                     placeholder: 'email',
+                                    'data-valuemissing': 'valuemissing'|trans({}, 'form-errors'),
+                                    'data-typemismatch': 'type_mismatch_email'|trans({}, 'form-errors'),
                                 },
                             }) }}
                         </div>
@@ -96,6 +56,13 @@
                                     other_type: user.type != 'PERSON' ? 'person'|trans : 'company'|trans,
                                 })
                             } %}
+                            {% include 'partials/_switch.html.twig' with {
+                                id: 'is-organization',
+                                label_left: 'person'|trans,
+                                label_right: 'company'|trans,
+                                checked: user.type == 'ORGANIZATION',
+                                help: null,
+                            } %}
                         </div>
                         <div class="person {{ user.type == 'PERSON' ? '' : 'd-none' }} col-md-12">
                             {% if form.person is defined %}
@@ -103,11 +70,17 @@
                                     <div class="col-md-6">
                                         {{ form_row(form.person.firstName, {
                                             label: 'first_name'|trans,
+                                            attr: {
+                                                'data-valuemissing': 'valuemissing'|trans({}, 'form-errors'),
+                                            },
                                         }) }}
                                     </div>
                                     <div class="col-md-6">
                                         {{ form_row(form.person.lastName, {
                                             label: 'last_name'|trans,
+                                            attr: {
+                                                'data-valuemissing': 'valuemissing'|trans({}, 'form-errors'),
+                                            },
                                         }) }}
                                     </div>
                                 </div>
@@ -120,10 +93,7 @@
                                         {{ form_row(form.organization.name, {
                                             label: 'name'|trans,
                                             attr: {
-                                                class: 'custom-control custom-checkbox',
-                                            },
-                                            label_attr: {
-                                                class: 'checkbox-custom'
+                                                'data-valuemissing': 'valuemissing'|trans({}, 'form-errors'),
                                             },
                                         }) }}
                                     </div>
@@ -131,6 +101,15 @@
                             {% endif %}
                         </div>
                         <div class="col-md-12">
+                            {{ form_row(form.agreeToTermsAndDataPrivacy, {
+                                label: 'approve_terms_label'|trans({
+                                    '{terms_url}': '#',
+                                    '{privacy_url}': '#',
+                                }) ~ '<span class="js-required-checkbox"></span>',
+                                attr: {
+                                    'data-valuemissing': 'approve_terms'|trans({}, 'form-errors'),
+                                },
+                            }) }}
                             {{ form_row(form.receivesNewsletter, {
                                 label: 'approve_newsletter'|trans,
                             }) }}

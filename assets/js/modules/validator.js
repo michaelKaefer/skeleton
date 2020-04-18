@@ -34,9 +34,15 @@ class Validator {
         } else if (!input.validity.valid && input.parentElement.classList.contains('was-validated')) {
           this.validateField(input);
         }
+
         if (input.parentElement.querySelector(':invalid') === null) {
           /* eslint-disable no-param-reassign */
           input.parentElement.querySelector('.invalid-feedback').style.display = 'none';
+
+          // // For checkboxes we do not want the valid feedback styles
+          // if (input.type === 'checkbox') {
+          //   input.parentElement.classList.remove('was-validated');
+          // }
         }
       });
 
@@ -93,7 +99,19 @@ class Validator {
             }
             break;
           case input.validity.typeMismatch:
-            message = `This field must be of type ${input.type}.`;
+            switch (input.type) {
+              case 'email':
+                message = 'Has to be an email.';
+                break;
+              case 'number':
+                message = 'Has to be a number.';
+                break;
+              case 'text':
+                message = 'Has to be a text.';
+                break;
+              default:
+                message = `This field has to be of type ${input.type}.`;
+            }
             if (input.dataset.typemismatch !== undefined) {
               message = input.dataset.typemismatch;
             }
@@ -118,7 +136,10 @@ class Validator {
       e.preventDefault();
 
       if (form.querySelector(':invalid') !== null) {
-        inputs.forEach((input) => input.focus());
+        inputs.forEach((input) => {
+          input.focus();
+          input.blur();
+        });
       } else {
         form.submit();
       }
