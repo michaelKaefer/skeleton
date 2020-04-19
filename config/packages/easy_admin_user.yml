@@ -1,0 +1,56 @@
+easy_admin:
+    entities:
+        User:
+            class: App\Entity\User
+            controller: App\Controller\Admin\UserController
+            label: 'User'
+            list:
+                title: 'Users'
+                dql_filter: "entity.roles NOT LIKE '%%ROLE_ADMIN%%' AND entity.deletedAt IS NULL"
+                fields:
+                    - { property: 'id' }
+#                    - { property: 'firstName' }
+#                    - { property: 'lastName' }
+                    - { property: 'email', type: 'email' }
+#                filters: [{ property: 'lastName' }]
+                actions: ['-show']
+            show:
+                title: 'Admin'
+                fields:
+                    - { property: 'id' }
+                    - { property: 'email', type: 'email' }
+                    - { property: 'roles', type: 'simple_array' }
+                    - { property: 'firstName' }
+                    - { property: 'lastName' }
+                    - { property: 'receivesNewsletter' }
+                    - { property: 'subscribedToNewsletterAt' }
+                    - { property: 'unsubscribedFromNewsletterAt' }
+                    - { property: 'lastLoginAt' }
+                    - { property: 'lastFailedLoginAt' }
+                    - { property: 'failedLoginsCount' }
+            search:
+                sort: ['id', 'DESC']
+            form:
+                fields:
+                    # Contact
+                    - { type: 'group', columns: 4, label: 'contact', icon: 'address-card' }
+                    - { property: 'email', type: 'email' }
+                    - { property: 'password', type: 'password' }
+#                    - { property: 'firstName', columns: 6 }
+#                    - { property: 'lastName', columns: 6 }
+
+                    # Status
+                    - { type: 'section', label: 'newsletter', icon: 'envelope' }
+                    - { property: 'receivesNewsletter', help: 'receives_newsletter_help' }
+                    - { property: 'subscribedToNewsletterAt', label: 'subscribed_at', columns: 6, type_options: { disabled: true }, type: App\Form\DateTimePickerType }
+                    - { property: 'unsubscribedFromNewsletterAt', label: 'unsubscribed_at', columns: 6, type_options: { disabled: true }, type: App\Form\DateTimePickerType }
+
+                    # Security
+                    - { type: 'group', columns: 3, label: 'security', icon: 'unlock' }
+                    - { property: 'roles', type: 'choice', type_options: {choices: {Admin: 'ROLE_ADMIN', User: 'ROLE_USER'}, multiple: true, expanded: true} }
+                    - { property: 'lastLoginAt', type_options: { disabled: true }, type: App\Form\DateTimePickerType }
+                    - { property: 'lastFailedLoginAt', type_options: { disabled: true }, type: App\Form\DateTimePickerType }
+                    - { property: 'failedLoginsCount', help: 'failed_logins_count_help' }
+            edit:
+                fields:
+                    - { property: 'password', type: 'password', type_options: { required: false, empty_data: '' }, help: 'Enter a new password or leave empty if the password should remain the same.' }

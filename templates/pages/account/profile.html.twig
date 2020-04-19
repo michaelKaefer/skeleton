@@ -37,31 +37,12 @@
                                 class="col-md-12 mb-3"
                                 data-message="{{ 'change_profile_type'|trans }}"
                         >
-                            {% include 'partials/_radio_button.html.twig' with {
-                                id: 'is-organization',
-                                options: {
-                                    0: {
-                                        label: 'person'|trans,
-                                        active: user.type == 'PERSON',
-                                        value: 'PERSON',
-                                    },
-                                    1: {
-                                        label: 'company'|trans,
-                                        active: user.type == 'ORGANIZATION',
-                                        value: 'ORGANIZATION',
-                                    },
-                                },
-                                help: 'profile_type_help'|trans({
-                                    current_type: user.type == 'PERSON' ? 'person'|trans : 'company'|trans,
-                                    other_type: user.type != 'PERSON' ? 'person'|trans : 'company'|trans,
-                                })
-                            } %}
                             {% include 'partials/_switch.html.twig' with {
-                                id: 'is-organization',
                                 label_left: 'person'|trans,
                                 label_right: 'company'|trans,
                                 checked: user.type == 'ORGANIZATION',
                                 help: null,
+                                invalid_feedback: 'cannot_switch_type'|trans,
                             } %}
                         </div>
                         <div class="person {{ user.type == 'PERSON' ? '' : 'd-none' }} col-md-12">
@@ -71,6 +52,7 @@
                                         {{ form_row(form.person.firstName, {
                                             label: 'first_name'|trans,
                                             attr: {
+                                                placeholder: 'first_name',
                                                 'data-valuemissing': 'valuemissing'|trans({}, 'form-errors'),
                                             },
                                         }) }}
@@ -79,6 +61,7 @@
                                         {{ form_row(form.person.lastName, {
                                             label: 'last_name'|trans,
                                             attr: {
+                                                placeholder: 'last_name',
                                                 'data-valuemissing': 'valuemissing'|trans({}, 'form-errors'),
                                             },
                                         }) }}
@@ -93,12 +76,48 @@
                                         {{ form_row(form.organization.name, {
                                             label: 'name'|trans,
                                             attr: {
+                                                placeholder: 'name',
                                                 'data-valuemissing': 'valuemissing'|trans({}, 'form-errors'),
                                             },
                                         }) }}
                                     </div>
                                 </div>
                             {% endif %}
+                        </div>
+                        <div class="col-md-12">
+                            <div>{{ 'addresses'|trans }}</div>
+                            <div class="row">
+                                {% for address in user.addresses %}
+                                    <div class="col-md-6 mb-3">
+                                        {% include 'partials/_address.html.twig' with { address: address } %}
+                                    </div>
+                                {% endfor %}
+                            </div>
+{#                            <div class="row mb-4">#}
+{#                                <div class="col-md-6">#}
+{#                                    <button type="button" class="btn btn-outline-primary add_tag_link">Add an address</button>#}
+{#                                </div>#}
+{#                            </div>#}
+                        </div>
+                        <div class="col-md-12">
+                            <div>{{ 'addresses'|trans }}</div>
+                            <div
+                                    class="row js-addresses"
+                                    data-prototype="{{ include('form/address.html.twig', {
+                                        address: form.addresses.vars.prototype,
+                                    })|e('html_attr') }}"
+                            >
+                                {% for address in form.addresses %}
+                                    <div class="col-md-6 mb-3">
+                                        {% include 'form/address.html.twig' with { address: address } %}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <button type="button" class="btn btn-outline-primary add_tag_link">Add an address</button>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-12">
                             {{ form_row(form.agreeToTermsAndDataPrivacy, {
@@ -120,17 +139,14 @@
                     </div>
                     {{ form_end(form) }}
                 </div>
-                <div class="col-sm-6 col-lg-4 d-flex flex-column align-items-center">
+                <div class="right-sidebar col-sm-6 col-lg-4 d-flex flex-column align-items-center">
                     {# Image #}
-                    {% if user.avatar %}
-                        <img
-                                style="max-width: 90%;"
-                                src="{{ uploaded_file(user.avatarUrl) }}"
-                                alt="{{ 'avatar'|trans }}"
-                                class="card-img-top rounded mb-2"
-                                id="js-avatar"
-                        />
-                    {% endif %}
+                    <img
+                            src="{{ uploaded_file(user.avatarUrl ?? '') }}"
+                            alt="{{ 'avatar'|trans }}"
+                            class="card-img-top rounded mb-2{{ user.avatar ?? ' d-none' }}"
+                            id="js-avatar"
+                    />
 
                     {# Dropzone #}
                     <form

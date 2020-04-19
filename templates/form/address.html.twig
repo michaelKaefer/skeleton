@@ -1,0 +1,77 @@
+<div class="card">
+    <div class="card-body">
+        <div class="form-row">
+            <div class="col-md-12">
+                {{ form_row(address.name, {
+                    label: 'name',
+                    attr: {
+                        autofocus: true,
+                        placeholder: 'name',
+                        'data-valuemissing': 'valuemissing'|trans({}, 'form-errors'),
+                    },
+                }) }}
+            </div>
+            <div class="col-md-12">
+                {{ form_row(address.firstLine, {
+                    label: 'first_line',
+                    attr: {
+                        placeholder: 'first_line',
+                        autocomplete: 'street-address',
+                        'data-valuemissing': 'valuemissing'|trans({}, 'form-errors'),
+                    },
+                }) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(address.postalCode, {
+                    label: 'postal_code',
+                    attr: {
+                        placeholder: 'postal_code',
+                        'data-valuemissing': 'valuemissing'|trans({}, 'form-errors'),
+                    },
+                }) }}
+            </div>
+            <div class="col-md-8">
+                {{ form_row(address.city, {
+                    label: 'city',
+                    attr: {
+                        placeholder: 'city',
+                        'data-valuemissing': 'valuemissing'|trans({}, 'form-errors'),
+                    },
+                }) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_row(address.country, {
+                    label: 'country',
+                    attr: {
+                        placeholder: 'country',
+                        'data-valuemissing': 'valuemissing'|trans({}, 'form-errors'),
+                    },
+                }) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_row(address.region, {
+                    label: 'region',
+                    attr: {
+                        placeholder: 'region',
+                    },
+                }) }}
+            </div>
+            <div class="col-md-12">
+                {{ form_row(address.phone, {
+                    label: 'phone',
+                    attr: {
+                        placeholder: 'phone',
+                    },
+                }) }}
+            </div>
+            <div class="col-md-12">
+                {{ form_row(address.remarks, {
+                    label: 'remarks',
+                    attr: {
+                        placeholder: 'remarks',
+                    },
+                }) }}
+            </div>
+        </div>
+    </div>
+</div>

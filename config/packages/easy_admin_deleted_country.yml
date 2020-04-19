@@ -1,0 +1,11 @@
+easy_admin:
+  entities:
+    Country:
+      class: App\Entity\Country
+      label: 'Country'
+      list:
+        title: 'Countries'
+        fields:
+          - { property: 'id' }
+          - { property: 'code', type: 'country' }
+        actions: ['-show']

@@ -1,0 +1,30 @@
+easy_admin:
+    entities:
+        DeletedUser:
+            class: App\Entity\User
+            label: 'Deleted User'
+            list:
+                title: 'Deleted Users'
+                dql_filter: "entity.roles NOT LIKE '%%ROLE_ADMIN%%' AND entity.deletedAt IS NOT NULL"
+                fields:
+                    - { property: 'id' }
+                    - { property: 'deletionId', label: 'Deletion ID' }
+                    - { property: 'deletedAt' }
+#                filters: [{ property: 'lastName' }]
+                actions: ['-edit', '-delete']
+            show:
+                title: 'Admin'
+                fields:
+                    - { property: 'id' }
+                    - { property: 'email', type: 'email' }
+                    - { property: 'roles', type: 'simple_array' }
+#                    - { property: 'firstName' }
+#                    - { property: 'lastName' }
+                    - { property: 'receivesNewsletter' }
+                    - { property: 'subscribedToNewsletterAt' }
+                    - { property: 'unsubscribedFromNewsletterAt' }
+                    - { property: 'lastLoginAt' }
+                    - { property: 'lastFailedLoginAt' }
+                    - { property: 'failedLoginsCount' }
+            search:
+                sort: ['id', 'DESC']

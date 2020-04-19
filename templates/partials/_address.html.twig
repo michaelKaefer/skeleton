@@ -1,0 +1,14 @@
+<p>{{ address.name }}<br>
+{% if address.phone %}
+{{ address.phone }}<br>
+{% endif %}
+{{ address.firstLine }}<br>
+{% if address.secondLine %}
+{{ address.secondLine }}<br>
+{% endif %}
+{{ address.postalCode }} {{ address.city }}<br>
+{% if address.region %}
+{{ address.region }}<br>
+{% endif %}
+{{ address.country.name }}<br>
+{% if address.region %}{{ address.remarks }}{% endif %}</p>

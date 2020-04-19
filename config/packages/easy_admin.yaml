@@ -1,6 +1,32 @@
-#easy_admin:
-#    entities:
-#        # List the entity class name you want to manage
-#        - App\Entity\Product
-#        - App\Entity\Category
-#        - App\Entity\User
+imports:
+    - { resource: easy_admin_admin.yml }
+    - { resource: easy_admin_user.yml }
+    - { resource: easy_admin_deleted_user.yml }
+    - { resource: easy_admin_deleted_country.yml }
+
+easy_admin:
+    site_name: 'Skeleton'
+    translation_domain: 'admin'
+    formats:
+        date: 'd.m.Y'
+        time: 'H:i'
+        datetime: 'Y-m-d H:i:s'
+    list:
+        actions:
+            - { name: 'show', icon: 'info-circle', label: false, title: 'action.show' }
+            - { name: 'new', icon: 'plus', label: false, title: 'action.new' }
+            - { name: 'edit', icon: 'pencil', label: false, title: 'action.edit' }
+            - { name: 'search', icon: 'search', label: false, title: 'action.search' }
+            - { name: 'delete', icon: 'trash-alt', label: false, title: 'action.delete' }
+    design:
+        menu:
+            - { label: 'Users' }
+            - { entity: 'Admin', label: 'Admins', icon: 'user-shield' }
+            - { entity: 'User', label: 'Users', icon: 'user' }
+            - { entity: 'DeletedUser', label: 'Deleted Users', icon: 'user-times' }
+            - { label: 'Configuration' }
+            - { entity: 'Country', icon: 'flag' }
+        templates:
+            layout: 'admin/layout.html.twig'
+            flash_messages: 'admin/flash_messages.html.twig'
+            label_null: 'admin/label_null.html.twig'

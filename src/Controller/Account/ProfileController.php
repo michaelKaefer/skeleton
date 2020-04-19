@@ -14,6 +14,7 @@ declare(strict_types=1);
 namespace App\Controller\Account;
 
 use App\Controller\BaseController;
+use App\Entity\Address;
 use App\Entity\User;
 use App\Form\OrganizationType;
 use App\Form\PersonType;
@@ -36,6 +37,14 @@ class ProfileController extends BaseController
     {
         /** @var User $user */
         $user = $this->getUser();
+
+        //
+//        $x=(new Address())->setFirstLine('asdf');
+//        $user->addAddress($x);
+//        $x=(new Address())->setFirstLine('ddd');
+//        $user->addAddress($x);
+        //
+
         $form = $this->createForm(ProfileType::class, $user);
 
         // Must be saved to a variable before: $form->handleRequest($request);

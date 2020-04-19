@@ -1,7 +1,7 @@
 {#
     Usage example:
     {% include 'partials/_radio_button.html.twig' with {
-        id: 'is-company',
+        id: 'is-organization',
         options: {
             0: {
                 label: 'person'|trans,
@@ -10,10 +10,14 @@
             },
             1: {
                 label: 'company'|trans,
-                active: user.type == 'COMPANY',
-                value: 'COMPANY',
+                active: user.type == 'ORGANIZATION',
+                value: 'ORGANIZATION',
             },
         },
+        help: 'profile_type_help'|trans({
+            current_type: user.type == 'PERSON' ? 'person'|trans : 'company'|trans,
+            other_type: user.type != 'PERSON' ? 'person'|trans : 'company'|trans,
+        })
     } %}
 
     JS example:

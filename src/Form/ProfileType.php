@@ -16,6 +16,7 @@ namespace App\Form;
 use App\Entity\User;
 use App\Form\Type\CheckboxType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -41,6 +42,12 @@ class ProfileType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class)
+            ->add('addresses', CollectionType::class, [
+                'entry_type' => AddressType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                'by_reference' => false,
+            ])
             ->add('receivesNewsletter', CheckboxType::class, [
                 'required' => false,
             ])

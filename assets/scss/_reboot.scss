@@ -10,7 +10,10 @@
 
 input:-webkit-autofill, /* Alternative: :not(:hover):not(:focus) */
 input:-webkit-autofill:hover,
-input:-webkit-autofill:focus {
+input:-webkit-autofill:focus,
+select:-webkit-autofill, /* Alternative: :not(:hover):not(:focus) */
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
   -webkit-text-fill-color: rgb(73, 80, 87);
   -webkit-animation-name: autofill;
   -webkit-animation-fill-mode: both;

@@ -25,6 +25,14 @@
         <source>company</source>
         <target>Company</target>
       </trans-unit>
+      <trans-unit id="IyreddA" resname="addresses">
+        <source>addresses</source>
+        <target>Addresses</target>
+      </trans-unit>
+      <trans-unit id="gigsF12" resname="cannot_switch_type">
+        <source>cannot_switch_type</source>
+        <target>To convert the account, all fields must be filled in correctly beforehand. Please correct the errors and try again afterwards.</target>
+      </trans-unit>
       <trans-unit id="khsF.l" resname="profile_type_help">
         <source>profile_type_help</source>
         <target><![CDATA[Currently your account is of type "{current_type}", you can switch to type "{other_type}" anytime but data like first name or last name will be lost.]]></target>

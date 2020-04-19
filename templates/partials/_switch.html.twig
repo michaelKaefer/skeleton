@@ -27,10 +27,11 @@
     });
 #}
 <div class="js-profile-type-switch">
-    <span>{{ label_left }}&nbsp;</span>
+    <span class="js-left-label"{{ checked ? ' style="cursor: pointer"' }}>{{ label_left }}&nbsp;</span>
     <div class="custom-control custom-switch d-inline">
-        <input type="checkbox" class="custom-control-input" id="{{ id }}" value="1" {{ checked ? 'checked' : '' }}>
-        <label class="custom-control-label" for="{{ id }}">{{ label_right }}</label>
+        <input type="checkbox" class="custom-control-input" id="switcher" value="1" {{ checked ? 'checked' }}>
+        <label class="custom-control-label js-right-label" for="switcher"{{ not checked ? ' style="cursor: pointer"' }}>{{ label_right }}</label>
+        <div class="invalid-feedback">{{ invalid_feedback }}</div>
     </div>
     {% if help %}
         <small>{{ help }}</small>

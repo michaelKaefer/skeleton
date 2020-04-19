@@ -1,0 +1,15 @@
+{% extends '@EasyAdmin/default/layout.html.twig' %}
+
+{% block head_custom_stylesheets %}
+    {% for css_asset in easyadmin_config('design.assets.css') %}
+        <link rel="stylesheet" href="{{ asset(css_asset) }}">
+    {% endfor %}
+    {{ encore_entry_link_tags('admin') }}
+{% endblock head_custom_stylesheets %}
+
+{% block body_custom_javascript %}
+    {% for js_asset in easyadmin_config('design.assets.js') %}
+        <script src="{{ asset(js_asset) }}"></script>
+    {% endfor %}
+    {{ encore_entry_script_tags('admin') }}
+{% endblock body_custom_javascript %}

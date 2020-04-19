@@ -1,3 +1,19 @@
+App\Entity\Country:
+    austria:
+        code: 'AT'
+App\Entity\Address:
+    address_fakestreet:
+        name: 'John Doe'
+        firstLine: 'Fakestreet 123'
+        postalCode: '1050'
+        city: 'Wien'
+        country: '@austria'
+    address_teststreet:
+        name: 'John Doe'
+        firstLine: 'Teststreet 123'
+        postalCode: '1050'
+        city: 'Wien'
+        country: '@austria'
 App\Entity\Organization:
     acme_inc:
         name: 'Acme Inc.'
@@ -43,6 +59,7 @@ App\Entity\User:
         lastLoginAt: '<datetime()>'
         lastFailedLoginAt: ~
         failedLoginsCount: 0
+        addresses: '2x @address_*'
     confirmed_user_who_is_not_a_person_nor_an_organization:
         email: 'not.person.nor.organization@example.com'
         password: '123123'
