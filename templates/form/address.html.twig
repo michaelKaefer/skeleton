@@ -1,77 +1,85 @@
-<div class="card">
-    <div class="card-body">
-        <div class="form-row">
-            <div class="col-md-12">
-                {{ form_row(address.name, {
-                    label: 'name',
-                    attr: {
-                        autofocus: true,
-                        placeholder: 'name',
-                        'data-valuemissing': 'valuemissing'|trans({}, 'form-errors'),
-                    },
-                }) }}
-            </div>
-            <div class="col-md-12">
-                {{ form_row(address.firstLine, {
-                    label: 'first_line',
-                    attr: {
-                        placeholder: 'first_line',
-                        autocomplete: 'street-address',
-                        'data-valuemissing': 'valuemissing'|trans({}, 'form-errors'),
-                    },
-                }) }}
-            </div>
-            <div class="col-md-4">
-                {{ form_row(address.postalCode, {
-                    label: 'postal_code',
-                    attr: {
-                        placeholder: 'postal_code',
-                        'data-valuemissing': 'valuemissing'|trans({}, 'form-errors'),
-                    },
-                }) }}
-            </div>
-            <div class="col-md-8">
-                {{ form_row(address.city, {
-                    label: 'city',
-                    attr: {
-                        placeholder: 'city',
-                        'data-valuemissing': 'valuemissing'|trans({}, 'form-errors'),
-                    },
-                }) }}
-            </div>
-            <div class="col-md-6">
-                {{ form_row(address.country, {
-                    label: 'country',
-                    attr: {
-                        placeholder: 'country',
-                        'data-valuemissing': 'valuemissing'|trans({}, 'form-errors'),
-                    },
-                }) }}
-            </div>
-            <div class="col-md-6">
-                {{ form_row(address.region, {
-                    label: 'region',
-                    attr: {
-                        placeholder: 'region',
-                    },
-                }) }}
-            </div>
-            <div class="col-md-12">
-                {{ form_row(address.phone, {
-                    label: 'phone',
-                    attr: {
-                        placeholder: 'phone',
-                    },
-                }) }}
-            </div>
-            <div class="col-md-12">
-                {{ form_row(address.remarks, {
-                    label: 'remarks',
-                    attr: {
-                        placeholder: 'remarks',
-                    },
-                }) }}
-            </div>
+{% trans_default_domain 'address' %}
+
+{{ form_start(form, {attr: {'novalidate': 'novalidate'}}) }}
+    <div class="form-row">
+        <div class="col-md-12">
+            {{ form_row(form.name, {
+                label: 'name'|trans,
+                attr: {
+                    autofocus: true,
+                    placeholder: 'name'|trans,
+                    'data-valuemissing': 'valuemissing'|trans({}, 'form-errors'),
+                },
+            }) }}
+        </div>
+        <div class="col-md-12">
+            {{ form_row(form.firstLine, {
+                label: 'first_line'|trans,
+                attr: {
+                    placeholder: 'first_line'|trans,
+                    autocomplete: 'street-address',
+                    'data-valuemissing': 'valuemissing'|trans({}, 'form-errors'),
+                },
+            }) }}
+        </div>
+        <div class="col-md-12">
+            {{ form_row(form.secondLine, {
+                label: 'second_line'|trans,
+                attr: {
+                    placeholder: 'second_line'|trans,
+                },
+            }) }}
+        </div>
+        <div class="col-md-4">
+            {{ form_row(form.postalCode, {
+                label: 'postal_code'|trans,
+                attr: {
+                    placeholder: 'postal_code'|trans,
+                    'data-valuemissing': 'valuemissing'|trans({}, 'form-errors'),
+                },
+            }) }}
+        </div>
+        <div class="col-md-8">
+            {{ form_row(form.city, {
+                label: 'city'|trans,
+                attr: {
+                    placeholder: 'city'|trans,
+                    'data-valuemissing': 'valuemissing'|trans({}, 'form-errors'),
+                },
+            }) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.country, {
+                label: 'country'|trans,
+                attr: {
+                    placeholder: 'country'|trans,
+                    'data-valuemissing': 'valuemissing'|trans({}, 'form-errors'),
+                },
+            }) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.region, {
+                label: 'region'|trans,
+                attr: {
+                    placeholder: 'region'|trans,
+                },
+            }) }}
+        </div>
+        <div class="col-md-12">
+            {{ form_row(form.phone, {
+                label: 'phone'|trans,
+                attr: {
+                    placeholder: 'phone'|trans,
+                },
+            }) }}
+        </div>
+        <div class="col-md-12">
+            {{ form_row(form.remarks, {
+                label: 'remarks'|trans,
+                attr: {
+                    placeholder: 'remarks'|trans,
+                },
+            }) }}
         </div>
     </div>
-</div>
+{{ form_end(form) }}

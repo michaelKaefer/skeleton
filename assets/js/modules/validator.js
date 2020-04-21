@@ -56,12 +56,6 @@ class Validator {
               message = input.dataset.badinput;
             }
             break;
-          case input.validity.customError:
-            message = 'This field has a custom error.';
-            if (input.dataset.customerror !== undefined) {
-              message = input.dataset.customerror;
-            }
-            break;
           case input.validity.patternMismatch:
             message = `This field must match ${input.pattern}.`;
             if (input.dataset.patternmismatch !== undefined) {
@@ -120,6 +114,12 @@ class Validator {
             message = 'This field cannot be empty.';
             if (input.dataset.valuemissing !== undefined) {
               message = input.dataset.valuemissing;
+            }
+            break;
+          case input.validity.customError:
+            message = 'This field has a custom error.';
+            if (input.dataset.customerror !== undefined) {
+              message = input.dataset.customerror;
             }
             break;
           default:

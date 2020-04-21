@@ -61,6 +61,14 @@
         <source>addresses</source>
         <target>Adressen</target>
       </trans-unit>
+      <trans-unit id="IyrdddA" resname="edit_address">
+        <source>edit_address</source>
+        <target>Bearbeiten</target>
+      </trans-unit>
+      <trans-unit id="IydddA" resname="delete_address">
+        <source>delete_address</source>
+        <target>Löschen</target>
+      </trans-unit>
       <trans-unit id="r.ZOT9U" resname="country">
         <source>country</source>
         <target>Staat</target>

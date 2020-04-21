@@ -3,62 +3,91 @@ import Dropzone from 'dropzone';
 import flasher from '../../modules/flasher';
 import validator from '../../modules/validator';
 import dropzoneConfiguration from '../../_dropzone';
-import $ from 'jquery';
+import client from '../../modules/client';
 
+const addAddressButton = document.querySelector('.js-add-address');
+addAddressButton.addEventListener('click', async () => {
+  let addressFormHtml;
+  try {
+    const response = await client.get('/de/address/new');
+    addressFormHtml = response.payload.content;
+  } catch (e) {
+    /* eslint-disable no-console */
+    console.error('Could not load address form', e);
+    return;
+  }
 
+  await flasher.formModal('form[name="address"]', addressFormHtml, (response) => {
+    const { content: address } = response.payload.address;
 
-function addTagForm($collectionHolder, $newLinkLi) {
-  // Get the data-prototype explained earlier
-  var prototype = $collectionHolder.data('prototype');
+    const template = document.querySelector('.js-address-template');
+    const div = template.cloneNode(true);
 
-  // get the new index
-  var index = $collectionHolder.data('index');
+    let { innerHTML } = div;
 
-  var newForm = prototype;
-  // You need this only if you didn't set 'label' => false in your tags field in TaskType
-  // Replace '__name__label__' in the prototype's HTML to
-  // instead be a number based on how many items we have
-  // newForm = newForm.replace(/__name__label__/g, index);
+    innerHTML = innerHTML.replace('__address__', address);
+    innerHTML = innerHTML.replace('__address_edit_link__', '#');
+    innerHTML = innerHTML.replace('__address_delete_link__', '#');
+    div.innerHTML = innerHTML;
 
-  // Replace '__name__' in the prototype's HTML to
-  // instead be a number based on how many items we have
-  newForm = newForm.replace(/__name__/g, index);
+    div.classList.remove('d-none');
+    div.classList.remove('js-address-template');
 
-  // increase the index with one for the next item
-  $collectionHolder.data('index', index + 1);
-
-  // Display the form in the page in an li, before the "Add a tag" link li
-  var $newFormLi = $('<div class="col-md-6"></div>').append(newForm);
-  $newLinkLi.before($newFormLi);
-}
-
-
-
-var $collectionHolder;
-
-// setup an "add a tag" link
-var $addTagButton = $('.add_tag_link');
-var $newLinkLi = $('<div class="col-md-6"></div>');
-
-$(document).ready(function() {
-  // Get the ul that holds the collection of tags
-  $collectionHolder = $('.js-addresses');
-
-  // add the "add a tag" anchor and li to the tags ul
-  $collectionHolder.append($newLinkLi);
-
-  // count the current form inputs we have (e.g. 2), use that as the new
-  // index when inserting a new item (e.g. 2)
-  $collectionHolder.data('index', $collectionHolder.find('input').length);
-
-  $addTagButton.on('click', function(e) {
-    // add a new tag form (see next code block)
-    addTagForm($collectionHolder, $newLinkLi);
+    template.parentElement.appendChild(div);
   });
 });
-
-
-
+//
+//
+// function addTagForm($collectionHolder, $newLinkLi) {
+//   // Get the data-prototype explained earlier
+//   var prototype = $collectionHolder.data('prototype');
+//
+//   // get the new index
+//   var index = $collectionHolder.data('index');
+//
+//   var newForm = prototype;
+//   // You need this only if you didn't set 'label' => false in your tags field in TaskType
+//   // Replace '__name__label__' in the prototype's HTML to
+//   // instead be a number based on how many items we have
+//   // newForm = newForm.replace(/__name__label__/g, index);
+//
+//   // Replace '__name__' in the prototype's HTML to
+//   // instead be a number based on how many items we have
+//   newForm = newForm.replace(/__name__/g, index);
+//
+//   // increase the index with one for the next item
+//   $collectionHolder.data('index', index + 1);
+//
+//   // Display the form in the page in an li, before the "Add a tag" link li
+//   var $newFormLi = $('<div class="col-md-6"></div>').append(newForm);
+//   $newLinkLi.before($newFormLi);
+// }
+//
+//
+//
+// var $collectionHolder;
+//
+// // setup an "add a tag" link
+// var $addTagButton = $('.add_tag_link');
+// var $newLinkLi = $('<div class="col-md-6"></div>');
+//
+// $(document).ready(function() {
+//   // Get the ul that holds the collection of tags
+//   $collectionHolder = $('.js-addresses');
+//
+//   // add the "add a tag" anchor and li to the tags ul
+//   $collectionHolder.append($newLinkLi);
+//
+//   // count the current form inputs we have (e.g. 2), use that as the new
+//   // index when inserting a new item (e.g. 2)
+//   $collectionHolder.data('index', $collectionHolder.find('input').length);
+//
+//   $addTagButton.on('click', function(e) {
+//     // add a new tag form (see next code block)
+//     addTagForm($collectionHolder, $newLinkLi);
+//   });
+// });
+//
 /**
  * Form validation
  */

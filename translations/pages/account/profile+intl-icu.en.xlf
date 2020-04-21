@@ -29,6 +29,14 @@
         <source>addresses</source>
         <target>Addresses</target>
       </trans-unit>
+      <trans-unit id="IyrdddA" resname="edit_address">
+        <source>edit_address</source>
+        <target>Edit</target>
+      </trans-unit>
+      <trans-unit id="IydddA" resname="delete_address">
+        <source>delete_address</source>
+        <target>Delete</target>
+      </trans-unit>
       <trans-unit id="gigsF12" resname="cannot_switch_type">
         <source>cannot_switch_type</source>
         <target>To convert the account, all fields must be filled in correctly beforehand. Please correct the errors and try again afterwards.</target>

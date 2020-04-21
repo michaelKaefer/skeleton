@@ -42,23 +42,23 @@ class ProfileType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class)
-            ->add('addresses', CollectionType::class, [
-                'entry_type' => AddressType::class,
-                'entry_options' => ['label' => false],
-                'allow_add' => true,
-                'by_reference' => false,
-            ])
+//            ->add('addresses', CollectionType::class, [
+//                'entry_type' => AddressType::class,
+//                'entry_options' => ['label' => false],
+//                'allow_add' => true,
+//                'by_reference' => false,
+//            ])
             ->add('receivesNewsletter', CheckboxType::class, [
                 'required' => false,
             ])
-            ->add('agreeToTermsAndDataPrivacy', CheckboxType::class, [
-                'mapped' => false,
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'approve_terms',
-                    ]),
-                ],
-            ])
+//            ->add('agreeToTermsAndDataPrivacy', CheckboxType::class, [
+//                'mapped' => false,
+//                'constraints' => [
+//                    new IsTrue([
+//                        'message' => 'approve_terms',
+//                    ]),
+//                ],
+//            ])
 	        ->add('type', HiddenType::class)
         ;
 
