@@ -9,6 +9,14 @@
         <source>saved_successfully</source>
         <target>Erfolgreich gespeichert!</target>
       </trans-unit>
+      <trans-unit id="H._2dMz" resname="deleted_successfully">
+        <source>deleted_successfully</source>
+        <target>Erfolgreich gelöscht!</target>
+      </trans-unit>
+      <trans-unit id="H._22Md" resname="edited_successfully">
+        <source>edited_successfully</source>
+        <target>Erfolgreich bearbeitet!</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

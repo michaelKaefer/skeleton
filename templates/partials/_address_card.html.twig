@@ -1,0 +1,16 @@
+{% trans_default_domain '_address_card' %}
+
+<div class="card">
+    <div class="card-body">
+        {% include 'partials/_address.html.twig' with { address: address } %}
+        <a href="#" class="card-link">{{ 'edit_address'|trans }}</a>
+        {% include 'partials/_delete_button.html.twig' with {
+            route: path('address_delete', {'id': address.id}),
+            csrf_token: csrf_token('delete' ~ address.id),
+            button_label: 'delete_address'|trans,
+            question: 'are_you_sure_to_delete_this_address'|trans,
+            referer: path('profile'),
+            style: 'btn-link',
+        } %}
+    </div>
+</div>

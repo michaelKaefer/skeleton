@@ -18,16 +18,14 @@ addAddressButton.addEventListener('click', async () => {
   }
 
   await flasher.formModal('form[name="address"]', addressFormHtml, (response) => {
-    const { content: address } = response.payload.address;
+    const { content: addressCard } = response.payload.address_card;
 
     const template = document.querySelector('.js-address-template');
     const div = template.cloneNode(true);
 
     let { innerHTML } = div;
 
-    innerHTML = innerHTML.replace('__address__', address);
-    innerHTML = innerHTML.replace('__address_edit_link__', '#');
-    innerHTML = innerHTML.replace('__address_delete_link__', '#');
+    innerHTML = innerHTML.replace('__address_card__', addressCard);
     div.innerHTML = innerHTML;
 
     div.classList.remove('d-none');

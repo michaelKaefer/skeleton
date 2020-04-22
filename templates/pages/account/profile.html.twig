@@ -133,23 +133,11 @@
                         <div class="row">
                             {% for address in user.addresses %}
                                 <div class="col-md-6 mb-3">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            {% include 'partials/_address.html.twig' with { address: address } %}
-                                            <a href="#" class="card-link">{{ 'edit_address'|trans }}</a>
-                                            <a href="#" class="card-link">{{ 'delete_address'|trans }}</a>
-                                        </div>
-                                    </div>
+                                    {% include 'partials/_address_card.html.twig' with { address: address } %}
                                 </div>
                             {% endfor %}
                             <div class="col-md-6 mb-3 d-none js-address-template">
-                                <div class="card">
-                                    <div class="card-body">
-                                        __address__
-                                        <a href="__address_edit_link__" class="card-link">{{ 'edit_address'|trans }}</a>
-                                        <a href="__address_delete_link__" class="card-link">{{ 'delete_address'|trans }}</a>
-                                    </div>
-                                </div>
+                                __address_card__
                             </div>
                         </div>
                         <div class="row">
@@ -190,6 +178,7 @@
                                 csrf_token: csrf_token('delete' ~ user.id),
                                 button_label: 'delete_account_button_label'|trans,
                                 question: 'are_you_sure_to_delete_your_account_question'|trans,
+                                style: 'btn-outline-primary',
                             } %}
                         </div>
                     </div>

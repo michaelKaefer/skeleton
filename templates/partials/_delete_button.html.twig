@@ -1,3 +1,13 @@
+{#
+    Usage:
+
+        {% include 'partials/_delete_button.html.twig' with {
+            route: path('user_delete', {'id': user.id}),
+            csrf_token: csrf_token('delete' ~ user.id),
+            button_label: 'delete_account_button_label'|trans,
+            question: 'are_you_sure_to_delete_your_account_question'|trans,
+        } %}
+#}
 <form
         method="post"
         action="{{ route }}"
@@ -6,5 +16,8 @@
 >
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token }}">
-    <button type="submit" class="btn btn-outline-primary">{{ button_label|raw }}</button>
+    {% if referer is defined %}
+        <input type="hidden" name="_referer" value="{{ referer }}">
+    {% endif %}
+    <button type="submit" class="btn {{ style }}">{{ button_label|raw }}</button>
 </form>
