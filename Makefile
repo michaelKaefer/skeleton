@@ -12,6 +12,7 @@ SYMFONY := symfony
 DOCKER_COMPOSE := docker-compose
 YARN := yarn
 CONSOLE := $(SYMFONY) console
+PHIVE := /usr/local/bin/phive
 STDOUT := >/dev/null
 STDERR := #2>&1
 
@@ -39,6 +40,15 @@ tools-symfony-update: ## Update Symfony binary
 tools-composer-update: ## Update Composer
 	sudo $(COMPOSER) self-update ${STDOUT} ${STDERR}
 .PHONY: tools-composer-update
+
+# TODO maybe get the fiy manually, buggy, see: https://github.com/phar-io/phive/issues/228
+tools-phive-update: ## Update PHIVE
+	$(PHIVE) selfupdate ${STDOUT} ${STDERR}
+.PHONY: tools-phive-update
+
+tools-install-help: ## Help for installing a PHAR used as a tool for development
+	@printf "Example: copy PHP CS Fixer into the project's directory tools/:\n\n\t%s install --copy php-cs-fixer\n\n" "$(PHIVE)"
+.PHONY: tools-install-help
 
 ## —— Docker ——————————————————————————————————
 docker-compose-up: ## Start Docker
