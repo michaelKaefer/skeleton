@@ -1,10 +1,19 @@
 <?php
 
+/*
+ * This file is part of Skeleton.
+ *
+ * (c) Michael Käfer <michael.kaefer1@gmx.at>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Controller\Admin;
 
 use App\Entity\User;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\EasyAdminController;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserController extends EasyAdminController
 {

@@ -68,6 +68,7 @@ class AddressController extends BaseController
 
     /**
      * @Route("/{id}", name="address_delete", methods={"DELETE"})
+     *
      * @throws Exception
      */
     public function delete(Request $request, Address $address): Response

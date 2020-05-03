@@ -16,13 +16,10 @@ namespace App\Controller\Account;
 use App\Controller\BaseController;
 use App\Entity\Address;
 use App\Entity\User;
-use App\Form\OrganizationType;
-use App\Form\PersonType;
 use App\Form\ProfileType;
 use App\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ProfileController extends BaseController
@@ -68,6 +65,7 @@ class ProfileController extends BaseController
                 $entityManager->persist($user);
                 $entityManager->flush();
                 $this->addFlash('success', 'Your profile type was successfully changed.');
+
                 return $this->redirectToRoute('profile');
             }
 

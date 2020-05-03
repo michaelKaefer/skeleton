@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of Skeleton.
+ *
+ * (c) Michael Käfer <michael.kaefer1@gmx.at>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -14,7 +23,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class Country
 {
     /**
-     * The name does not come from the storage but from the Symfony Intl Component
+     * The name does not come from the storage but from the Symfony Intl Component.
      */
     private $name;
 
@@ -59,6 +68,7 @@ class Country
         if (null !== $this->name) {
             return $this->name;
         }
+
         return $this->name = Countries::getName($this->code);
     }
 }

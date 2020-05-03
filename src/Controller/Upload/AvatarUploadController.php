@@ -16,10 +16,8 @@ namespace App\Controller\Upload;
 use App\Controller\BaseController;
 use App\Entity\File;
 use App\Entity\User;
-use App\Repository\UserRepository;
 use App\Service\FileUploader\PublicFilesUploader;
 use Exception;
-use League\Flysystem\FileExistsException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -80,7 +78,7 @@ class AvatarUploadController extends BaseController
         $em->flush();
 
         return new JsonResponse([
-            'url' => $this->uploadsUrl . '/' . $user->getAvatarUrl(),
+            'url' => $this->uploadsUrl.'/'.$user->getAvatarUrl(),
         ], 201, [
             'Access-Control-Allow-Origin' => '*',
         ]);

@@ -28,12 +28,11 @@ class RedirectToPreferredLocaleSubscriber implements EventSubscriberInterface
     private $logger;
 
     public function __construct(
-    	string $defaultLocale,
-	    string $supportedLocales,
-	    UrlGeneratorInterface $urlGenerator,
-		LoggerInterface $logger
-	)
-    {
+        string $defaultLocale,
+        string $supportedLocales,
+        UrlGeneratorInterface $urlGenerator,
+        LoggerInterface $logger
+    ) {
         $this->urlGenerator = $urlGenerator;
 
         $this->supportedLocales = explode('|', trim($supportedLocales));
@@ -74,7 +73,7 @@ class RedirectToPreferredLocaleSubscriber implements EventSubscriberInterface
 
         // Ignore requests from referrers with the same HTTP host in order to prevent
         // changing language for users who possibly already selected it for this application.
-	    $referer = $request->headers->get('referer');
+        $referer = $request->headers->get('referer');
         if ($referer && 0 === mb_stripos($referer, $request->getSchemeAndHttpHost())) {
             return;
         }

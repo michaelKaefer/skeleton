@@ -20,10 +20,8 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormFactory;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -59,7 +57,7 @@ class ProfileType extends AbstractType
 //                    ]),
 //                ],
 //            ])
-	        ->add('type', HiddenType::class)
+            ->add('type', HiddenType::class)
         ;
 
         $formModifier = function (FormInterface $form, string $type) {

@@ -19,12 +19,12 @@ help: ## Show help
 	@grep -E '(^[a-zA-Z0-9_-]+:.*?##.*$$)|(^##)' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}{printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'
 
 ## —— Build ———————————————————————————————————
-build-dev: tools-check app-check dependencies-php-install dependencies-javascript-install database-create-force-dev ## Build the application for local development
+build-dev: tools-check app-check dependencies-php-install dependencies-javascript-install database-create-force-dev ## Build the application for local development using the "dev" environment
 	$(YARN) dev
 	cp -n .env.local.template .env.local
 .PHONY: build-dev
 
-## —— Tools ———————————————————————————————————
+## —— Development Tools ———————————————————————
 tools-check: ## Check that all required tools are installed
 	$(COMPOSER) --version ${STDOUT} ${STDERR}
 	$(SYMFONY) self:version --no-interaction ${STDOUT} ${STDERR}
@@ -52,11 +52,11 @@ dependencies-php-install: composer.lock ## Install PHP dependencies according to
 dependencies-php-update: composer.json ## Update PHP dependencies according to composer.json
 	$(COMPOSER) update ${STDOUT} ${STDERR}
 
-dependencies-javascript-install: ## Install JavaScript dependencies according to yarn.lock
+dependencies-js-install: ## Install JavaScript dependencies according to yarn.lock
 	$(YARN) install
 
 ## —— Database ————————————————————————————————
-database-create-force-dev: ## Drop database, create database and load fixtures
+database-create-force-dev: ## Drop dev database, create database and load fixtures
 	$(CONSOLE) doctrine:database:drop --force --env=dev ${STDOUT} ${STDERR}
 	$(CONSOLE) doctrine:schema:create --env=dev ${STDOUT} ${STDERR}
 	# Is the following really necessary? $(CONSOLE) doctrine:schema:validate --env=dev ${STDOUT} ${STDERR}
@@ -64,7 +64,7 @@ database-create-force-dev: ## Drop database, create database and load fixtures
 	# bin/console fos:elastica:populate
 .PHONY: database-create-force
 
-database-create-force-test: ## Drop database, create database and load fixtures
+database-create-force-test: ## Drop test database, create database and load fixtures
 	$(CONSOLE) doctrine:database:drop --force --env=test ${STDOUT} ${STDERR}
 	$(CONSOLE) doctrine:schema:create --env=test ${STDOUT} ${STDERR}
 	$(CONSOLE) doctrine:schema:validate --env=test ${STDOUT} ${STDERR}
@@ -108,6 +108,14 @@ development-hot-reloading: ## Start Browsersync at 127.0.0.1:3000
 development-start-spa: ## Starts the SPA under spa/ for development at 127.0.0.1:3002 (the port is defined in spa/.env.development)
 	cd spa/ ; $(YARN) start
 .PHONY: development-start-spa
+
+development-lint-php-dry-run: ## Lint PHP and output errors without editing files
+	$(PHP) ./vendor/bin/php-cs-fixer fix --diff -vvv --dry-run src/
+.PHONY: development-lint-php-dry-run
+
+development-lint-php: ## Lint PHP and correct files with errors
+	$(PHP) ./vendor/bin/php-cs-fixer fix --diff -vvv src/
+.PHONY: development-lint-php
 
 ## —— Tests ———————————————————————————————————
 tests: database-create-force-test ## Setup the test database, load fixtures and run all tests

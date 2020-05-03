@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of Skeleton.
+ *
+ * (c) Michael Käfer <michael.kaefer1@gmx.at>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -191,7 +200,7 @@ class Address
     public function setUser(?User $user): self
     {
         $this->user = $user;
-// Todo: do we need this???       $user->addAddress($this);
+        // Todo: do we need this???       $user->addAddress($this);
 
         return $this;
     }
