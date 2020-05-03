@@ -33,10 +33,13 @@ class LogoutSuccessHandler implements LogoutSuccessHandlerInterface
 
     public function onLogoutSuccess(Request $request)
     {
-        /** @var User $user */
         $user = $this->tokenStorage->getToken()->getUser();
 
-        if (!\is_string($user) && $deletionId = $user->getDeletionId()) { // User can be a string like "anonym."
+        if (
+            !\is_string($user) // User can be a string like "anonym."
+            && $user instanceof User
+            && $deletionId = $user->getDeletionId()
+        ) {
             return new RedirectResponse($this->urlGenerator->generate('account_deleted', [
                 'deletionId' => $deletionId,
             ]));

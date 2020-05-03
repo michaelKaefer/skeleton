@@ -42,7 +42,7 @@ class RegistrationController extends BaseController
         TokenGeneratorInterface $tokenGenerator,
         LoginFormAuthenticator $authenticator,
         MailerInterface $mailer
-    ): Response {
+    ): ?Response {
         $user = new User();
         $form = $this->createForm(RegistrationType::class, $user);
         $form->handleRequest($request);

@@ -55,7 +55,7 @@ class File
      */
     private $size;
 
-    public function __toString(): string
+    public function __toString(): ?string
     {
         return $this->getName();
     }

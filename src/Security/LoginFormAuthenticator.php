@@ -104,7 +104,10 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
 
     public function checkCredentials($credentials, UserInterface $user)
     {
-        /** @var User $user */
+        if (!($user instanceof User)) {
+            throw new \InvalidArgumentException(sprintf('Expected object of class %s.', User::class));
+        }
+
         if ($this->isBanned($user)) {
             throw new CustomUserMessageAuthenticationException('Too many wrong attempts, we disabled your account! Please contact us to enable your account again.');
         }

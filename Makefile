@@ -10,6 +10,7 @@ SHELL := /bin/bash
 .DEFAULT_GOAL := help
 
 # Used programs
+PHP := php
 COMPOSER := composer
 SYMFONY := symfony
 DOCKER_COMPOSE := docker-compose
@@ -129,13 +130,17 @@ development-start-spa: ## Starts the SPA under spa/ for development at 127.0.0.1
 .PHONY: development-start-spa
 
 ## —— Static code analysis ————————————————————
-lint-php-dry: ## Lint PHP (do not edit files, on errors exit with exit code; can be used during CI to refuse pull requests which do not adapt to the used code styles)
-	$(PHP) ./tools/php-cs-fixer fix --diff -vvv --dry-run ${STDOUT} ${STDERR_FORCE_DISMISS}
-.PHONY: lint-php-dry
+lint-cs-fixer-dry: ## Lint PHP with CS Fixer (do not edit files, on errors exit with exit code; can be used during CI to refuse pull requests which do not adapt to the used code styles)
+	$(PHP) ./tools/php-cs-fixer fix --diff -vvv --dry-run --stop-on-violation --using-cache=no ${STDOUT} ${STDERR_FORCE_DISMISS}
+.PHONY: lint-cs-fixer-dry
 
-lint-php-force: ## Lint PHP and correct files with errors
+lint-cs-fixer-force: ## Lint PHP with CS Fixer and correct files with errors
 	$(PHP) ./tools/php-cs-fixer fix --diff -vvv
-.PHONY: lint-php-force
+.PHONY: lint-cs-fixer-force
+
+lint-psalm: ## Lint PHP with Psalm
+	$(PHP) ./tools/psalm
+.PHONY: lint-psalm
 
 ## —— Tests ———————————————————————————————————
 tests: database-create-force-test ## Setup the test database, load fixtures and run all tests
