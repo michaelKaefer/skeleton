@@ -11,12 +11,16 @@ SHELL := /bin/bash
 
 # Used programs
 PHP := php
+GIT := git
+DOCKER_COMPOSE := docker-compose
 COMPOSER := composer
 SYMFONY := symfony
-DOCKER_COMPOSE := docker-compose
 YARN := yarn
 CONSOLE := $(SYMFONY) console
 PHIVE := /usr/local/bin/phive
+#TODO: check if environment variables win over variables declared her, since on staging server wen need:
+#TODO: PHP72="php72 -d allow_url_fopen=On"
+#TODO: COMPOSER="/usr/home/$USER/composer.phar"
 
 # For better readability dismiss all output
 STDOUT := >/dev/null
@@ -29,10 +33,18 @@ help: ## Show help
 	@grep -E '(^[a-zA-Z0-9_-]+:.*?##.*$$)|(^##)' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}{printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'
 
 ## —— Build ———————————————————————————————————
-build-dev: tools-check app-check dependencies-php-install dependencies-javascript-install database-create-force-dev ## Build the application for local development using the "dev" environment
+build-local: tools-check app-check dependencies-php-install dependencies-javascript-install database-create-force-dev ## Build the application for local development using the "dev" environment
 	$(YARN) dev
 	cp -n .env.local.template .env.local
-.PHONY: build-dev
+.PHONY: build-local
+
+build-staging:
+	$(GIT) checkout staging
+	# Delete all changes made to the source code on the staging environment
+	$(GIT) reset --hard origin/staging
+	# Get the newest source code
+	$(GIT) pull origin staging
+.PHONY: build-staging
 
 ## —— Development Tools ———————————————————————
 tools-check: ## Check that all required tools are installed
