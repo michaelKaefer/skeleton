@@ -48,7 +48,6 @@
     "require-dev": {
         "api-platform/schema-generator": "^2.2",
         "dama/doctrine-test-bundle": "^6.3",
-        "friendsofphp/php-cs-fixer": "^2.16",
         "phpmetrics/phpmetrics": "^2.6",
         "symfony/debug-pack": "*",
         "symfony/maker-bundle": "^1.14",

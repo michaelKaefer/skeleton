@@ -15,43 +15,43 @@ use App\Tests\BaseTest;
 
 class RedirectToPreferredLocaleSubscriberTest extends BaseTest
 {
-	public function testRedirectToDefaultLocale()
-	{
-		$client = static::createClient();
-		$client->request('GET', '/', [], [], [
-			'HTTP_ACCEPT_LANGUAGE' => '',
-		]);
+    public function testRedirectToDefaultLocale()
+    {
+        $client = static::createClient();
+        $client->request('GET', '/', [], [], [
+            'HTTP_ACCEPT_LANGUAGE' => '',
+        ]);
 
-		$this->assertResponseRedirects('/en/');
-	}
+        $this->assertResponseRedirects('/en/');
+    }
 
-	public function testRedirectToDefaultLocaleWithoutTrailingSlash()
-	{
-		$client = static::createClient();
-		$client->request('GET', '', [], [], [
-			'HTTP_ACCEPT_LANGUAGE' => '',
-		]);
+    public function testRedirectToDefaultLocaleWithoutTrailingSlash()
+    {
+        $client = static::createClient();
+        $client->request('GET', '', [], [], [
+            'HTTP_ACCEPT_LANGUAGE' => '',
+        ]);
 
-		$this->assertResponseRedirects('/en/');
-	}
+        $this->assertResponseRedirects('/en/');
+    }
 
-	public function testRedirectToDefaultLocaleWithUnsupportedPreferredLocale()
-	{
-		$client = static::createClient();
-		$client->request('GET', '/', [], [], [
-			'HTTP_ACCEPT_LANGUAGE' => 'zu',
-		]);
+    public function testRedirectToDefaultLocaleWithUnsupportedPreferredLocale()
+    {
+        $client = static::createClient();
+        $client->request('GET', '/', [], [], [
+            'HTTP_ACCEPT_LANGUAGE' => 'zu',
+        ]);
 
-		$this->assertResponseRedirects('/en/');
-	}
+        $this->assertResponseRedirects('/en/');
+    }
 
-	public function testRedirectToPreferredLocale()
-	{
-		$client = static::createClient();
-		$client->request('GET', '/', [], [], [
-			'HTTP_ACCEPT_LANGUAGE' => 'de',
-		]);
+    public function testRedirectToPreferredLocale()
+    {
+        $client = static::createClient();
+        $client->request('GET', '/', [], [], [
+            'HTTP_ACCEPT_LANGUAGE' => 'de',
+        ]);
 
-		$this->assertResponseRedirects('/de/');
-	}
+        $this->assertResponseRedirects('/de/');
+    }
 }

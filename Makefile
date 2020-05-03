@@ -5,16 +5,24 @@
 # https://www.strangebuzz.com/en/snippets/the-perfect-makefile-for-symfony
 
 # Setup ————————————————————————————————————————————————————————————————————————
+# Make internals
 SHELL := /bin/bash
 .DEFAULT_GOAL := help
+
+# Used programs
 COMPOSER := composer
 SYMFONY := symfony
 DOCKER_COMPOSE := docker-compose
 YARN := yarn
 CONSOLE := $(SYMFONY) console
 PHIVE := /usr/local/bin/phive
+
+# For better readability dismiss all output
 STDOUT := >/dev/null
+# Keep the errors but provide a way to easily dismiss them (comment in the "2>&1")
 STDERR := #2>&1
+# Provide a possibility to force dismiss STDERR if they output infos via STDERR which we would expect on STDOUT
+STDERR_FORCE_DISMISS := 2>&1
 
 help: ## Show help
 	@grep -E '(^[a-zA-Z0-9_-]+:.*?##.*$$)|(^##)' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}{printf "\033[32m%-30s\033[0m %s\n", $$1, $$2}' | sed -e 's/\[32m##/[33m/'
@@ -28,6 +36,7 @@ build-dev: tools-check app-check dependencies-php-install dependencies-javascrip
 ## —— Development Tools ———————————————————————
 tools-check: ## Check that all required tools are installed
 	$(COMPOSER) --version ${STDOUT} ${STDERR}
+	$(PHIVE) --version ${STDOUT} ${STDERR}
 	$(SYMFONY) self:version --no-interaction ${STDOUT} ${STDERR}
 	$(DOCKER_COMPOSE) --version ${STDOUT} ${STDERR}
 	$(YARN) --version ${STDOUT} ${STDERR}
@@ -47,7 +56,7 @@ tools-phive-update: ## Update PHIVE
 .PHONY: tools-phive-update
 
 tools-install-help: ## Help for installing a PHAR used as a tool for development
-	@printf "Example: copy PHP CS Fixer into the project's directory tools/:\n\n\t%s install --copy php-cs-fixer\n\n" "$(PHIVE)"
+	@printf "Example: copy PHP CS Fixer into the project's directory tools/:\n\n\tsudo %s install --copy php-cs-fixer\n\n" "$(PHIVE)"
 .PHONY: tools-install-help
 
 ## —— Docker ——————————————————————————————————
@@ -119,13 +128,14 @@ development-start-spa: ## Starts the SPA under spa/ for development at 127.0.0.1
 	cd spa/ ; $(YARN) start
 .PHONY: development-start-spa
 
-development-lint-php-dry-run: ## Lint PHP and output errors without editing files
-	$(PHP) ./vendor/bin/php-cs-fixer fix --diff -vvv --dry-run src/
-.PHONY: development-lint-php-dry-run
+## —— Static code analysis ————————————————————
+lint-php-dry: ## Lint PHP (do not edit files, on errors exit with exit code; can be used during CI to refuse pull requests which do not adapt to the used code styles)
+	$(PHP) ./tools/php-cs-fixer fix --diff -vvv --dry-run ${STDOUT} ${STDERR_FORCE_DISMISS}
+.PHONY: lint-php-dry
 
-development-lint-php: ## Lint PHP and correct files with errors
-	$(PHP) ./vendor/bin/php-cs-fixer fix --diff -vvv src/
-.PHONY: development-lint-php
+lint-php-force: ## Lint PHP and correct files with errors
+	$(PHP) ./tools/php-cs-fixer fix --diff -vvv
+.PHONY: lint-php-force
 
 ## —— Tests ———————————————————————————————————
 tests: database-create-force-test ## Setup the test database, load fixtures and run all tests
