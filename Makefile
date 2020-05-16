@@ -150,7 +150,7 @@ dependencies-js-install-prod: ## Install JavaScript dependencies according to ya
 .PHONY: dependencies-js-install-prod
 
 ## —— Database ————————————————————————————————
-database-create-force: ## For "dev" environment drop database, create database and load fixtures
+database-create-force: ## For current environment drop database, create database and load fixtures
 	$(CONSOLE) doctrine:database:drop --force ${STDOUT} ${STDERR}
 	$(CONSOLE) doctrine:schema:create ${STDOUT} ${STDERR}
 	# Is the following really necessary? $(CONSOLE) doctrine:schema:validate ${STDOUT} ${STDERR}
@@ -161,7 +161,7 @@ database-create-force: ## For "dev" environment drop database, create database a
 database-create-force-test: ## For "test" environment drop database, create database and load fixtures
 	$(CONSOLE) doctrine:database:drop --force --env=test ${STDOUT} ${STDERR}
 	$(CONSOLE) doctrine:schema:create --env=test ${STDOUT} ${STDERR}
-	$(CONSOLE) doctrine:schema:validate --env=test ${STDOUT} ${STDERR}
+#	$(CONSOLE) doctrine:schema:validate --env=test ${STDOUT} ${STDERR}
 	$(CONSOLE) hautelook:fixtures:load --no-interaction --env=test ${STDOUT} ${STDERR}
 	# bin/console fos:elastica:populate
 .PHONY: database-create-force
