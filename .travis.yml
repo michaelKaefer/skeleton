@@ -39,6 +39,8 @@ before_install:
 #  - echo "memory_limit=-1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 
 install:
+  - wget https://get.symfony.com/cli/installer -O - | bash
+  - symfony -v
   # Install Composer packages including dev dependencies listed in require-dev.
   - composer install
   # Install PHPUnit
