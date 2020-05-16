@@ -1,0 +1,12 @@
+td.actions {
+  min-width: 120px;
+}
+
+@media (min-width: 992px) {
+  .wrapper {
+    margin-left: 15px;
+  }
+}
+
+
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vYWRtaW4uc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNFLGdCQUFnQjtBQUNsQjs7QUFFQTtFQUNFO0lBQ0UsaUJBQWlCO0VBQ25CO0FBQ0YiLCJmaWxlIjoiYWRtaW4uY3NzIiwic291cmNlc0NvbnRlbnQiOlsidGQuYWN0aW9ucyB7XG4gIG1pbi13aWR0aDogMTIwcHg7XG59XG5cbkBtZWRpYSAobWluLXdpZHRoOiA5OTJweCkge1xuICAud3JhcHBlciB7XG4gICAgbWFyZ2luLWxlZnQ6IDE1cHg7XG4gIH1cbn1cbiJdLCJzb3VyY2VSb290IjoiIn0=*/

@@ -1,0 +1,20 @@
+{
+  "build/admin.css": "/build/admin.css",
+  "build/admin.js": "/build/admin.js",
+  "build/app.css": "/build/app.css",
+  "build/app.js": "/build/app.js",
+  "build/app~profile.css": "/build/app~profile.css",
+  "build/app~profile.js": "/build/app~profile.js",
+  "build/home.js": "/build/home.js",
+  "build/login.css": "/build/login.css",
+  "build/login.js": "/build/login.js",
+  "build/profile.css": "/build/profile.css",
+  "build/profile.js": "/build/profile.js",
+  "build/registration.css": "/build/registration.css",
+  "build/registration.js": "/build/registration.js",
+  "build/runtime.js": "/build/runtime.js",
+  "build/vendors~admin~app~profile.js": "/build/vendors~admin~app~profile.js",
+  "build/vendors~app.js": "/build/vendors~app.js",
+  "build/vendors~app~profile.js": "/build/vendors~app~profile.js",
+  "build/vendors~profile.js": "/build/vendors~profile.js"
+}

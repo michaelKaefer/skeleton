@@ -1,0 +1,66 @@
+{
+  "entrypoints": {
+    "admin": {
+      "js": [
+        "/build/runtime.js",
+        "/build/vendors~admin~app~profile.js",
+        "/build/admin.js"
+      ],
+      "css": [
+        "/build/admin.css"
+      ]
+    },
+    "app": {
+      "js": [
+        "/build/runtime.js",
+        "/build/vendors~admin~app~profile.js",
+        "/build/vendors~app~profile.js",
+        "/build/vendors~app.js",
+        "/build/app~profile.js",
+        "/build/app.js"
+      ],
+      "css": [
+        "/build/app~profile.css",
+        "/build/app.css"
+      ]
+    },
+    "home": {
+      "js": [
+        "/build/runtime.js",
+        "/build/home.js"
+      ]
+    },
+    "registration": {
+      "js": [
+        "/build/runtime.js",
+        "/build/registration.js"
+      ],
+      "css": [
+        "/build/registration.css"
+      ]
+    },
+    "login": {
+      "js": [
+        "/build/runtime.js",
+        "/build/login.js"
+      ],
+      "css": [
+        "/build/login.css"
+      ]
+    },
+    "profile": {
+      "js": [
+        "/build/runtime.js",
+        "/build/vendors~admin~app~profile.js",
+        "/build/vendors~app~profile.js",
+        "/build/vendors~profile.js",
+        "/build/app~profile.js",
+        "/build/profile.js"
+      ],
+      "css": [
+        "/build/app~profile.css",
+        "/build/profile.css"
+      ]
+    }
+  }
+}
