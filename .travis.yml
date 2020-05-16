@@ -10,6 +10,7 @@ cache:
     - ./bin/.phpunit
     # Cache composer packages so "composer install" is faster.
     - $HOME/.composer/cache/files
+    - $HOME/.symfony
 
 env:
   global:
@@ -31,7 +32,8 @@ matrix:
     #- php: 8.0
 
 install:
-  - '[[ `symfony -v` ]] || wget https://get.symfony.com/cli/installer -O - | bash ; export PATH="$HOME/.symfony/bin:$PATH"'
+  - export PATH="$HOME/.symfony/bin:$PATH"
+  - '[[ `symfony -v` ]] || wget https://get.symfony.com/cli/installer -O - | bash'
   # Install Composer packages including dev dependencies listed in require-dev.
   - composer install
   # Install PHPUnit
