@@ -45,7 +45,9 @@ install:
   - ./bin/phpunit install
   - yarn install --ignore-engines
   - yarn encore dev
-  - make database-create-force-test
+  - ./bin/console doctrine:database:drop --force --env=test
+  - ./bin/console doctrine:schema:create --env=test
+  - ./bin/console hautelook:fixtures:load --no-interaction --env=test
 
 script:
   # There is no need to load data fixtures before running tests because the project repository
