@@ -40,6 +40,7 @@ before_install:
 
 install:
   - wget https://get.symfony.com/cli/installer -O - | bash
+  - export PATH="$HOME/.symfony/bin:$PATH"
   - symfony -v
   # Install Composer packages including dev dependencies listed in require-dev.
   - composer install
