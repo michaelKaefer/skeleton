@@ -95,7 +95,6 @@ class ProfileControllerTest extends BaseTest
         $client->submitForm('Save', [
             'profile[person][firstName]' => 'John',
             'profile[person][lastName]' => 'Doe',
-            'profile[agreeToTermsAndDataPrivacy]' => true,
         ]);
 
         $this->assertResponseIsSuccessful();
@@ -131,7 +130,6 @@ class ProfileControllerTest extends BaseTest
             'profile[type]' => 'ORGANIZATION',
             'profile[person][firstName]' => '-',
             'profile[person][lastName]' => '-',
-            'profile[agreeToTermsAndDataPrivacy]' => true,
         ]);
 
         $this->assertResponseRedirects('/en/profile');

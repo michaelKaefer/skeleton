@@ -40,8 +40,6 @@ abstract class FileUploader
      *                                             the relative path.
      *
      * @throws FileExistsException
-     *
-     * @return array
      */
     public function upload(string $relativeDestinationPath, File $file, ?string $fileToReplace): array
     {

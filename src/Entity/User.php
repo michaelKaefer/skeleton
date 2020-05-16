@@ -146,7 +146,7 @@ class User extends BaseEntity implements UserInterface
     private $type = 'PERSON';
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Person", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Person", inversedBy="user", cascade={"persist", "remove"})
      * @Assert\Valid
      */
     private $person;
