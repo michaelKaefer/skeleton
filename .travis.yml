@@ -38,9 +38,11 @@ install:
   - composer install
   # Install PHPUnit
   - ./bin/phpunit install
+  # Copy the pre-built assets because we need them to run our functional PHPUnit tests.
   - cp -R tests/data/build/ public/
+  # Create an empty .en.local file because our Makefile includes and therefore requires it.
   - touch .env.local
-  - make database-create-force-test
+#  - make database-create-force-test
 
 script:
   # There is no need to load data fixtures before running tests because the project repository
