@@ -46,7 +46,7 @@ install:
   - composer install
   # Install PHPUnit
   - ./bin/phpunit install
-  - yarn install
+  - yarn install --ignore-engines
   - yarn encore dev
 
 script:
