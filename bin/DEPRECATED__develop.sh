@@ -1,59 +1,3 @@
-#!/bin/bash
-
-if [ -z "$1" ]
-then
-  printf "Usage: develop [TYPE]\n"
-  printf "Examples:\n"
-  printf "    develop symfony\n"
-  printf "    develop react\n"
-  exit
-fi
-
-TYPE=$1
-
-if [ "$TYPE" != "spa" ]; then
-  if [ "$TYPE" != "symfony" ]; then
-    printf "Invalid argument \"%s\"\n" "$TYPE"
-    printf "Valid arguments:\n"
-    printf "    develop symfony\n"
-    printf "    develop react\n"
-    exit
-  fi
-fi
-
-printf "\n"
-
-printf "1/8 Updating the symfony executable...\n"
-if OUTPUT="$( sudo symfony self:update )"
-then
-  printf "1/8 Success\n\n"
-fi
-
-printf "2/8 Updating composer...\n"
-if OUTPUT="$( sudo composer self-update )"
-then
-  printf "2/8 Success\n\n"
-fi
-
-printf "3/8 Changing working directory to app directory...\n"
-APP_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd )"
-if ! cd "$APP_PATH/.."
-then
-  echo "3/8 Error on changing working directory to app directory..."
-  echo "$OUTPUT"
-  exit
-fi
-printf "3/8 Success, changed working directory to %s\n\n" "$APP_PATH/.."
-
-printf "4/8 Starting docker services...\n"
-if ! OUTPUT="$( docker-compose up -d 2>&1 )"
-then
-  echo "4/8 Error on starting docker services:"
-  echo "$OUTPUT"
-  exit
-fi
-printf "4/8 Success\n\n"
-
 printf "5/8 Starting built in Symfony server...\n"
 if OUTPUT="$( symfony server:start --port=8000 -d 2>&1 )"
 then
@@ -168,26 +112,4 @@ printf "\t\t[LOGS]   symfony server:log\n"
 printf "\tHot reloading:\n"
 printf "\t\t[URL]    https://127.0.0.1:3000/\n"
 printf "\t\t[LOGS]   tail -f ./var/.browser-sync\n"
-printf "\tMySQL:\n"
-printf "\t\t[HOST]   http://localhost:3308/\n"
-printf "\t\t[USER]   \"root\"\n"
-printf "\t\t[PW]     \"\"\n"
-printf "\t\t[DB]     \"skeleton_dev\"\n"
-printf "\tphpMyAdmin:\n"
-printf "\t\t[URL]    http://localhost:8183/\n"
-printf "\t\t[Server] \"mysql\"\n"
-printf "\t\t[User]   \"root\"\n"
-printf "\t\t[PW]     \"\"\n"
-printf "\tEncore is watching assets:\n"
-printf "\t\t[LOGS]   tail -f ./var/.encore-dev\n"
-printf "\tReact SPA:\n"
-printf "\t\t[URL]    http://localhost:3002/\n"
-printf "\t\t[LOGS]   tail -f ./var/.react-yarn-start\n"
-printf "\n"
 
-#read -p "Do you want to run the assets build watcher now? [y/n, you can also hit ENTER for yes] " -n 1 -r
-#if [[ ! "$REPLY" =~ ^[Yy]$ ]] && [[ ! "$REPLY" == "" ]]; then
-#  printf "\n"
-#  exit
-#fi
-#yarn encore dev --watch

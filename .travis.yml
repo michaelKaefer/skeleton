@@ -32,7 +32,7 @@ matrix:
     #- php: 8.0
 
 install:
-  - export PATH="$HOME/.symfony/bin:$PATH"
+  - PATH="$HOME/.symfony/bin:$PATH"
   - '[[ `symfony -v` ]] || wget https://get.symfony.com/cli/installer -O - | bash'
   # Install Composer packages including dev dependencies listed in require-dev.
   - composer install
