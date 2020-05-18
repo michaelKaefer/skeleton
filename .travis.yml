@@ -31,9 +31,12 @@ matrix:
     - php: 7.4
     #- php: 8.0
 
-install:
+before_install:
   - PATH="$HOME/.symfony/bin:$PATH"
-  - '[[ `symfony -v` ]] || wget https://get.symfony.com/cli/installer -O - | bash'
+  - '[[ `symfony -v &>/dev/null` ]] || wget https://get.symfony.com/cli/installer -O - | bash'
+  - symfony self:update
+
+install:
   # Install Composer packages including dev dependencies listed in require-dev.
   - composer install
   # Install PHPUnit
@@ -42,7 +45,6 @@ install:
   - cp -R tests/data/build/ public/
   # Create an empty .en.local file because our Makefile includes and therefore requires it.
   - touch .env.local
-#  - make database-create-force-test
 
 script:
   # There is no need to load data fixtures before running tests because the project repository
