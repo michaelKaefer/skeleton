@@ -205,6 +205,7 @@ develop-symfony-hot-reloading: ## Start Browsersync at 127.0.0.1:3000
 		>./var/.development-hot-reloading \
 		& \
 		${STDERR}
+	printf "Success, started brwoser-sync on https://127.0.0.1:3000/, for details use \"cat ./var/.development-hot-reloading\"\n\n"
 .PHONY: development-hot-reloading
 
 develop-spa: ## Starts the SPA under spa/ for development at 127.0.0.1:3002 (the port is defined in spa/.env.development)
