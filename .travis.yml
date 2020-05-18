@@ -10,7 +10,7 @@ cache:
     - ./bin/.phpunit
     # Cache composer packages so "composer install" is faster.
     - $HOME/.composer/cache/files
-    # Cache the Symfony binary so that it does not have to be reinstalled.
+    # Cache the Symfony binary's directory so that it does not have to be reinstalled.
     - $HOME/.symfony
 
 env:

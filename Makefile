@@ -218,7 +218,7 @@ develop-spa: ## Starts the SPA under spa/ for development at 127.0.0.1:3002 (the
 
 ## —— Linters —————————————————————————————————
 lint-composer: ## Lint Composer, checks if composer.json is valid.
-	$(COMPOSER) validate
+	$(COMPOSER) validate --strict
 .PHONY: lint-composer
 
 lint-container: ## Lint container, checks that arguments injected into services match type declarations.
@@ -241,7 +241,7 @@ lint-xliff: ## Lint XLIFF translations for syntax errors.
 	$(CONSOLE) lint:xliff translations
 .PHONY: lint-xliff
 
-## —— Static code analysis ————————————————————
+## —— Static code analysis for PHP ————————————
 cs-fixer-dry-run: ## Lint PHP with CS Fixer (do not edit files, on errors exit with exit code; can be used during CI to refuse pull requests which do not adapt to the used code styles)
 	$(PHP) ./tools/php-cs-fixer fix --diff -vvv --dry-run --stop-on-violation --using-cache=no ${DISMISS_STDOUT} ${FORCE_DISMISS_STDERR}
 .PHONY: cs-fixer-dry-run
@@ -258,7 +258,11 @@ psalm: ## Lint PHP with Psalm and correct files with errors
 	$(PHP) ./tools/psalm --alter --issues=all
 .PHONY: psalm
 
+code-coverage: ## Create HTML code coverage report in ./var/coverage/ (also shows the text coverage report in STDOUT).
+	$(SYMFONY) run bin/phpunit --coverage-html var/coverage/ --coverage-text
+.PHONY: code-coverage
+
 ## —— Tests ———————————————————————————————————
-tests: database-create-force-test ## Setup the test database, load fixtures and run all tests
+tests: tests ## Run PHPUnit tests.
 	$(SYMFONY) run bin/phpunit
 .PHONY: tests
