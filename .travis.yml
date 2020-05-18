@@ -19,6 +19,8 @@ env:
     # the same directory as the simple-phpunit if it is not provided. It's also possible to set
     # this env var in the phpunit.xml.dist file.
     - SYMFONY_PHPUNIT_DIR=./bin/.phpunit
+    # Add the Symfony binary's path to PATH.
+    - PATH="$HOME/.symfony/bin:$PATH"
 
 # Defines all jobs which Travis will run in parallel. For each PHP version we support we will run one job.
 matrix:
@@ -32,8 +34,6 @@ matrix:
     #- php: 8.0
 
 before_install:
-  # Add the Symfony binary's path to PATH.
-#  - PATH="$HOME/.symfony/bin:$PATH"
   # If it was not installed and cached before then install the Symfony binary.
   - '[[ `symfony -v &>/dev/null` ]] || wget https://get.symfony.com/cli/installer -O - | bash'
   # Update the Symfony binary.
