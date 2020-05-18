@@ -36,9 +36,9 @@ matrix:
 
 before_install:
   # If it is available update the Symfony binary.
-  - '[[ `symfony self:version &>/dev/null` ]] && symfony self:update'
+  - if symfony self:version; then symfony self:update ; fi
   # If it is not available install the Symfony binary.
-  - '[[ `symfony self:version &>/dev/null` ]] || wget https://get.symfony.com/cli/installer -O - | bash'
+  - if symfony self:version; then wget https://get.symfony.com/cli/installer -O - | bash ; fi
 
 install:
   # Install Composer packages including dev dependencies listed in require-dev.
