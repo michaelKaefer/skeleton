@@ -121,9 +121,8 @@ tools-update-composer: ## Update Composer
 	sudo $(COMPOSER) self-update ${DISMISS_STDOUT} ${FORCE_DISMISS_STDERR}
 .PHONY: tools-update-composer
 
-# TODO maybe download the fix manually, it's buggy right now, see: https://github.com/phar-io/phive/issues/228
 tools-update-phive: ## Update PHIVE
-	# sudo $(PHIVE) selfupdate ${DISMISS_STDOUT} ${DISMISS_STDERR}
+	sudo $(PHIVE) selfupdate ${DISMISS_STDOUT} ${DISMISS_STDERR}
 .PHONY: tools-update-phive
 
 ## —— Docker ——————————————————————————————————
