@@ -32,8 +32,11 @@ matrix:
     #- php: 8.0
 
 before_install:
+  # Add the Symfony binary's path to PATH.
   - PATH="$HOME/.symfony/bin:$PATH"
+  # If it was not installed and cached before then install the Symfony binary.
   - '[[ `symfony -v &>/dev/null` ]] || wget https://get.symfony.com/cli/installer -O - | bash'
+  # Update the Symfony binary.
   - symfony self:update
 
 install:
