@@ -162,6 +162,11 @@ database-create-force: ## For current environment drop database, create database
 	# bin/console fos:elastica:populate
 .PHONY: database-create-force
 
+database-create-force-test-for-continuous-integration: database-create-force-test ## For continuous integration it is comfortable to have a database with fixtures to test against. This command creates this database which is also tracked with Git.
+	rm tests/data/test_database_containing_fixtures.db
+	cp var/test_database.db tests/data/test_database_containing_fixtures.db
+.PHONY: database-create-force-test-for-continuous-integration
+
 database-create-force-test: ## For "test" environment drop database, create database and load fixtures
 	$(CONSOLE) doctrine:database:drop --force --env=test ${DISMISS_STDOUT} ${DISMISS_STDERR}
 	$(CONSOLE) doctrine:schema:create --env=test ${DISMISS_STDOUT} ${DISMISS_STDERR}
