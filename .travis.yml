@@ -35,10 +35,8 @@ matrix:
     #- php: 8.0
 
 before_install:
-  # If it is available update the Symfony binary.
-  - if symfony self:version; then symfony self:update ; fi
-  # If it is not available install the Symfony binary.
-  - if ! symfony self:version; then wget https://get.symfony.com/cli/installer -O - | bash ; fi
+  # If it is available update the Symfony binary, if not install it.
+  - if symfony self:version; then symfony self:update ; else wget https://get.symfony.com/cli/installer -O - | bash ; fi
 
 install:
   # Install Composer packages including dev dependencies listed in require-dev.
