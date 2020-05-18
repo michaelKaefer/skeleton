@@ -15,12 +15,15 @@ namespace App\Controller\Account;
 
 use ApiPlatform\Core\Api\IriConverterInterface;
 use App\Controller\BaseController;
+use App\Entity\User;
+use Exception;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ApiLoginController extends BaseController
 {
     /**
      * @Route("/api-login", name="api_login", methods={"POST"})
+     * @throws Exception
      */
     public function apiLogin(IriConverterInterface $iriConverter)
     {
@@ -38,8 +41,14 @@ class ApiLoginController extends BaseController
             'Access-Control-Allow-Origin' => '*', // Not working, why?
         ]);*/
 
+        $user = $this->getUser();
+
+        if (!($user instanceof User)) {
+            throw new Exception(sprintf('Expected an instance of "%s".', User::class));
+        }
+
         return $this->json([
-            'Location' => $iriConverter->getIriFromItem($this->getUser()),
+            'Location' => $iriConverter->getIriFromItem($user),
         ]);
     }
 }

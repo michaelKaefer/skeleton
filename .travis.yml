@@ -10,6 +10,7 @@ cache:
     - ./bin/.phpunit
     # Cache composer packages so "composer install" is faster.
     - $HOME/.composer/cache/files
+    # Cache the Symfony binary so that it does not have to be reinstalled.
     - $HOME/.symfony
 
 env:
@@ -34,10 +35,10 @@ matrix:
     #- php: 8.0
 
 before_install:
-  # If it was not installed and cached before then install the Symfony binary.
-  - '[[ `symfony -v &>/dev/null` ]] || wget https://get.symfony.com/cli/installer -O - | bash'
-  # Update the Symfony binary.
-  - symfony self:update
+  # If it is available update the Symfony binary.
+  - '[[ `symfony self:version &>/dev/null` ]] && symfony self:update'
+  # If it is not available install the Symfony binary.
+  - '[[ `symfony self:version &>/dev/null` ]] || wget https://get.symfony.com/cli/installer -O - | bash'
 
 install:
   # Install Composer packages including dev dependencies listed in require-dev.
@@ -53,21 +54,20 @@ script:
   # There is no need to load data fixtures before running tests because the project repository
   # already includes a test database with all the fixtures needed to run the tests.
   - ./bin/phpunit
-  # Check that the PHP source code follows the project's syntax rules
-  - '[[ "$TRAVIS_PHP_VERSION" == "7.4" ]] || make lint-cs-fixer-dry-run'
-#  # this checks that the YAML config files contain no syntax errors
-#  - ./bin/console lint:yaml config --parse-tags
-#  # this checks that the Twig template files contain no syntax errors
-#  - ./bin/console lint:twig templates --env=prod
-#  # this checks that the XLIFF translations contain no syntax errors
-#  - ./bin/console lint:xliff translations
-#  # this checks that arguments injected into services match type declarations
-#  - ./bin/console lint:container
-#  # TODO: replace the old security checker by the new checker provided by the 'symfony' binary
-#  # this checks that the application doesn't use dependencies with known security vulnerabilities
-#  #- ./bin/console security:check
-#  # this checks that Doctrine's mapping configurations are valid
-#  - ./bin/console doctrine:schema:validate --skip-sync -vvv --no-interaction
-#  #  Fail CI if the repo is in a dirty state after building assets (only for current release ie install)
-#  #-  if [[ "$ACTION" == "install" ]]; then yarn install && yarn encore production && git add --all && git diff --staged --exit-code; fi
-#  - composer validate
+  # Check if composer.json is valid. To save time only do it during one of the jobs.
+  - '[[ "$TRAVIS_PHP_VERSION" == "7.4" ]] || make lint-composer'
+  # Check that the application doesn't use dependencies with known security vulnerabilities. To save time only do it during one of the jobs.
+  - '[[ "$TRAVIS_PHP_VERSION" == "7.4" ]] || make dependencies-php-security-check'
+  # Check that the PHP source code follows the project's syntax rules. To save time only do it during one of the jobs.
+  - '[[ "$TRAVIS_PHP_VERSION" == "7.4" ]] || make cs-fixer-dry-run'
+  # TODO: add psalm
+  # Check that arguments injected into services match type declarations. To save time only do it during one of the jobs.
+  - '[[ "$TRAVIS_PHP_VERSION" == "7.4" ]] || make lint-container'
+  # Check that the YAML config files contain no syntax errors. To save time only do it during one of the jobs.
+  - '[[ "$TRAVIS_PHP_VERSION" == "7.4" ]] || make lint-yaml'
+  # Check that the Twig template files contain no syntax errors. To save time only do it during one of the jobs.
+  - '[[ "$TRAVIS_PHP_VERSION" == "7.4" ]] || make lint-twig'
+  # Checks that the XLIFF translations contain no syntax errors. To save time only do it during one of the jobs.
+  - '[[ "$TRAVIS_PHP_VERSION" == "7.4" ]] || make lint-xliff'
+  # Checks that Doctrine's mapping configurations are valid. To save time only do it during one of the jobs.
+  - '[[ "$TRAVIS_PHP_VERSION" == "7.4" ]] || make lint-schema'
