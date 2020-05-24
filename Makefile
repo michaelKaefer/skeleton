@@ -1,4 +1,4 @@
-# —— Inspired by ———————————————————————————————————————————————————————————————
+# —— See ———————————————————————————————————————————————————————————————————————
 # http://fabien.potencier.org/symfony4-best-practices.html
 # https://speakerdeck.com/mykiwi/outils-pour-ameliorer-la-vie-des-developpeurs-symfony?slide=47
 # https://blog.theodo.fr/2018/05/why-you-need-a-makefile-on-your-project/
